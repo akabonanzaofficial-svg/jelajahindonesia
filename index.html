@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wanderlust — Travel, Lifestyle & Beyond</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ===== Reset & Base ===== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      /* Color System */
+      --primary-50:  #f0fdfa;
+      --primary-100: #ccfbf1;
+      --primary-200: #99f6e4;
+      --primary-300: #5eead4;
+      --primary-400: #2dd4bf;
+      --primary-500: #14b8a6;
+      --primary-600: #0d9488;
+      --primary-700: #0f766e;
+      --primary-800: #115e59;
+      --primary-900: #134e4a;
+
+      --accent-400: #fbbf24;
+      --accent-500: #f59e0b;
+      --accent-600: #d97706;
+
+      --neutral-50:  #fafafa;
+      --neutral-100: #f5f5f5;
+      --neutral-200: #e5e5e5;
+      --neutral-300: #d4d4d4;
+      --neutral-400: #a3a3a3;
+      --neutral-500: #737373;
+      --neutral-600: #525252;
+      --neutral-700: #404040;
+      --neutral-800: #262626;
+      --neutral-900: #171717;
+
+      --success-500: #22c55e;
+      --warning-500: #f59e0b;
+      --error-500:   #ef4444;
+
+      /* Typography */
+      --font-heading: 'Playfair Display', Georgia, serif;
+      --font-body: 'Poppins', system-ui, sans-serif;
+
+      /* Spacing (8px system) */
+      --space-1: 0.5rem;
+      --space-2: 1rem;
+      --space-3: 1.5rem;
+      --space-4: 2rem;
+      --space-5: 2.5rem;
+      --space-6: 3rem;
+      --space-8: 4rem;
+      --space-10: 5rem;
+      --space-12: 6rem;
+
+      /* Radius */
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+      --radius-full: 9999px;
+
+      /* Shadows */
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+      --shadow-md: 0 4px 20px rgba(0,0,0,0.08);
+      --shadow-lg: 0 12px 40px rgba(0,0,0,0.12);
+      --shadow-xl: 0 24px 60px rgba(0,0,0,0.15);
+
+      /* Transitions */
+      --ease: cubic-bezier(0.4, 0, 0.2, 1);
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      font-weight: 400;
+      line-height: 1.6;
+      color: var(--neutral-700);
+      background-color: var(--neutral-50);
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--neutral-900);
+    }
+
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+    ul { list-style: none; }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--space-4);
+    }
+
+    /* ===== Navbar ===== */
+    .navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      padding: var(--space-3) 0;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      transition: padding 0.4s var(--ease), box-shadow 0.4s var(--ease);
+    }
+    .navbar.scrolled {
+      padding: var(--space-2) 0;
+      box-shadow: var(--shadow-md);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+    }
+    .logo {
+      font-family: var(--font-heading);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--primary-700);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      white-space: nowrap;
+    }
+    .logo span { color: var(--accent-500); }
+
+    .nav-links {
+      display: flex;
+      gap: var(--space-4);
+      align-items: center;
+    }
+    .nav-links a {
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: var(--neutral-600);
+      position: relative;
+      padding: 0.3rem 0;
+      transition: color 0.3s var(--ease);
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 0;
+      width: 0; height: 2px;
+      background: var(--primary-500);
+      transition: width 0.3s var(--ease-out);
+    }
+    .nav-links a:hover { color: var(--primary-600); }
+    .nav-links a:hover::after,
+    .nav-links a.active::after { width: 100%; }
+    .nav-links a.active { color: var(--primary-600); }
+
+    .nav-cta {
+      background: var(--primary-500);
+      color: #fff !important;
+      padding: 0.6rem 1.5rem !important;
+      border-radius: var(--radius-full);
+      font-weight: 500 !important;
+      transition: background 0.3s var(--ease), transform 0.3s var(--ease) !important;
+    }
+    .nav-cta:hover { background: var(--primary-600); transform: translateY(-2px); }
+    .nav-cta::after { display: none !important; }
+
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.3rem;
+    }
+    .menu-toggle span {
+      width: 26px; height: 3px;
+      background: var(--neutral-700);
+      border-radius: 3px;
+      transition: transform 0.3s var(--ease), opacity 0.3s var(--ease);
+    }
+    .menu-toggle.open span:nth-child(1) { transform: rotate(45deg) translate(6px, 6px); }
+    .menu-toggle.open span:nth-child(2) { opacity: 0; }
+    .menu-toggle.open span:nth-child(3) { transform: rotate(-45deg) translate(6px, -6px); }
+
+    /* ===== Hero ===== */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('https://images.pexels.com/photos/4784345/pexels-photo-4784345.jpeg?auto=compress&cs=tinysrgb&w=1920') center/cover no-repeat;
+      transform: scale(1.05);
+      animation: heroZoom 20s var(--ease) infinite alternate;
+    }
+    @keyframes heroZoom {
+      from { transform: scale(1.05); }
+      to   { transform: scale(1.15); }
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(15,118,110,0.55) 0%, rgba(19,78,74,0.45) 50%, rgba(0,0,0,0.35) 100%);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      padding: 0 var(--space-4);
+      animation: heroFade 1.2s var(--ease-out) both;
+    }
+    @keyframes heroFade {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: #fff;
+      font-size: 0.85rem;
+      font-weight: 500;
+      padding: 0.5rem 1.2rem;
+      border-radius: var(--radius-full);
+      margin-bottom: var(--space-4);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      color: #fff;
+      margin-bottom: var(--space-3);
+      text-shadow: 0 2px 30px rgba(0,0,0,0.2);
+    }
+    .hero p {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: rgba(255,255,255,0.92);
+      font-weight: 300;
+      margin-bottom: var(--space-5);
+      max-width: 600px;
+      margin-left: auto; margin-right: auto;
+    }
+    .hero-buttons {
+      display: flex;
+      gap: var(--space-2);
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--accent-500);
+      color: #fff;
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 0.9rem 2rem;
+      border-radius: var(--radius-full);
+      border: none;
+      cursor: pointer;
+      transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), background 0.3s var(--ease);
+      box-shadow: 0 8px 25px rgba(245,158,11,0.4);
+    }
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(245,158,11,0.5);
+      background: var(--accent-600);
+    }
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(10px);
+      color: #fff;
+      font-weight: 500;
+      font-size: 1rem;
+      padding: 0.9rem 2rem;
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(255,255,255,0.4);
+      cursor: pointer;
+      transition: background 0.3s var(--ease), transform 0.3s var(--ease);
+    }
+    .btn-ghost:hover {
+      background: rgba(255,255,255,0.25);
+      transform: translateY(-3px);
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2rem; left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      color: rgba(255,255,255,0.7);
+      font-size: 1.5rem;
+      animation: bounce 2s var(--ease) infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%      { transform: translateX(-50%) translateY(10px); }
+    }
+
+    /* ===== Section Common ===== */
+    .section {
+      padding: var(--space-12) 0;
+    }
+    .section-alt { background: var(--neutral-100); }
+
+    .section-header {
+      text-align: center;
+      max-width: 650px;
+      margin: 0 auto var(--space-8);
+    }
+    .section-tag {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--primary-600);
+      margin-bottom: var(--space-2);
+    }
+    .section-header h2 {
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      margin-bottom: var(--space-2);
+    }
+    .section-header p {
+      font-size: 1.05rem;
+      color: var(--neutral-500);
+      font-weight: 300;
+    }
+
+    /* ===== Card Grid ===== */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: var(--space-5);
+    }
+    .card {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out);
+      display: flex;
+      flex-direction: column;
+    }
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-xl);
+    }
+    .card-img {
+      position: relative;
+      height: 240px;
+      overflow: hidden;
+    }
+    .card-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s var(--ease-out);
+    }
+    .card:hover .card-img img { transform: scale(1.08); }
+    .card-category {
+      position: absolute;
+      top: 1rem; left: 1rem;
+      background: rgba(255,255,255,0.95);
+      color: var(--primary-700);
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.35rem 0.9rem;
+      border-radius: var(--radius-full);
+      backdrop-filter: blur(10px);
+    }
+    .card-body {
+      padding: var(--space-4);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .card-meta {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: 0.82rem;
+      color: var(--neutral-400);
+      margin-bottom: var(--space-2);
+    }
+    .card-meta .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--neutral-300); }
+    .card-body h3 {
+      font-size: 1.35rem;
+      margin-bottom: var(--space-2);
+      transition: color 0.3s var(--ease);
+    }
+    .card:hover .card-body h3 { color: var(--primary-600); }
+    .card-body p {
+      font-size: 0.95rem;
+      color: var(--neutral-500);
+      font-weight: 300;
+      margin-bottom: var(--space-3);
+      flex: 1;
+    }
+    .card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--primary-600);
+      transition: gap 0.3s var(--ease);
+    }
+    .card-link:hover { gap: 0.8rem; }
+
+    /* ===== Featured (large card) ===== */
+    .featured-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: var(--space-5);
+      align-items: stretch;
+    }
+    .featured-card {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      min-height: 420px;
+      box-shadow: var(--shadow-md);
+      cursor: pointer;
+    }
+    .featured-card img {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s var(--ease-out);
+    }
+    .featured-card:hover img { transform: scale(1.06); }
+    .featured-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.1) 60%, transparent 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: var(--space-5);
+    }
+    .featured-overlay .card-category {
+      position: static;
+      align-self: flex-start;
+      margin-bottom: var(--space-2);
+    }
+    .featured-overlay h3 {
+      color: #fff;
+      font-size: 1.6rem;
+      margin-bottom: 0.5rem;
+    }
+    .featured-overlay p {
+      color: rgba(255,255,255,0.85);
+      font-size: 0.92rem;
+      font-weight: 300;
+    }
+
+    .featured-side {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+    .featured-side .card {
+      flex-direction: row;
+      align-items: center;
+    }
+    .featured-side .card-img {
+      width: 140px;
+      min-width: 140px;
+      height: 120px;
+    }
+    .featured-side .card-body {
+      padding: var(--space-3);
+    }
+    .featured-side .card-body h3 { font-size: 1.1rem; }
+    .featured-side .card-body p { font-size: 0.85rem; -webkit-line-clamp: 2; display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; }
+
+    /* ===== Stats Strip ===== */
+    .stats-strip {
+      background: var(--primary-700);
+      padding: var(--space-8) 0;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-4);
+      text-align: center;
+    }
+    .stat-item h3 {
+      font-size: 2.8rem;
+      color: #fff;
+      font-family: var(--font-heading);
+    }
+    .stat-item h3 span { color: var(--accent-400); }
+    .stat-item p {
+      color: rgba(255,255,255,0.8);
+      font-size: 0.9rem;
+      font-weight: 300;
+      margin-top: 0.3rem;
+    }
+
+    /* ===== Event Cards ===== */
+    .event-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: var(--space-5);
+    }
+    .event-card {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out);
+    }
+    .event-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
+    }
+    .event-img {
+      height: 200px;
+      overflow: hidden;
+      position: relative;
+    }
+    .event-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s var(--ease-out);
+    }
+    .event-card:hover .event-img img { transform: scale(1.08); }
+    .event-date {
+      position: absolute;
+      top: 1rem; right: 1rem;
+      background: var(--accent-500);
+      color: #fff;
+      text-align: center;
+      border-radius: var(--radius-md);
+      padding: 0.5rem 0.8rem;
+      box-shadow: var(--shadow-md);
+    }
+    .event-date .day { font-size: 1.4rem; font-weight: 700; font-family: var(--font-heading); display: block; line-height: 1; }
+    .event-date .month { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; }
+    .event-body { padding: var(--space-4); }
+    .event-body .event-loc {
+      display: flex; align-items: center; gap: 0.4rem;
+      font-size: 0.82rem; color: var(--primary-600); font-weight: 500;
+      margin-bottom: var(--space-2);
+    }
+    .event-body h3 { font-size: 1.25rem; margin-bottom: var(--space-2); }
+    .event-body p { font-size: 0.9rem; color: var(--neutral-500); font-weight: 300; margin-bottom: var(--space-3); }
+
+    /* ===== Newsletter ===== */
+    .newsletter {
+      background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-800) 100%);
+      padding: var(--space-10) 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .newsletter::before {
+      content: '';
+      position: absolute;
+      top: -50%; right: -10%;
+      width: 400px; height: 400px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 50%;
+    }
+    .newsletter::after {
+      content: '';
+      position: absolute;
+      bottom: -30%; left: -5%;
+      width: 300px; height: 300px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 50%;
+    }
+    .newsletter-content { position: relative; z-index: 2; max-width: 600px; margin: 0 auto; padding: 0 var(--space-4); }
+    .newsletter h2 { color: #fff; font-size: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: var(--space-2); }
+    .newsletter p { color: rgba(255,255,255,0.85); font-weight: 300; margin-bottom: var(--space-4); }
+    .newsletter-form {
+      display: flex;
+      gap: var(--space-2);
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    .newsletter-form input {
+      flex: 1;
+      padding: 0.9rem 1.5rem;
+      border: none;
+      border-radius: var(--radius-full);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      outline: none;
+    }
+    .newsletter-form button {
+      background: var(--accent-500);
+      color: #fff;
+      border: none;
+      padding: 0.9rem 1.8rem;
+      border-radius: var(--radius-full);
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s var(--ease), transform 0.3s var(--ease);
+      white-space: nowrap;
+    }
+    .newsletter-form button:hover { background: var(--accent-600); transform: translateY(-2px); }
+
+    /* ===== Footer ===== */
+    .footer {
+      background: var(--neutral-900);
+      padding: var(--space-8) 0 var(--space-4);
+      color: var(--neutral-400);
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: var(--space-6);
+      margin-bottom: var(--space-6);
+    }
+    .footer-brand h3 {
+      color: #fff;
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      margin-bottom: var(--space-2);
+    }
+    .footer-brand h3 span { color: var(--accent-400); }
+    .footer-brand p { font-size: 0.9rem; font-weight: 300; line-height: 1.7; max-width: 320px; }
+    .footer-col h4 {
+      color: #fff;
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: var(--space-3);
+    }
+    .footer-col ul li { margin-bottom: 0.7rem; }
+    .footer-col ul li a {
+      font-size: 0.9rem;
+      color: var(--neutral-400);
+      transition: color 0.3s var(--ease);
+    }
+    .footer-col ul li a:hover { color: var(--primary-400); }
+
+    .social-links { display: flex; gap: var(--space-2); margin-top: var(--space-3); }
+    .social-links a {
+      width: 40px; height: 40px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(255,255,255,0.08);
+      border-radius: 50%;
+      transition: background 0.3s var(--ease), transform 0.3s var(--ease);
+    }
+    .social-links a:hover { background: var(--primary-600); transform: translateY(-3px); }
+    .social-links a svg { width: 18px; height: 18px; fill: #fff; }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: var(--space-4);
+      text-align: center;
+      font-size: 0.85rem;
+      font-weight: 300;
+    }
+
+    /* ===== Reveal Animation ===== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 900px) {
+      .featured-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: var(--space-4); }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-5); }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        position: fixed;
+        top: 64px; left: 0; right: 0;
+        flex-direction: column;
+        background: rgba(255,255,255,0.98);
+        backdrop-filter: blur(20px);
+        padding: var(--space-4);
+        gap: var(--space-3);
+        transform: translateY(-150%);
+        transition: transform 0.4s var(--ease-out);
+        box-shadow: var(--shadow-lg);
+        border-bottom: 1px solid var(--neutral-200);
+      }
+      .nav-links.open { transform: translateY(0); }
+      .menu-toggle { display: flex; }
+
+      .section { padding: var(--space-8) 0; }
+      .newsletter-form { flex-direction: column; }
+      .newsletter-form button { width: 100%; }
+    }
+
+    @media (max-width: 480px) {
+      .footer-grid { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .featured-side .card { flex-direction: column; }
+      .featured-side .card-img { width: 100%; height: 180px; }
+    }
+  </style>
+  <meta property="og:image" content="https://bolt.new/static/og_default.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://bolt.new/static/og_default.png">
+</head>
+<body>
+
+  <!-- ===== Navbar ===== -->
+  <nav class="navbar" id="navbar">
+    <div class="container nav-inner">
+      <a href="#home" class="logo">Wander<span>lust</span></a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#cerita" class="active">Cerita Perjalanan</a></li>
+        <li><a href="#gaya">Gaya Hidup</a></li>
+        <li><a href="#akomodasi">Akomodasi</a></li>
+        <li><a href="#newsedu">Newsedu</a></li>
+        <li><a href="#event">Event</a></li>
+        <li><a href="#newsletter" class="nav-cta">Berlangganan</a></li>
+      </ul>
+      <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===== Hero ===== -->
+  <header class="hero" id="home">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <span class="hero-badge">&#9992;&nbsp; Jelajahi Dunia Bersama Kami</span>
+      <h1>Petualangan Tak Terlupakan Menanti</h1>
+      <p>Temukan inspirasi perjalanan, gaya hidup, akomodasi terbaik, berita terkini, dan event menarik — semua dalam satu tempat.</p>
+      <div class="hero-buttons">
+        <a href="#cerita" class="btn-primary">Mulai Menjelajah &rarr;</a>
+        <a href="#newsletter" class="btn-ghost">Berlangganan</a>
+      </div>
+    </div>
+    <div class="scroll-indicator">&#9660;</div>
+  </header>
+
+  <!-- ===== Cerita Perjalanan ===== -->
+  <section class="section" id="cerita">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Cerita Perjalanan</span>
+        <h2>Kisah dari Jalan-jalan</h2>
+        <p>Bacaan perjalanan tulus dari para penjelajah yang sudah menyusuri sudut-sudut tersembunyi dunia.</p>
+      </div>
+      <div class="featured-grid">
+        <article class="featured-card reveal">
+          <img src="https://images.pexels.com/photos/6016924/pexels-photo-6016924.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Pemandangan gunung di Bali" />
+          <div class="featured-overlay">
+            <span class="card-category">Feature</span>
+            <h3>Menaklukkan Gunung Batur Saat Fajar</h3>
+            <p>Pendakian tengah malam menuju puncak untuk menyaksikan matahari terbit di atas lautan awan.</p>
+          </div>
+        </article>
+        <div class="featured-side">
+          <article class="card reveal">
+            <div class="card-img">
+              <img src="https://images.pexels.com/photos/3098647/pexels-photo-3098647.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Pejalan kaki di lembah pegunungan" />
+            </div>
+            <div class="card-body">
+              <div class="card-meta"><span>5 min baca</span><span class="dot"></span><span>15 Sep 2026</span></div>
+              <h3>Solo Hiking di Lembah Hijau</h3>
+              <p>Refleksi tenang dari perjalanan menyusuri lembah yang masih perawan.</p>
+              <a href="#" class="card-link">Baca selengkapnya &rarr;</a>
+            </div>
+          </article>
+          <article class="card reveal">
+            <div class="card-img">
+              <img src="https://images.pexels.com/photos/9629654/pexels-photo-9629654.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Dua pendaki di jalur berkabut" />
+            </div>
+            <div class="card-body">
+              <div class="card-meta"><span>7 min baca</span><span class="dot"></span><span>10 Sep 2026</span></div>
+              <h3>Jejak Kabut di Pegunungan</h3>
+              <p>Perjalanan dua sahabat menembus jalur berkabut penuh tantangan.</p>
+              <a href="#" class="card-link">Baca selengkapnya &rarr;</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Gaya Hidup ===== -->
+  <section class="section section-alt" id="gaya">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Gaya Hidup</span>
+        <h2>Hidup dengan Lebih Bermakna</h2>
+        <p>Inspirasi gaya hidup modern — dari kesehatan, kuliner, hingga kebiasaan yang membuat hari lebih bermakna.</p>
+      </div>
+      <div class="card-grid">
+        <article class="card reveal">
+          <div class="card-img">
+            <span class="card-category">Kuliner</span>
+            <img src="https://images.pexels.com/photos/8891767/pexels-photo-8891767.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Jalan bersejarah saat senja" />
+          </div>
+          <div class="card-body">
+            <div class="card-meta"><span>4 min baca</span><span class="dot"></span><span>20 Sep 2026</span></div>
+            <h3>Menjelajahi Kuliner Jalanan Eropa</h3>
+            <p>Dari crepes Paris hingga currywurst Berlin, petualangan rasa di sepanjang benua Eropa.</p>
+            <a href="#" class="card-link">Baca selengkapnya &rarr;</a>
+          </div>
+        </article>
+        <article class="card reveal">
+          <div class="card-img">
+            <span class="card-category">Wellness</span>
+            <img src="https://images.pexels.com/photos/4881146/pexels-photo-4881146.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Wanita berjalan di trotoar kota" />
+          </div>
+          <div class="card-body">
+            <div class="card-meta"><span>6 min baca</span><span class="dot"></span><span>18 Sep 2026</span></div>
+            <h3>Slow Travel: Nikmati Bukan Buru-buru</h3>
+            <p>Filosofi perjalanan yang mengutamakan kualitas pengalaman daripada jumlah destinasi.</p>
+            <a href="#" class="card-link">Baca selengkapnya &rarr;</a>
+          </div>
+        </article>
+        <article class="card reveal">
+          <div class="card-img">
+            <span class="card-category">Urban</span>
+            <img src="https://images.pexels.com/photos/20194548/pexels-photo-20194548.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Jalan ramai di Istanbul" />
+          </div>
+          <div class="card-body">
+            <div class="card-meta"><span>5 min baca</span><span class="dot"></span><span>12 Sep 2026</span></div>
+            <h3>Detak Kota Istanbul yang Memesona</h3>
+            <p>Di persimpangan dua benua, Istanbul menawarkan kehidupan kota yang tak ada duanya.</p>
+            <a href="#" class="card-link">Baca selengkapnya &rarr;</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Stats Strip ===== -->
+  <section class="stats-strip">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item reveal">
+          <h3>120<span>+</span></h3>
+          <p>Destinasi Terjelajah</p>
+        </div>
+        <div class="stat-item reveal">
+          <h3>45<span>K</span></h3>
+          <p>Pembaca Setia</p>
+        </div>
+        <div class="stat-item reveal">
+          <h3>850<span>+</span></h3>
+          <p>Artikel Diterbitkan</p>
+        </div>
+        <div class="stat-item reveal">
+          <h3>30<span>+</span></h3>
+          <p>Event Dicakup</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Akomodasi ===== -->
+  <section class="section" id="akomodasi">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Akomodasi</span>
+        <h2>Tempat Terbaik untuk Beristirahat</h2>
+        <p>Pilihan akomodasi dari resor mewah hingga vila nyaman — semua dikurasi untuk perjalanan terbaikmu.</p>
+      </div>
+      <div class="card-grid">
+        <article class="card reveal">
+          <div class="card-img">
+            <span class="card-category">Resor Mewah</span>
+            <img src="https://images.pexels.com/photos/14036444/pexels-photo-14036444.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Resor mewah dengan pohon palem" />
+          </div>
+          <div class="card-body">
+            <div class="card-meta"><span>&#9733; 4.9</span><span class="dot"></span><span>Mulai Rp 2.5jt/malam</span></div>
+            <h3>Resor Tropis Pilihan</h3>
+            <p>Arsitektur modern berbalut tanaman tropis dengan kolam renang tenang dan pemandangan memukau.</p>
+            <a href="#" class="card-link">Lihat detail &rarr;</a>
+          </div>
+        </article>
+        <article class="card reveal">
+          <div class="card-img">
+            <span class="card-category">Boutique Hotel</span>
+            <img src="https://images.pexels.com/photos/9119782/pexels-photo-9119782.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Hotel mewah dengan kolam renang bercahaya biru" />
+          </div>
+          <div class="card-body">
+            <div class="card-meta"><span>&#9733; 4.7</span><span class="dot"></span><span>Mulai Rp 1.8jt/malam</span></div>
+            <h3>Hotel Boutique Bermood Malam</h3>
+            <p>Suasana hangat dengan kolam renang bercahaya — sempurna untuk relaksasi setelah seharian berkeliling.</p>
+            <a href="#" class="card-link">Lihat detail &rarr;</a>
+          </div>
+        </article>
+        <article class="card reveal">
+          <div class="card-img">
+            <span class="card-category">Pool Villa</span>
+            <img src="https://images.pexels.com/photos/37146574/pexels-photo-37146574.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Lounger kolam renang resor tropis" />
+          </div>
+          <div class="card-body">
+            <div class="card-meta"><span>&#9733; 4.8</span><span class="dot"></span><span>Mulai Rp 3.2jt/malam</span></div>
+            <h3>Vila Kolam Renang Tepi Pantai</h3>
+            <p>Lounger nyaman di tepi kolam privat dengan langit biru terbuka — surga liburanmu.</p>
+            <a href="#" class="card-link">Lihat detail &rarr;</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Newsedu ===== -->
+  <section class="section section-alt" id="newsedu">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Newsedu</span>
+        <h2>Berita & Edukasi Perjalanan</h2>
+        <p>Update terbaru dunia travel, tips praktis, dan wawasan edukatif untuk perjalanan yang lebih cerdas.</p>
+      </div>
+      <div class="card-grid">
+        <article class="card reveal">
+          <div class="card-img">
+            <span class="card-category">Tips</span>
+            <img src="https://images.pexels.com/photos/5357086/pexels-photo-5357086.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Buku catatan dan pena dengan kopi" />
+          </div>
+          <div class="card-body">
+            <div class="card-meta"><span>3 min baca</span><span class="dot"></span><span>28 Sep 2026</span></div>
+            <h3>Jurnal Perjalanan: Kenali Dirimu Lebih Dalam</h3>
+            <p>Cara sederhana mencatat pengalaman untuk mengubah perjalanan menjadi cerita yang abadi.</p>
+            <a href="#" class="card-link">Baca selengkapnya &rarr;</a>
+          </div>
+        </article>
+        <article class="card reveal">
+          <div class="card-img">
+            <span class="card-category">Panduan</span>
+            <img src="https://images.pexels.com/photos/33350398/pexels-photo-33350398.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Secang kopi dan buku catatan di dekat jendela" />
+          </div>
+          <div class="card-body">
+            <div class="card-meta"><span>5 min baca</span><span class="dot"></span><span>25 Sep 2026</span></div>
+            <h3>Panduan Packing Ringan untuk Backpacker</h3>
+            <p>Trik membawa barang seminimal mungkin tanpa mengorbankan kenyamanan di perjalanan.</p>
+            <a href="#" class="card-link">Baca selengkapnya &rarr;</a>
+          </div>
+        </article>
+        <article class="card reveal">
+          <div class="card-img">
+            <span class="card-category">Edukasi</span>
+            <img src="https://images.pexels.com/photos/3363111/pexels-photo-3363111.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Wanita menulis jurnal dengan secangkir kopi" />
+          </div>
+          <div class="card-body">
+            <div class="card-meta"><span>8 min baca</span><span class="dot"></span><span>22 Sep 2026</span></div>
+            <h3>Etnografi: Belajar Budaya Lewat Perjalanan</h3>
+            <p>Bagaimana traveling bisa menjadi jendela pemahaman yang lebih dalam tentang keberagaman.</p>
+            <a href="#" class="card-link">Baca selengkapnya &rarr;</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Event ===== -->
+  <section class="section" id="event">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Event</span>
+        <h2>Event Mendatang yang Wajib Dikunjungi</h2>
+        <p>Festival, konser, dan pertemuan budaya dari berbagai penjuru dunia — jangan sampai terlewat.</p>
+      </div>
+      <div class="event-grid">
+        <article class="event-card reveal">
+          <div class="event-img">
+            <img src="https://images.pexels.com/photos/12657546/pexels-photo-12657546.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Festival musik outdoor" />
+            <div class="event-date">
+              <span class="day">12</span>
+              <span class="month">Okt</span>
+            </div>
+          </div>
+          <div class="event-body">
+            <div class="event-loc">&#128205; Bali, Indonesia</div>
+            <h3>Bali Sunset Music Festival</h3>
+            <p>Nikmati musik live di tepi pantai saat matahari terbenam dengan lineup artis lokal dan internasional.</p>
+            <a href="#" class="card-link">Detail & RSVP &rarr;</a>
+          </div>
+        </article>
+        <article class="event-card reveal">
+          <div class="event-img">
+            <img src="https://images.pexels.com/photos/5193532/pexels-photo-5193532.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Konser musik dengan cahaya panggung" />
+            <div class="event-date">
+              <span class="day">25</span>
+              <span class="month">Okt</span>
+            </div>
+          </div>
+          <div class="event-body">
+            <div class="event-loc">&#128205; Jakarta, Indonesia</div>
+            <h3>Night Lights Concert Series</h3>
+            <p>Pertunjukan musik malam dengan tata cahaya spektakuler yang memadukan seni visual dan suara.</p>
+            <a href="#" class="card-link">Detail & RSVP &rarr;</a>
+          </div>
+        </article>
+        <article class="event-card reveal">
+          <div class="event-img">
+            <img src="https://images.pexels.com/photos/7513442/pexels-photo-7513442.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Festival outdoor dengan pencahayaan dramatis" />
+            <div class="event-date">
+              <span class="day">08</span>
+              <span class="month">Nov</span>
+            </div>
+          </div>
+          <div class="event-body">
+            <div class="event-loc">&#128205; Yogyakarta, Indonesia</div>
+            <h3>Heritage Culture Fair</h3>
+            <p>Pameran budaya dan kuliner tradisional yang merayakan kekayaan warisan Nusantara.</p>
+            <a href="#" class="card-link">Detail & RSVP &rarr;</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Newsletter ===== -->
+  <section class="newsletter" id="newsletter">
+    <div class="newsletter-content">
+      <h2>Dapatkan Inspirasi Perjalanan</h2>
+      <p>Berlangganan newsletter mingguan kami untuk menerima tips, cerita, dan penawaran eksklusif langsung ke kotak masukmu.</p>
+      <form class="newsletter-form" onsubmit="handleSubscribe(event)">
+        <input type="email" placeholder="Masukkan alamat email..." required />
+        <button type="submit">Berlangganan</button>
+      </form>
+      <p id="subMsg" style="margin-top:1rem;color:var(--accent-400);font-weight:500;display:none;">Terima kasih! Emailmu telah terdaftar.</p>
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>Wander<span>lust</span></h3>
+          <p>Media perjalanan dan gaya hidup yang menginspirasi jutaan pembaca untuk menjelajah dunia dengan lebih bermakna.</p>
+          <div class="social-links">
+            <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.8.07 1.2.06 1.8.25 2.2.42.6.2 1 .5 1.1.6.3.3.5.7.6 1.1.2.4.4 1 .4 2.2.1 1.2.1 1.6.1 4.8s0 3.6-.07 4.8c-.06 1.2-.25 1.8-.42 2.2-.2.6-.5 1-.6 1.1-.3.3-.7.5-1.1.6-.4.2-1 .4-2.2.4-1.2.1-1.6.1-4.8s0-3.6-.07-4.8c-.06-1.2-.25-1.8-.42-2.2-.2-.6-.5-1-.6-1.1-.3-.3-.7-.5-1.1-.6-.4-.2-1-.4-2.2-.4C15.6 2.2 15.2 2.2 12 2.2zm0 1.8c3.1 0 3.5 0 4.7.07 1.1.05 1.7.24 2.1.4.5.2.9.4 1.3.8.4.4.6.8.8 1.3.2.4.4 1 .4 2.1.1 1.2.1 1.6.1 4.7s0 3.5-.07 4.7c-.05 1.1-.24 1.7-.4 2.1-.2.5-.4.9-.8 1.3-.4.4-.8.6-1.3.8-.4.2-1 .4-2.1.4-1.2.1-1.6.1-4.7.1s-3.5 0-4.7-.07c-1.1-.05-1.7-.24-2.1-.4-.5-.2-.9-.4-1.3-.8-.4-.4-.6-.8-.8-1.3-.2-.4-.4-1-.4-2.1C4.2 15.6 4.2 15.2 4.2 12s0-3.5.07-4.7c.05-1.1.24-1.7.4-2.1.2-.5.4-.9.8-1.3.4-.4.8-.6 1.3-.8.4-.2 1-.4 2.1-.4C8.5 4 8.9 4 12 4zm0 3.1A4.9 4.9 0 1 0 12 17a4.9 4.9 0 0 0 0-9.8zm0 8a3.1 3.1 0 1 1 0-6.2 3.1 3.1 0 0 1 0 6.2zm6.3-8.3a1.1 1.1 0 1 1-2.3 0 1.1 1.1 0 0 1 2.3 0z"/></svg></a>
+            <a href="#" aria-label="Twitter"><svg viewBox="0 0 24 24"><path d="M22 5.8c-.7.3-1.5.5-2.3.6.8-.5 1.5-1.3 1.8-2.3-.8.5-1.7.8-2.6 1-.8-.8-1.9-1.3-3.1-1.3-2.3 0-4.2 1.9-4.2 4.2 0 .3 0 .6.1.9-3.5-.2-6.6-1.8-8.7-4.4-.4.6-.6 1.3-.6 2.1 0 1.5.7 2.8 1.9 3.5-.7 0-1.3-.2-1.9-.5v.1c0 2 1.4 3.7 3.3 4.1-.3.1-.7.1-1 .1-.3 0-.5 0-.8-.1.5 1.7 2.1 2.9 4 2.9-1.5 1.1-3.3 1.8-5.3 1.8H2c1.9 1.2 4.2 1.9 6.6 1.9 7.9 0 12.2-6.5 12.2-12.2v-.6c.8-.6 1.5-1.3 2-2.1z"/></svg></a>
+            <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M23 12s0-3.2-.4-4.7c-.2-.8-.9-1.5-1.7-1.7C19.3 5.2 12 5.2 12 5.2s-7.3 0-8.9.4c-.8.2-1.5.9-1.7 1.7C1 8.8 1 12 1 12s0 3.2.4 4.7c.2.8.9 1.5 1.7 1.7 1.6.4 8.9.4 8.9.4s7.3 0 8.9-.4c.8-.2 1.5-.9 1.7-1.7.4-1.5.4-4.7.4-4.7zM9.8 15.3V8.7l5.7 3.3-5.7 3.3z"/></svg></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Menu</h4>
+          <ul>
+            <li><a href="#cerita">Cerita Perjalanan</a></li>
+            <li><a href="#gaya">Gaya Hidup</a></li>
+            <li><a href="#akomodasi">Akomodasi</a></li>
+            <li><a href="#newsedu">Newsedu</a></li>
+            <li><a href="#event">Event</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Tentang</h4>
+          <ul>
+            <li><a href="#">Tentang Kami</a></li>
+            <li><a href="#">Tim Redaksi</a></li>
+            <li><a href="#">Kebijakan Privasi</a></li>
+            <li><a href="#">Syarat & Ketentuan</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Kontak</h4>
+          <ul>
+            <li><a href="mailto:halo@wanderlust.id">halo@wanderlust.id</a></li>
+            <li><a href="#">+62 21 1234 5678</a></li>
+            <li><a href="#">Jakarta, Indonesia</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Wanderlust. Dibuat dengan semangat menjelajah dunia.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    menuToggle.addEventListener('click', () => {
+      menuToggle.classList.toggle('open');
+      navLinks.classList.toggle('open');
+    });
+
+    // Close mobile menu on link click
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        menuToggle.classList.remove('open');
+        navLinks.classList.remove('open');
+      });
+    });
+
+    // Active nav link on scroll
+    const sections = document.querySelectorAll('section[id], header[id]');
+    const navAnchors = document.querySelectorAll('.nav-links a:not(.nav-cta)');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(sec => {
+        const top = sec.offsetTop - 100;
+        if (window.scrollY >= top) current = sec.id;
+      });
+      navAnchors.forEach(a => {
+        a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+      });
+    });
+
+    // Reveal on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Newsletter form
+    function handleSubscribe(e) {
+      e.preventDefault();
+      const msg = document.getElementById('subMsg');
+      msg.style.display = 'block';
+      e.target.reset();
+      setTimeout(() => { msg.style.display = 'none'; }, 4000);
+    }
+  </script>
+</body>
+</html>
