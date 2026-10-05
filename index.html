@@ -4,50 +4,68 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Jelajah Indonesia — Travel, Lifestyle & Beyond</title>
+  <meta name="description" content="Media perjalanan dan gaya hidup yang menginspirasi penjelajahan Nusantara — dari Sabang hingga Merauke." />
+  
+  <!-- Favicon (SVG inline) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌏</text></svg>" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
   <style>
     /* ===== Reset & Base ===== */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      /* Color System */
-      --primary-50:  #f0fdfa;
-      --primary-100: #ccfbf1;
-      --primary-200: #99f6e4;
-      --primary-300: #5eead4;
-      --primary-400: #2dd4bf;
-      --primary-500: #14b8a6;
-      --primary-600: #0d9488;
-      --primary-700: #0f766e;
-      --primary-800: #115e59;
-      --primary-900: #134e4a;
+      /* ===== COLOR SYSTEM — HIJAU & MERAH ===== */
 
-      --accent-400: #fbbf24;
-      --accent-500: #f59e0b;
-      --accent-600: #d97706;
+      /* PRIMARY — Hijau Zamrud (alam tropis) */
+      --green-50:  #f0fdf4;
+      --green-100: #dcfce7;
+      --green-200: #bbf7d0;
+      --green-300: #86efac;
+      --green-400: #4ade80;
+      --green-500: #22c55e;
+      --green-600: #16a34a;
+      --green-700: #15803d;
+      --green-800: #166534;
+      --green-900: #14532d;
 
-      --neutral-50:  #fafafa;
-      --neutral-100: #f5f5f5;
-      --neutral-200: #e5e5e5;
-      --neutral-300: #d4d4d4;
-      --neutral-400: #a3a3a3;
-      --neutral-500: #737373;
-      --neutral-600: #525252;
-      --neutral-700: #404040;
-      --neutral-800: #262626;
-      --neutral-900: #171717;
+      /* ACCENT — Merah Cabai (semangat Nusantara) */
+      --red-50:  #fef2f2;
+      --red-100: #fee2e2;
+      --red-200: #fecaca;
+      --red-300: #fca5a5;
+      --red-400: #f87171;
+      --red-500: #ef4444;
+      --red-600: #dc2626;
+      --red-700: #b91c1c;
+      --red-800: #991b1b;
+      --red-900: #7f1d1d;
 
-      --success-500: #22c55e;
-      --warning-500: #f59e0b;
-      --error-500:   #ef4444;
+      /* SUPPORT — Gold untuk aksen mewah */
+      --gold-400: #fbbf24;
+      --gold-500: #f59e0b;
+      --gold-600: #d97706;
+
+      /* NEUTRAL — Warm gray agar hangat */
+      --neutral-50:  #fefdfb;
+      --neutral-100: #f7f5f2;
+      --neutral-200: #ebe7e1;
+      --neutral-300: #d6d0c7;
+      --neutral-400: #a8a29e;
+      --neutral-500: #78716c;
+      --neutral-600: #57534e;
+      --neutral-700: #44403c;
+      --neutral-800: #292524;
+      --neutral-900: #1c1917;
 
       /* Typography */
       --font-heading: 'Playfair Display', Georgia, serif;
       --font-body: 'Poppins', system-ui, sans-serif;
 
-      /* Spacing (8px system) */
+      /* Spacing */
       --space-1: 0.5rem;
       --space-2: 1rem;
       --space-3: 1.5rem;
@@ -60,15 +78,17 @@
 
       /* Radius */
       --radius-sm: 8px;
-      --radius-md: 12px;
-      --radius-lg: 20px;
+      --radius-md: 14px;
+      --radius-lg: 22px;
       --radius-full: 9999px;
 
-      /* Shadows */
-      --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
-      --shadow-md: 0 4px 20px rgba(0,0,0,0.08);
-      --shadow-lg: 0 12px 40px rgba(0,0,0,0.12);
-      --shadow-xl: 0 24px 60px rgba(0,0,0,0.15);
+      /* Shadows — warm tone */
+      --shadow-sm: 0 1px 3px rgba(28,25,23,0.06);
+      --shadow-md: 0 4px 20px rgba(28,25,23,0.08);
+      --shadow-lg: 0 12px 40px rgba(28,25,23,0.12);
+      --shadow-xl: 0 24px 60px rgba(28,25,23,0.16);
+      --shadow-glow-green: 0 10px 30px rgba(22,163,74,0.35);
+      --shadow-glow-red: 0 10px 30px rgba(220,38,38,0.35);
 
       /* Transitions */
       --ease: cubic-bezier(0.4, 0, 0.2, 1);
@@ -97,6 +117,13 @@
     img { display: block; max-width: 100%; }
     ul { list-style: none; }
 
+    /* Focus visible untuk aksesibilitas */
+    a:focus-visible, button:focus-visible, input:focus-visible {
+      outline: 3px solid var(--green-500);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
     .container {
       max-width: 1200px;
       margin: 0 auto;
@@ -109,10 +136,10 @@
       top: 0; left: 0; right: 0;
       z-index: 1000;
       padding: var(--space-3) 0;
-      background: rgba(255, 255, 255, 0.85);
+      background: rgba(254, 253, 251, 0.9);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(0,0,0,0.06);
+      border-bottom: 1px solid rgba(28,25,23,0.06);
       transition: padding 0.4s var(--ease), box-shadow 0.4s var(--ease);
     }
     .navbar.scrolled {
@@ -128,14 +155,26 @@
     .logo {
       font-family: var(--font-heading);
       font-size: 1.6rem;
-      font-weight: 700;
-      color: var(--primary-700);
+      font-weight: 800;
+      color: var(--green-700);
       display: flex;
       align-items: center;
       gap: 0.5rem;
       white-space: nowrap;
+      letter-spacing: -0.01em;
     }
-    .logo span { color: var(--accent-500); }
+    .logo span { color: var(--red-600); }
+    .logo-icon {
+      display: inline-flex;
+      width: 36px; height: 36px;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--green-500), var(--green-700));
+      border-radius: var(--radius-md);
+      color: #fff;
+      font-size: 1.1rem;
+      box-shadow: var(--shadow-glow-green);
+    }
 
     .nav-links {
       display: flex;
@@ -155,23 +194,25 @@
       position: absolute;
       bottom: -2px; left: 0;
       width: 0; height: 2px;
-      background: var(--primary-500);
+      background: linear-gradient(90deg, var(--green-500), var(--red-500));
       transition: width 0.3s var(--ease-out);
+      border-radius: 2px;
     }
-    .nav-links a:hover { color: var(--primary-600); }
+    .nav-links a:hover { color: var(--green-700); }
     .nav-links a:hover::after,
     .nav-links a.active::after { width: 100%; }
-    .nav-links a.active { color: var(--primary-600); }
+    .nav-links a.active { color: var(--green-700); }
 
     .nav-cta {
-      background: var(--primary-500);
+      background: linear-gradient(135deg, var(--red-500), var(--red-700));
       color: #fff !important;
       padding: 0.6rem 1.5rem !important;
       border-radius: var(--radius-full);
-      font-weight: 500 !important;
-      transition: background 0.3s var(--ease), transform 0.3s var(--ease) !important;
+      font-weight: 600 !important;
+      box-shadow: var(--shadow-glow-red);
+      transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease) !important;
     }
-    .nav-cta:hover { background: var(--primary-600); transform: translateY(-2px); }
+    .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 14px 35px rgba(220,38,38,0.45); }
     .nav-cta::after { display: none !important; }
 
     .menu-toggle {
@@ -185,7 +226,7 @@
     }
     .menu-toggle span {
       width: 26px; height: 3px;
-      background: var(--neutral-700);
+      background: var(--green-700);
       border-radius: 3px;
       transition: transform 0.3s var(--ease), opacity 0.3s var(--ease);
     }
@@ -206,7 +247,7 @@
     .hero-bg {
       position: absolute;
       inset: 0;
-      background: url('https://images.pexels.com/photos/4784345/pexels-photo-4784345.jpeg?auto=compress&cs=tinysrgb&w=1920') center/cover no-repeat;
+      background: url('https://images.pexels.com/photos/2166553/pexels-photo-2166553.jpeg?auto=compress&cs=tinysrgb&w=1920') center/cover no-repeat;
       transform: scale(1.05);
       animation: heroZoom 20s var(--ease) infinite alternate;
     }
@@ -217,7 +258,10 @@
     .hero-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg, rgba(15,118,110,0.55) 0%, rgba(19,78,74,0.45) 50%, rgba(0,0,0,0.35) 100%);
+      background: linear-gradient(135deg,
+        rgba(20,83,45,0.65) 0%,
+        rgba(22,101,52,0.45) 40%,
+        rgba(127,29,29,0.55) 100%);
     }
     .hero-content {
       position: relative;
@@ -234,9 +278,9 @@
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      background: rgba(255,255,255,0.2);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.18);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.35);
       color: #fff;
       font-size: 0.85rem;
       font-weight: 500;
@@ -250,7 +294,12 @@
       font-size: clamp(2.5rem, 6vw, 4.5rem);
       color: #fff;
       margin-bottom: var(--space-3);
-      text-shadow: 0 2px 30px rgba(0,0,0,0.2);
+      text-shadow: 0 2px 30px rgba(0,0,0,0.3);
+      font-weight: 800;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--gold-400);
     }
     .hero p {
       font-size: clamp(1rem, 2vw, 1.25rem);
@@ -270,7 +319,7 @@
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      background: var(--accent-500);
+      background: linear-gradient(135deg, var(--red-500), var(--red-700));
       color: #fff;
       font-weight: 600;
       font-size: 1rem;
@@ -278,13 +327,12 @@
       border-radius: var(--radius-full);
       border: none;
       cursor: pointer;
-      transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), background 0.3s var(--ease);
-      box-shadow: 0 8px 25px rgba(245,158,11,0.4);
+      transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+      box-shadow: 0 8px 25px rgba(220,38,38,0.45);
     }
     .btn-primary:hover {
       transform: translateY(-3px);
-      box-shadow: 0 12px 35px rgba(245,158,11,0.5);
-      background: var(--accent-600);
+      box-shadow: 0 14px 40px rgba(220,38,38,0.55);
     }
     .btn-ghost {
       display: inline-flex;
@@ -297,12 +345,12 @@
       font-size: 1rem;
       padding: 0.9rem 2rem;
       border-radius: var(--radius-full);
-      border: 1px solid rgba(255,255,255,0.4);
+      border: 1.5px solid rgba(255,255,255,0.5);
       cursor: pointer;
       transition: background 0.3s var(--ease), transform 0.3s var(--ease);
     }
     .btn-ghost:hover {
-      background: rgba(255,255,255,0.25);
+      background: rgba(255,255,255,0.28);
       transform: translateY(-3px);
     }
 
@@ -311,7 +359,7 @@
       bottom: 2rem; left: 50%;
       transform: translateX(-50%);
       z-index: 3;
-      color: rgba(255,255,255,0.7);
+      color: rgba(255,255,255,0.75);
       font-size: 1.5rem;
       animation: bounce 2s var(--ease) infinite;
     }
@@ -321,10 +369,18 @@
     }
 
     /* ===== Section Common ===== */
-    .section {
-      padding: var(--space-12) 0;
+    .section { padding: var(--space-12) 0; }
+    .section-alt {
+      background: var(--neutral-100);
+      position: relative;
     }
-    .section-alt { background: var(--neutral-100); }
+    .section-alt::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--green-500), var(--red-500), var(--gold-500));
+    }
 
     .section-header {
       text-align: center;
@@ -332,17 +388,36 @@
       margin: 0 auto var(--space-8);
     }
     .section-tag {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
       font-size: 0.8rem;
       font-weight: 600;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: var(--primary-600);
+      color: var(--green-700);
       margin-bottom: var(--space-2);
+      padding: 0.35rem 1rem;
+      background: var(--green-50);
+      border-radius: var(--radius-full);
+      border: 1px solid var(--green-200);
+    }
+    .section-tag::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--red-500);
     }
     .section-header h2 {
       font-size: clamp(2rem, 4vw, 2.8rem);
       margin-bottom: var(--space-2);
+    }
+    .section-header h2 em {
+      font-style: italic;
+      background: linear-gradient(135deg, var(--green-700), var(--red-600));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
     .section-header p {
       font-size: 1.05rem;
@@ -353,7 +428,7 @@
     /* ===== Card Grid ===== */
     .card-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
       gap: var(--space-5);
     }
     .card {
@@ -364,10 +439,12 @@
       transition: transform 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out);
       display: flex;
       flex-direction: column;
+      border: 1px solid var(--neutral-200);
     }
     .card:hover {
       transform: translateY(-8px);
       box-shadow: var(--shadow-xl);
+      border-color: var(--green-200);
     }
     .card-img {
       position: relative;
@@ -383,13 +460,14 @@
     .card-category {
       position: absolute;
       top: 1rem; left: 1rem;
-      background: rgba(255,255,255,0.95);
-      color: var(--primary-700);
+      background: rgba(255,255,255,0.96);
+      color: var(--green-700);
       font-size: 0.75rem;
       font-weight: 600;
       padding: 0.35rem 0.9rem;
       border-radius: var(--radius-full);
       backdrop-filter: blur(10px);
+      border-left: 3px solid var(--red-500);
     }
     .card-body {
       padding: var(--space-4);
@@ -411,7 +489,7 @@
       margin-bottom: var(--space-2);
       transition: color 0.3s var(--ease);
     }
-    .card:hover .card-body h3 { color: var(--primary-600); }
+    .card:hover .card-body h3 { color: var(--green-700); }
     .card-body p {
       font-size: 0.95rem;
       color: var(--neutral-500);
@@ -425,12 +503,12 @@
       gap: 0.4rem;
       font-size: 0.88rem;
       font-weight: 600;
-      color: var(--primary-600);
-      transition: gap 0.3s var(--ease);
+      color: var(--red-600);
+      transition: gap 0.3s var(--ease), color 0.3s var(--ease);
     }
-    .card-link:hover { gap: 0.8rem; }
+    .card-link:hover { gap: 0.8rem; color: var(--red-700); }
 
-    /* ===== Featured (large card) ===== */
+    /* ===== Featured ===== */
     .featured-grid {
       display: grid;
       grid-template-columns: 1.2fr 1fr;
@@ -456,7 +534,10 @@
     .featured-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.1) 60%, transparent 100%);
+      background: linear-gradient(to top,
+        rgba(20,83,45,0.92) 0%,
+        rgba(20,83,45,0.35) 45%,
+        transparent 100%);
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
@@ -466,6 +547,9 @@
       position: static;
       align-self: flex-start;
       margin-bottom: var(--space-2);
+      background: var(--red-500);
+      color: #fff;
+      border-left: none;
     }
     .featured-overlay h3 {
       color: #fff;
@@ -473,7 +557,7 @@
       margin-bottom: 0.5rem;
     }
     .featured-overlay p {
-      color: rgba(255,255,255,0.85);
+      color: rgba(255,255,255,0.88);
       font-size: 0.92rem;
       font-weight: 300;
     }
@@ -492,31 +576,47 @@
       min-width: 140px;
       height: 120px;
     }
-    .featured-side .card-body {
-      padding: var(--space-3);
-    }
+    .featured-side .card-body { padding: var(--space-3); }
     .featured-side .card-body h3 { font-size: 1.1rem; }
-    .featured-side .card-body p { font-size: 0.85rem; -webkit-line-clamp: 2; display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; }
+    .featured-side .card-body p {
+      font-size: 0.85rem;
+      -webkit-line-clamp: 2;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
 
     /* ===== Stats Strip ===== */
     .stats-strip {
-      background: var(--primary-700);
+      background: linear-gradient(135deg, var(--green-700) 0%, var(--green-800) 50%, var(--red-800) 100%);
       padding: var(--space-8) 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .stats-strip::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle at 20% 50%, rgba(251,191,36,0.12) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 50%, rgba(239,68,68,0.15) 0%, transparent 50%);
     }
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: var(--space-4);
       text-align: center;
+      position: relative;
+      z-index: 2;
     }
     .stat-item h3 {
       font-size: 2.8rem;
       color: #fff;
       font-family: var(--font-heading);
+      font-weight: 800;
     }
-    .stat-item h3 span { color: var(--accent-400); }
+    .stat-item h3 span { color: var(--gold-400); }
     .stat-item p {
-      color: rgba(255,255,255,0.8);
+      color: rgba(255,255,255,0.85);
       font-size: 0.9rem;
       font-weight: 300;
       margin-top: 0.3rem;
@@ -534,10 +634,12 @@
       overflow: hidden;
       box-shadow: var(--shadow-sm);
       transition: transform 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out);
+      border: 1px solid var(--neutral-200);
     }
     .event-card:hover {
       transform: translateY(-6px);
       box-shadow: var(--shadow-lg);
+      border-color: var(--red-200);
     }
     .event-img {
       height: 200px;
@@ -553,27 +655,42 @@
     .event-date {
       position: absolute;
       top: 1rem; right: 1rem;
-      background: var(--accent-500);
+      background: linear-gradient(135deg, var(--red-500), var(--red-700));
       color: #fff;
       text-align: center;
       border-radius: var(--radius-md);
       padding: 0.5rem 0.8rem;
       box-shadow: var(--shadow-md);
     }
-    .event-date .day { font-size: 1.4rem; font-weight: 700; font-family: var(--font-heading); display: block; line-height: 1; }
-    .event-date .month { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; }
+    .event-date .day {
+      font-size: 1.4rem;
+      font-weight: 700;
+      font-family: var(--font-heading);
+      display: block;
+      line-height: 1;
+    }
+    .event-date .month {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
     .event-body { padding: var(--space-4); }
     .event-body .event-loc {
       display: flex; align-items: center; gap: 0.4rem;
-      font-size: 0.82rem; color: var(--primary-600); font-weight: 500;
+      font-size: 0.82rem; color: var(--green-700); font-weight: 600;
       margin-bottom: var(--space-2);
     }
     .event-body h3 { font-size: 1.25rem; margin-bottom: var(--space-2); }
-    .event-body p { font-size: 0.9rem; color: var(--neutral-500); font-weight: 300; margin-bottom: var(--space-3); }
+    .event-body p {
+      font-size: 0.9rem;
+      color: var(--neutral-500);
+      font-weight: 300;
+      margin-bottom: var(--space-3);
+    }
 
     /* ===== Newsletter ===== */
     .newsletter {
-      background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-800) 100%);
+      background: linear-gradient(135deg, var(--green-700) 0%, var(--green-800) 40%, var(--red-800) 100%);
       padding: var(--space-10) 0;
       text-align: center;
       position: relative;
@@ -584,7 +701,7 @@
       position: absolute;
       top: -50%; right: -10%;
       width: 400px; height: 400px;
-      background: rgba(255,255,255,0.05);
+      background: rgba(251,191,36,0.10);
       border-radius: 50%;
     }
     .newsletter::after {
@@ -592,12 +709,26 @@
       position: absolute;
       bottom: -30%; left: -5%;
       width: 300px; height: 300px;
-      background: rgba(255,255,255,0.05);
+      background: rgba(255,255,255,0.06);
       border-radius: 50%;
     }
-    .newsletter-content { position: relative; z-index: 2; max-width: 600px; margin: 0 auto; padding: 0 var(--space-4); }
-    .newsletter h2 { color: #fff; font-size: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: var(--space-2); }
-    .newsletter p { color: rgba(255,255,255,0.85); font-weight: 300; margin-bottom: var(--space-4); }
+    .newsletter-content {
+      position: relative;
+      z-index: 2;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 0 var(--space-4);
+    }
+    .newsletter h2 {
+      color: #fff;
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      margin-bottom: var(--space-2);
+    }
+    .newsletter p {
+      color: rgba(255,255,255,0.88);
+      font-weight: 300;
+      margin-bottom: var(--space-4);
+    }
     .newsletter-form {
       display: flex;
       gap: var(--space-2);
@@ -614,23 +745,35 @@
       outline: none;
     }
     .newsletter-form button {
-      background: var(--accent-500);
+      background: linear-gradient(135deg, var(--gold-400), var(--gold-600));
       color: #fff;
       border: none;
       padding: 0.9rem 1.8rem;
       border-radius: var(--radius-full);
-      font-weight: 600;
+      font-weight: 700;
       cursor: pointer;
-      transition: background 0.3s var(--ease), transform 0.3s var(--ease);
+      transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
       white-space: nowrap;
+      box-shadow: 0 8px 25px rgba(217,119,6,0.4);
     }
-    .newsletter-form button:hover { background: var(--accent-600); transform: translateY(-2px); }
+    .newsletter-form button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 35px rgba(217,119,6,0.55);
+    }
 
     /* ===== Footer ===== */
     .footer {
       background: var(--neutral-900);
       padding: var(--space-8) 0 var(--space-4);
       color: var(--neutral-400);
+      position: relative;
+    }
+    .footer::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--green-500), var(--gold-500), var(--red-500));
     }
     .footer-grid {
       display: grid;
@@ -643,9 +786,15 @@
       font-family: var(--font-heading);
       font-size: 1.5rem;
       margin-bottom: var(--space-2);
+      font-weight: 800;
     }
-    .footer-brand h3 span { color: var(--accent-400); }
-    .footer-brand p { font-size: 0.9rem; font-weight: 300; line-height: 1.7; max-width: 320px; }
+    .footer-brand h3 span { color: var(--red-500); }
+    .footer-brand p {
+      font-size: 0.9rem;
+      font-weight: 300;
+      line-height: 1.7;
+      max-width: 320px;
+    }
     .footer-col h4 {
       color: #fff;
       font-family: var(--font-body);
@@ -655,13 +804,21 @@
       letter-spacing: 0.1em;
       margin-bottom: var(--space-3);
     }
+    .footer-col h4::after {
+      content: '';
+      display: block;
+      width: 24px; height: 2px;
+      background: var(--red-500);
+      margin-top: 0.5rem;
+      border-radius: 2px;
+    }
     .footer-col ul li { margin-bottom: 0.7rem; }
     .footer-col ul li a {
       font-size: 0.9rem;
       color: var(--neutral-400);
-      transition: color 0.3s var(--ease);
+      transition: color 0.3s var(--ease), padding-left 0.3s var(--ease);
     }
-    .footer-col ul li a:hover { color: var(--primary-400); }
+    .footer-col ul li a:hover { color: var(--green-400); padding-left: 4px; }
 
     .social-links { display: flex; gap: var(--space-2); margin-top: var(--space-3); }
     .social-links a {
@@ -671,7 +828,10 @@
       border-radius: 50%;
       transition: background 0.3s var(--ease), transform 0.3s var(--ease);
     }
-    .social-links a:hover { background: var(--primary-600); transform: translateY(-3px); }
+    .social-links a:hover {
+      background: linear-gradient(135deg, var(--green-600), var(--green-700));
+      transform: translateY(-3px);
+    }
     .social-links a svg { width: 18px; height: 18px; fill: #fff; }
 
     .footer-bottom {
@@ -681,6 +841,7 @@
       font-size: 0.85rem;
       font-weight: 300;
     }
+    .footer-bottom em { color: var(--red-500); font-style: normal; }
 
     /* ===== Reveal Animation ===== */
     .reveal {
@@ -693,6 +854,16 @@
       transform: translateY(0);
     }
 
+    /* ===== Reduced Motion ===== */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      .hero-bg { animation: none; }
+    }
+
     /* ===== Responsive ===== */
     @media (max-width: 900px) {
       .featured-grid { grid-template-columns: 1fr; }
@@ -703,9 +874,9 @@
     @media (max-width: 768px) {
       .nav-links {
         position: fixed;
-        top: 64px; left: 0; right: 0;
+        top: 68px; left: 0; right: 0;
         flex-direction: column;
-        background: rgba(255,255,255,0.98);
+        background: rgba(254, 253, 251, 0.98);
         backdrop-filter: blur(20px);
         padding: var(--space-4);
         gap: var(--space-3);
@@ -716,7 +887,6 @@
       }
       .nav-links.open { transform: translateY(0); }
       .menu-toggle { display: flex; }
-
       .section { padding: var(--space-8) 0; }
       .newsletter-form { flex-direction: column; }
       .newsletter-form button { width: 100%; }
@@ -729,13 +899,16 @@
       .featured-side .card-img { width: 100%; height: 180px; }
     }
   </style>
-  </head>
+</head>
 <body>
 
   <!-- ===== Navbar ===== -->
   <nav class="navbar" id="navbar">
     <div class="container nav-inner">
-      <a href="#home" class="logo">Jelajah<span>Indonesia</span></a>
+      <a href="#home" class="logo">
+        <span class="logo-icon">🌏</span>
+        Jelajah<span>Indonesia</span>
+      </a>
       <ul class="nav-links" id="navLinks">
         <li><a href="#cerita" class="active">Cerita Perjalanan</a></li>
         <li><a href="#gaya">Gaya Hidup</a></li>
@@ -755,9 +928,9 @@
     <div class="hero-bg"></div>
     <div class="hero-overlay"></div>
     <div class="hero-content">
-      <span class="hero-badge">&#9992;&nbsp; Jelajahi Dunia Bersama Kami</span>
-      <h1>Petualangan Tak Terlupakan Menanti</h1>
-      <p>Temukan inspirasi perjalanan, gaya hidup, akomodasi terbaik, berita terkini, dan event menarik — semua dalam satu tempat.</p>
+      <span class="hero-badge">🇮🇩&nbsp; Dari Sabang sampai Merauke</span>
+      <h1>Jelajahi <em>Keajaiban</em> Nusantara</h1>
+      <p>Temukan pesona alam tropis, kekayaan budaya, dan kuliner legendaris Indonesia — dalam satu jendela cerita.</p>
       <div class="hero-buttons">
         <a href="#cerita" class="btn-primary">Mulai Menjelajah &rarr;</a>
         <a href="#newsletter" class="btn-ghost">Berlangganan</a>
@@ -771,38 +944,38 @@
     <div class="container">
       <div class="section-header reveal">
         <span class="section-tag">Cerita Perjalanan</span>
-        <h2>Kisah dari Jalan-jalan</h2>
-        <p>Bacaan perjalanan tulus dari para penjelajah yang sudah menyusuri sudut-sudut tersembunyi dunia.</p>
+        <h2>Kisah dari <em>Jalan Pulang</em></h2>
+        <p>Bacaan tulus dari para penjelajah yang menyusuri sudut-sudut tersembunyi Nusantara.</p>
       </div>
       <div class="featured-grid">
         <article class="featured-card reveal">
-          <img src="https://images.pexels.com/photos/6016924/pexels-photo-6016924.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Pemandangan gunung di Bali" />
+          <img src="https://images.pexels.com/photos/2166553/pexels-photo-2166553.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Sawah terasering Bali" />
           <div class="featured-overlay">
             <span class="card-category">Feature</span>
-            <h3>Menaklukkan Gunung Batur Saat Fajar</h3>
-            <p>Pendakian tengah malam menuju puncak untuk menyaksikan matahari terbit di atas lautan awan.</p>
+            <h3>Menaklukkan Puncak Rinjani Saat Fajar</h3>
+            <p>Pendakian tengah malam menuju puncak untuk menyaksikan matahari terbit di atas Danau Segara Anak.</p>
           </div>
         </article>
         <div class="featured-side">
           <article class="card reveal">
             <div class="card-img">
-              <img src="https://images.pexels.com/photos/3098647/pexels-photo-3098647.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Pejalan kaki di lembah pegunungan" />
+              <img src="https://images.pexels.com/photos/2474689/pexels-photo-2474689.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Pura di tepi danau Bali" />
             </div>
             <div class="card-body">
               <div class="card-meta"><span>5 min baca</span><span class="dot"></span><span>15 Sep 2026</span></div>
-              <h3>Solo Hiking di Lembah Hijau</h3>
-              <p>Refleksi tenang dari perjalanan menyusuri lembah yang masih perawan.</p>
+              <h3>Sunrise di Pura Ulun Danu</h3>
+              <p>Ketika kabut pagi menyelimuti pura di tepi danau — sebuah momen yang menenangkan jiwa.</p>
               <a href="#" class="card-link">Baca selengkapnya &rarr;</a>
             </div>
           </article>
           <article class="card reveal">
             <div class="card-img">
-              <img src="https://images.pexels.com/photos/9629654/pexels-photo-9629654.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Dua pendaki di jalur berkabut" />
+              <img src="https://images.pexels.com/photos/2031741/pexels-photo-2031741.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Petani di sawah Indonesia" />
             </div>
             <div class="card-body">
               <div class="card-meta"><span>7 min baca</span><span class="dot"></span><span>10 Sep 2026</span></div>
-              <h3>Jejak Kabut di Pegunungan</h3>
-              <p>Perjalanan dua sahabat menembus jalur berkabut penuh tantangan.</p>
+              <h3>Jejak Hijau di Sawah Jatiluwih</h3>
+              <p>Berjalan menyusuri terasering warisan dunia UNESCO yang masih dijaga para petani Bali.</p>
               <a href="#" class="card-link">Baca selengkapnya &rarr;</a>
             </div>
           </article>
@@ -816,43 +989,43 @@
     <div class="container">
       <div class="section-header reveal">
         <span class="section-tag">Gaya Hidup</span>
-        <h2>Hidup dengan Lebih Bermakna</h2>
-        <p>Inspirasi gaya hidup modern — dari kesehatan, kuliner, hingga kebiasaan yang membuat hari lebih bermakna.</p>
+        <h2>Hidup dengan <em>Rasa Nusantara</em></h2>
+        <p>Inspirasi gaya hidup modern berakar budaya lokal — dari kuliner, wellness, hingga keseharian yang bermakna.</p>
       </div>
       <div class="card-grid">
         <article class="card reveal">
           <div class="card-img">
             <span class="card-category">Kuliner</span>
-            <img src="https://images.pexels.com/photos/8891767/pexels-photo-8891767.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Jalan bersejarah saat senja" />
+            <img src="https://images.pexels.com/photos/10093623/pexels-photo-10093623.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Makanan Indonesia" />
           </div>
           <div class="card-body">
             <div class="card-meta"><span>4 min baca</span><span class="dot"></span><span>20 Sep 2026</span></div>
-            <h3>Menjelajahi Kuliner Jalanan Eropa</h3>
-            <p>Dari crepes Paris hingga currywurst Berlin, petualangan rasa di sepanjang benua Eropa.</p>
+            <h3>Menjelajahi Kuliner Nusantara</h3>
+            <p>Dari Rendang Padang hingga Papeda Maluku — petualangan rasa di sepanjang kepulauan.</p>
             <a href="#" class="card-link">Baca selengkapnya &rarr;</a>
           </div>
         </article>
         <article class="card reveal">
           <div class="card-img">
             <span class="card-category">Wellness</span>
-            <img src="https://images.pexels.com/photos/4881146/pexels-photo-4881146.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Wanita berjalan di trotoar kota" />
+            <img src="https://images.pexels.com/photos/3757942/pexels-photo-3757942.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Meditasi di alam" />
           </div>
           <div class="card-body">
             <div class="card-meta"><span>6 min baca</span><span class="dot"></span><span>18 Sep 2026</span></div>
-            <h3>Slow Travel: Nikmati Bukan Buru-buru</h3>
-            <p>Filosofi perjalanan yang mengutamakan kualitas pengalaman daripada jumlah destinasi.</p>
+            <h3>Slow Living Ala Bali</h3>
+            <p>Filosofi hidup lambat yang mengutamakan kualitas momen daripada sekadar jumlah aktivitas.</p>
             <a href="#" class="card-link">Baca selengkapnya &rarr;</a>
           </div>
         </article>
         <article class="card reveal">
           <div class="card-img">
             <span class="card-category">Urban</span>
-            <img src="https://images.pexels.com/photos/20194548/pexels-photo-20194548.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Jalan ramai di Istanbul" />
+            <img src="https://images.pexels.com/photos/290386/pexels-photo-290386.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Kota Jakarta" />
           </div>
           <div class="card-body">
             <div class="card-meta"><span>5 min baca</span><span class="dot"></span><span>12 Sep 2026</span></div>
-            <h3>Detak Kota Istanbul yang Memesona</h3>
-            <p>Di persimpangan dua benua, Istanbul menawarkan kehidupan kota yang tak ada duanya.</p>
+            <h3>Detak Kota Jakarta yang Tak Pernah Tidur</h3>
+            <p>Di balik gedung tinggi dan kemacetan, Jakarta menyimpan cerita manusia yang menginspirasi.</p>
             <a href="#" class="card-link">Baca selengkapnya &rarr;</a>
           </div>
         </article>
@@ -866,7 +1039,7 @@
       <div class="stats-grid">
         <div class="stat-item reveal">
           <h3>120<span>+</span></h3>
-          <p>Destinasi Terjelajah</p>
+          <p>Destinasi Nusantara</p>
         </div>
         <div class="stat-item reveal">
           <h3>45<span>K</span></h3>
@@ -878,7 +1051,7 @@
         </div>
         <div class="stat-item reveal">
           <h3>30<span>+</span></h3>
-          <p>Event Dicakup</p>
+          <p>Event Nusantara</p>
         </div>
       </div>
     </div>
@@ -889,8 +1062,8 @@
     <div class="container">
       <div class="section-header reveal">
         <span class="section-tag">Akomodasi</span>
-        <h2>Tempat Terbaik untuk Beristirahat</h2>
-        <p>Pilihan akomodasi dari resor mewah hingga vila nyaman — semua dikurasi untuk perjalanan terbaikmu.</p>
+        <h2>Menginap dengan <em>Jiwa Lokal</em></h2>
+        <p>Pilihan penginapan dari resor mewah hingga homestay otentik — semua dikurasi untuk pengalaman terbaik.</p>
       </div>
       <div class="card-grid">
         <article class="card reveal">
@@ -900,32 +1073,32 @@
           </div>
           <div class="card-body">
             <div class="card-meta"><span>&#9733; 4.9</span><span class="dot"></span><span>Mulai Rp 2.5jt/malam</span></div>
-            <h3>Resor Tropis Pilihan</h3>
-            <p>Arsitektur modern berbalut tanaman tropis dengan kolam renang tenang dan pemandangan memukau.</p>
+            <h3>Resor Tropis Ubud</h3>
+            <p>Arsitektur Bali modern berbalut sawah hijau dengan kolam renang menghadap lembah.</p>
             <a href="#" class="card-link">Lihat detail &rarr;</a>
           </div>
         </article>
         <article class="card reveal">
           <div class="card-img">
             <span class="card-category">Boutique Hotel</span>
-            <img src="https://images.pexels.com/photos/9119782/pexels-photo-9119782.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Hotel mewah dengan kolam renang bercahaya biru" />
+            <img src="https://images.pexels.com/photos/9119782/pexels-photo-9119782.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Hotel boutique dengan kolam renang" />
           </div>
           <div class="card-body">
             <div class="card-meta"><span>&#9733; 4.7</span><span class="dot"></span><span>Mulai Rp 1.8jt/malam</span></div>
-            <h3>Hotel Boutique Bermood Malam</h3>
-            <p>Suasana hangat dengan kolam renang bercahaya — sempurna untuk relaksasi setelah seharian berkeliling.</p>
+            <h3>Boutique Hotel Yogyakarta</h3>
+            <p>Suasana keraton modern dengan sentuhan batik dan kolam renang bercahaya malam.</p>
             <a href="#" class="card-link">Lihat detail &rarr;</a>
           </div>
         </article>
         <article class="card reveal">
           <div class="card-img">
             <span class="card-category">Pool Villa</span>
-            <img src="https://images.pexels.com/photos/37146574/pexels-photo-37146574.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Lounger kolam renang resor tropis" />
+            <img src="https://images.pexels.com/photos/37146574/pexels-photo-37146574.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Vila dengan kolam renang tropis" />
           </div>
           <div class="card-body">
             <div class="card-meta"><span>&#9733; 4.8</span><span class="dot"></span><span>Mulai Rp 3.2jt/malam</span></div>
-            <h3>Vila Kolam Renang Tepi Pantai</h3>
-            <p>Lounger nyaman di tepi kolam privat dengan langit biru terbuka — surga liburanmu.</p>
+            <h3>Vila Tepi Pantai Lombok</h3>
+            <p>Lounger nyaman di tepi kolam privat dengan laut biru Gili sebagai latar — surga liburanmu.</p>
             <a href="#" class="card-link">Lihat detail &rarr;</a>
           </div>
         </article>
@@ -938,18 +1111,18 @@
     <div class="container">
       <div class="section-header reveal">
         <span class="section-tag">Newsedu</span>
-        <h2>Berita & Edukasi Perjalanan</h2>
+        <h2>Berita & <em>Edukasi</em> Nusantara</h2>
         <p>Update terbaru dunia travel, tips praktis, dan wawasan edukatif untuk perjalanan yang lebih cerdas.</p>
       </div>
       <div class="card-grid">
         <article class="card reveal">
           <div class="card-img">
             <span class="card-category">Tips</span>
-            <img src="https://images.pexels.com/photos/5357086/pexels-photo-5357086.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Buku catatan dan pena dengan kopi" />
+            <img src="https://images.pexels.com/photos/5357086/pexels-photo-5357086.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Jurnal perjalanan dengan kopi" />
           </div>
           <div class="card-body">
             <div class="card-meta"><span>3 min baca</span><span class="dot"></span><span>28 Sep 2026</span></div>
-            <h3>Jurnal Perjalanan: Kenali Dirimu Lebih Dalam</h3>
+            <h3>Jurnal Perjalanan: Kenali Dirimu</h3>
             <p>Cara sederhana mencatat pengalaman untuk mengubah perjalanan menjadi cerita yang abadi.</p>
             <a href="#" class="card-link">Baca selengkapnya &rarr;</a>
           </div>
@@ -957,11 +1130,11 @@
         <article class="card reveal">
           <div class="card-img">
             <span class="card-category">Panduan</span>
-            <img src="https://images.pexels.com/photos/33350398/pexels-photo-33350398.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Secang kopi dan buku catatan di dekat jendela" />
+            <img src="https://images.pexels.com/photos/33350398/pexels-photo-33350398.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Packing ringan untuk traveling" />
           </div>
           <div class="card-body">
             <div class="card-meta"><span>5 min baca</span><span class="dot"></span><span>25 Sep 2026</span></div>
-            <h3>Panduan Packing Ringan untuk Backpacker</h3>
+            <h3>Panduan Packing Ringan Backpacker</h3>
             <p>Trik membawa barang seminimal mungkin tanpa mengorbankan kenyamanan di perjalanan.</p>
             <a href="#" class="card-link">Baca selengkapnya &rarr;</a>
           </div>
@@ -969,12 +1142,12 @@
         <article class="card reveal">
           <div class="card-img">
             <span class="card-category">Edukasi</span>
-            <img src="https://images.pexels.com/photos/3363111/pexels-photo-3363111.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Wanita menulis jurnal dengan secangkir kopi" />
+            <img src="https://images.pexels.com/photos/3363111/pexels-photo-3363111.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Menulis jurnal perjalanan" />
           </div>
           <div class="card-body">
             <div class="card-meta"><span>8 min baca</span><span class="dot"></span><span>22 Sep 2026</span></div>
-            <h3>Etnografi: Belajar Budaya Lewat Perjalanan</h3>
-            <p>Bagaimana traveling bisa menjadi jendela pemahaman yang lebih dalam tentang keberagaman.</p>
+            <h3>Belajar Budaya Lewat Perjalanan</h3>
+            <p>Bagaimana traveling bisa menjadi jendela pemahaman yang lebih dalam tentang keberagaman Nusantara.</p>
             <a href="#" class="card-link">Baca selengkapnya &rarr;</a>
           </div>
         </article>
@@ -987,8 +1160,8 @@
     <div class="container">
       <div class="section-header reveal">
         <span class="section-tag">Event</span>
-        <h2>Event Mendatang yang Wajib Dikunjungi</h2>
-        <p>Festival, konser, dan pertemuan budaya dari berbagai penjuru dunia — jangan sampai terlewat.</p>
+        <h2>Event Nusantara <em>Mendatang</em></h2>
+        <p>Festival, konser, dan pertemuan budaya dari berbagai penjuru Indonesia — jangan sampai terlewat.</p>
       </div>
       <div class="event-grid">
         <article class="event-card reveal">
@@ -1023,7 +1196,7 @@
         </article>
         <article class="event-card reveal">
           <div class="event-img">
-            <img src="https://images.pexels.com/photos/7513442/pexels-photo-7513442.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Festival outdoor dengan pencahayaan dramatis" />
+            <img src="https://images.pexels.com/photos/7513442/pexels-photo-7513442.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Festival budaya outdoor" />
             <div class="event-date">
               <span class="day">08</span>
               <span class="month">Nov</span>
@@ -1046,10 +1219,10 @@
       <h2>Dapatkan Inspirasi Perjalanan</h2>
       <p>Berlangganan newsletter mingguan kami untuk menerima tips, cerita, dan penawaran eksklusif langsung ke kotak masukmu.</p>
       <form class="newsletter-form" onsubmit="handleSubscribe(event)">
-        <input type="email" placeholder="Masukkan alamat email..." required />
+        <input type="email" placeholder="Masukkan alamat email..." required aria-label="Alamat email" />
         <button type="submit">Berlangganan</button>
       </form>
-      <p id="subMsg" style="margin-top:1rem;color:var(--accent-400);font-weight:500;display:none;">Terima kasih! Emailmu telah terdaftar.</p>
+      <p id="subMsg" style="margin-top:1rem;color:var(--gold-400);font-weight:500;display:none;">Terima kasih! Emailmu telah terdaftar.</p>
     </div>
   </section>
 
@@ -1059,7 +1232,7 @@
       <div class="footer-grid">
         <div class="footer-brand">
           <h3>Jelajah<span>Indonesia</span></h3>
-          <p>Media perjalanan dan gaya hidup yang menginspirasi jutaan pembaca untuk menjelajah dunia dengan lebih bermakna.</p>
+          <p>Media perjalanan dan gaya hidup yang menginspirasi jutaan pembaca untuk menjelajah Nusantara dengan lebih bermakna.</p>
           <div class="social-links">
             <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.8.07 1.2.06 1.8.25 2.2.42.6.2 1 .5 1.1.6.3.3.5.7.6 1.1.2.4.4 1 .4 2.2.1 1.2.1 1.6.1 4.8s0 3.6-.07 4.8c-.06 1.2-.25 1.8-.42 2.2-.2.6-.5 1-.6 1.1-.3.3-.7.5-1.1.6-.4.2-1 .4-2.2.4-1.2.1-1.6.1-4.8s0-3.6-.07-4.8c-.06-1.2-.25-1.8-.42-2.2-.2-.6-.5-1-.6-1.1-.3-.3-.7-.5-1.1-.6-.4-.2-1-.4-2.2-.4C15.6 2.2 15.2 2.2 12 2.2zm0 1.8c3.1 0 3.5 0 4.7.07 1.1.05 1.7.24 2.1.4.5.2.9.4 1.3.8.4.4.6.8.8 1.3.2.4.4 1 .4 2.1.1 1.2.1 1.6.1 4.7s0 3.5-.07 4.7c-.05 1.1-.24 1.7-.4 2.1-.2.5-.4.9-.8 1.3-.4.4-.8.6-1.3.8-.4.2-1 .4-2.1.4-1.2.1-1.6.1-4.7.1s-3.5 0-4.7-.07c-1.1-.05-1.7-.24-2.1-.4-.5-.2-.9-.4-1.3-.8-.4-.4-.6-.8-.8-1.3-.2-.4-.4-1-.4-2.1C4.2 15.6 4.2 15.2 4.2 12s0-3.5.07-4.7c.05-1.1.24-1.7.4-2.1.2-.5.4-.9.8-1.3.4-.4.8-.6 1.3-.8.4-.2 1-.4 2.1-.4C8.5 4 8.9 4 12 4zm0 3.1A4.9 4.9 0 1 0 12 17a4.9 4.9 0 0 0 0-9.8zm0 8a3.1 3.1 0 1 1 0-6.2 3.1 3.1 0 0 1 0 6.2zm6.3-8.3a1.1 1.1 0 1 1-2.3 0 1.1 1.1 0 0 1 2.3 0z"/></svg></a>
             <a href="#" aria-label="Twitter"><svg viewBox="0 0 24 24"><path d="M22 5.8c-.7.3-1.5.5-2.3.6.8-.5 1.5-1.3 1.8-2.3-.8.5-1.7.8-2.6 1-.8-.8-1.9-1.3-3.1-1.3-2.3 0-4.2 1.9-4.2 4.2 0 .3 0 .6.1.9-3.5-.2-6.6-1.8-8.7-4.4-.4.6-.6 1.3-.6 2.1 0 1.5.7 2.8 1.9 3.5-.7 0-1.3-.2-1.9-.5v.1c0 2 1.4 3.7 3.3 4.1-.3.1-.7.1-1 .1-.3 0-.5 0-.8-.1.5 1.7 2.1 2.9 4 2.9-1.5 1.1-3.3 1.8-5.3 1.8H2c1.9 1.2 4.2 1.9 6.6 1.9 7.9 0 12.2-6.5 12.2-12.2v-.6c.8-.6 1.5-1.3 2-2.1z"/></svg></a>
@@ -1088,14 +1261,14 @@
         <div class="footer-col">
           <h4>Kontak</h4>
           <ul>
-            <li><a href="mailto:halo@wanderlust.id">halo@wanderlust.id</a></li>
+            <li><a href="mailto:halo@jelajahindonesia.id">halo@jelajahindonesia.id</a></li>
             <li><a href="#">+62 21 1234 5678</a></li>
             <li><a href="#">Jakarta, Indonesia</a></li>
           </ul>
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; 2026 Jelajahindonesia. Dibuat dengan semangat menjelajah dunia.</p>
+        <p>&copy; 2026 Jelajah Indonesia. Dibuat dengan <em>♥</em> untuk Nusantara.</p>
       </div>
     </div>
   </footer>
