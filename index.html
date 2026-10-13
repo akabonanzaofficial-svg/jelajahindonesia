@@ -4,7 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Jelajah Indonesia — Travel, Lifestyle & Beyond</title>
-  <meta name="description" content="Media perjalanan dan gaya hidup yang menginspirasi penjelajahan Nusantara — dari Sabang hingga Merauke." />
+  <meta name="description" id="metaDescription" content="Media perjalanan dan gaya hidup yang menginspirasi penjelajahan Nusantara — dari Sabang hingga Merauke." />
+  <meta name="theme-color" content="#16a34a" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" id="ogTitle" content="Jelajah Indonesia" />
+  <meta property="og:description" id="ogDescription" content="Media perjalanan & gaya hidup Nusantara." />
+  <meta property="og:image" id="ogImage" content="https://images.pexels.com/photos/2166553/pexels-photo-2166553.jpeg?auto=compress&cs=tinysrgb&w=1200" />
+  <meta property="og:url" id="ogUrl" content="https://jelajahindonesia.vercel.app" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" id="twTitle" content="Jelajah Indonesia" />
+  <meta name="twitter:description" id="twDescription" content="Media perjalanan & gaya hidup Nusantara." />
+  <meta name="twitter:image" id="twImage" content="https://images.pexels.com/photos/2166553/pexels-photo-2166553.jpeg?auto=compress&cs=tinysrgb&w=1200" />
 
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌏</text></svg>" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -79,6 +93,16 @@
     .prose h2, .prose h3 { margin-top: 2rem; margin-bottom: 1rem; font-weight: 700; }
     .prose ul, .prose ol { margin-left: 1.5rem; margin-bottom: 1.25rem; }
     .prose li { margin-bottom: .5rem; }
+    /* Skeleton shimmer */
+    .skeleton { background: linear-gradient(90deg, #ebe7e1 0%, #f7f5f2 50%, #ebe7e1 100%); background-size: 200% 100%; animation: shimmer 1.5s infinite; }
+    .dark .skeleton { background: linear-gradient(90deg, #292524 0%, #44403c 50%, #292524 100%); background-size: 200% 100%; }
+    @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+    /* Back to top */
+    #backToTop { transform: translateY(100px); opacity: 0; pointer-events: none; transition: all .3s; }
+    #backToTop.show { transform: translateY(0); opacity: 1; pointer-events: auto; }
+    /* Filter active */
+    .filter-chip.active { background: #16a34a; color: white; border-color: #16a34a; }
+    .dark .filter-chip.active { background: #22c55e; }
   </style>
 </head>
 
@@ -89,9 +113,10 @@
     <div class="max-w-7xl mx-auto px-6 flex items-center justify-between gap-4">
       <a href="/" data-link class="flex items-center gap-2.5 whitespace-nowrap">
         <span class="w-10 h-10 flex items-center justify-center bg-gradient-to-br from-green-500 to-green-700 rounded-xl text-white text-lg shadow-glow-green">🌏</span>
-        <span class="font-heading text-xl md:text-2xl font-extrabold text-green-700 dark:text-green-400 tracking-tight">Jelajah<span class="text-red-600 dark:text-red-500">Indonesia</span></span>
+        <span class="font-heading text-xl md:text-2xl font-extrabold text-green-700 dark:text-green-400 tracking-tight hidden sm:inline">Jelajah<span class="text-red-600 dark:text-red-500">Indonesia</span></span>
       </a>
-      <ul class="hidden md:flex items-center gap-8">
+
+      <ul class="hidden lg:flex items-center gap-7">
         <li><a href="/" data-link class="nav-item">Beranda</a></li>
         <li><a href="/cerita" data-link class="nav-item">Cerita</a></li>
         <li><a href="/gaya-hidup" data-link class="nav-item">Gaya Hidup</a></li>
@@ -99,19 +124,37 @@
         <li><a href="/newsedu" data-link class="nav-item">Newsedu</a></li>
         <li><a href="/event" data-link class="nav-item">Event</a></li>
       </ul>
-      <div class="flex items-center gap-3">
+
+      <div class="flex items-center gap-2 md:gap-3">
+        <!-- Search toggle -->
+        <button id="searchToggle" aria-label="Cari" class="w-10 h-10 flex items-center justify-center rounded-full bg-warm-100 dark:bg-warm-800 hover:bg-warm-200 dark:hover:bg-warm-700 transition-colors">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </button>
+
         <button id="themeToggle" aria-label="Ganti tema" class="w-10 h-10 flex items-center justify-center rounded-full bg-warm-100 dark:bg-warm-800 hover:bg-warm-200 dark:hover:bg-warm-700 transition-colors text-lg">
           <span id="themeIcon">🌙</span>
         </button>
+
         <a href="/newsletter" data-link class="hidden md:inline-flex px-5 py-2.5 bg-gradient-to-br from-red-500 to-red-700 text-white text-sm font-semibold rounded-full shadow-glow-red hover:-translate-y-0.5 transition-all duration-300">Berlangganan</a>
-        <button id="menuToggle" aria-label="Menu" class="md:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5">
+
+        <button id="menuToggle" aria-label="Menu" class="lg:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5">
           <span class="menu-line w-6 h-0.5 bg-warm-700 dark:bg-warm-200 rounded transition-all"></span>
           <span class="menu-line w-6 h-0.5 bg-warm-700 dark:bg-warm-200 rounded transition-all"></span>
           <span class="menu-line w-6 h-0.5 bg-warm-700 dark:bg-warm-200 rounded transition-all"></span>
         </button>
       </div>
     </div>
-    <div id="mobileMenu" class="md:hidden absolute top-full left-0 right-0 bg-white dark:bg-warm-900 border-b border-warm-200 dark:border-warm-800 shadow-xl -translate-y-[200%] transition-transform duration-300 opacity-0 pointer-events-none">
+
+    <!-- Search bar (expandable) -->
+    <div id="searchBar" class="hidden max-w-7xl mx-auto px-6 mt-3 pb-1">
+      <div class="relative">
+        <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-warm-400" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input id="searchInput" type="text" placeholder="Cari cerita, gaya hidup, event..." class="w-full pl-11 pr-4 py-3 bg-warm-100 dark:bg-warm-800 border border-warm-200 dark:border-warm-700 rounded-full text-sm outline-none focus:border-green-500" />
+        <button id="searchClose" class="absolute right-4 top-1/2 -translate-y-1/2 text-warm-400 hover:text-warm-700 text-xl">×</button>
+      </div>
+    </div>
+
+    <div id="mobileMenu" class="lg:hidden absolute top-full left-0 right-0 bg-white dark:bg-warm-900 border-b border-warm-200 dark:border-warm-800 shadow-xl -translate-y-[200%] transition-transform duration-300 opacity-0 pointer-events-none">
       <ul class="px-6 py-4 space-y-3">
         <li><a href="/" data-link class="mobile-nav-item">Beranda</a></li>
         <li><a href="/cerita" data-link class="mobile-nav-item">Cerita</a></li>
@@ -125,6 +168,11 @@
   </nav>
 
   <main id="app" class="flex-1 pt-20"></main>
+
+  <!-- Back to top -->
+  <button id="backToTop" aria-label="Kembali ke atas" class="fixed bottom-6 right-6 z-40 w-12 h-12 flex items-center justify-center bg-gradient-to-br from-green-600 to-green-700 text-white rounded-full shadow-glow-green hover:-translate-y-1 transition-all">
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="m18 15-6-6-6 6"/></svg>
+  </button>
 
   <!-- Footer -->
   <footer class="bg-warm-900 dark:bg-black text-warm-400 relative">
@@ -206,6 +254,26 @@
       async getLatest(n = 6) {
         const all = await this.getIndex();
         return [...all].sort((a, b) => new Date(b.tanggal) - new Date(a.tanggal)).slice(0, n);
+      },
+
+      async getRelated(post, n = 3) {
+        const all = await this.getIndex();
+        const related = all.filter(p => p.id !== post.id && p.tipe === post.tipe);
+        const sameCat = related.filter(p => p.kategori === post.kategori);
+        const others = related.filter(p => p.kategori !== post.kategori);
+        return [...sameCat, ...others].slice(0, n);
+      },
+
+      async search(query) {
+        const all = await this.getIndex();
+        const q = query.toLowerCase().trim();
+        if (!q) return [];
+        return all.filter(p =>
+          p.judul.toLowerCase().includes(q) ||
+          p.ringkasan.toLowerCase().includes(q) ||
+          p.kategori.toLowerCase().includes(q) ||
+          p.penulis.toLowerCase().includes(q)
+        );
       }
     };
 
@@ -222,6 +290,42 @@
       .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
       .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 
+    // Hitung reading time (asumsi 200 kata/menit)
+    const getReadingTime = (post) => {
+      const text = (post.isi || '').replace(/<[^>]+>/g, ' ');
+      const words = text.trim().split(/\s+/).length;
+      const minutes = Math.max(1, Math.ceil(words / 200));
+      return `${minutes} min baca`;
+    };
+
+    // Set meta tags dinamis
+    const setMeta = ({ title, description, image, url }) => {
+      document.title = title;
+      document.getElementById('metaDescription').setAttribute('content', description);
+      document.getElementById('ogTitle').setAttribute('content', title);
+      document.getElementById('ogDescription').setAttribute('content', description);
+      document.getElementById('ogImage').setAttribute('content', image);
+      document.getElementById('ogUrl').setAttribute('content', url);
+      document.getElementById('twTitle').setAttribute('content', title);
+      document.getElementById('twDescription').setAttribute('content', description);
+      document.getElementById('twImage').setAttribute('content', image);
+    };
+
+    // Share
+    window.shareTo = (platform, title, url) => {
+      const enc = encodeURIComponent;
+      const urls = {
+        whatsapp: `https://wa.me/?text=${enc(title + ' — ' + url)}`,
+        facebook: `https://www.facebook.com/sharer/sharer.php?u=${enc(url)}`,
+        twitter: `https://twitter.com/intent/tweet?text=${enc(title)}&url=${enc(url)}`,
+      };
+      if (platform === 'copy') {
+        navigator.clipboard.writeText(url).then(() => alert('Link disalin!'));
+        return;
+      }
+      window.open(urls[platform], '_blank', 'width=600,height=500');
+    };
+
     /* ============================================================
        COMPONENTS
        ============================================================ */
@@ -229,13 +333,13 @@
       <article class="group bg-white dark:bg-warm-800 rounded-2xl overflow-hidden border border-warm-200 dark:border-warm-700 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-green-200 dark:hover:border-green-700 transition-all duration-300 flex flex-col">
         <a href="/artikel/${post.id}" data-link class="block relative h-56 overflow-hidden">
           <img src="${escapeHtml(post.gambar)}" alt="${escapeHtml(post.judul)}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy" />
-          <span class="absolute top-4 left-4 px-3 py-1.5 bg-white/95 dark:bg-warm-900/95 backdrop-blur-md text-green-700 dark:text-green-400 text-xs font-semibold rounded-full border-l-4 border-red-500">
-            ${escapeHtml(post.kategori)}
-          </span>
+          <span class="absolute top-4 left-4 px-3 py-1.5 bg-white/95 dark:bg-warm-900/95 backdrop-blur-md text-green-700 dark:text-green-400 text-xs font-semibold rounded-full border-l-4 border-red-500">${escapeHtml(post.kategori)}</span>
         </a>
         <div class="p-6 flex flex-col flex-1">
-          <div class="flex items-center gap-2 text-xs text-warm-400 mb-3">
+          <div class="flex items-center gap-2 text-xs text-warm-400 mb-3 flex-wrap">
             <span>${formatDate(post.tanggal)}</span>
+            <span class="w-1 h-1 rounded-full bg-warm-300"></span>
+            <span>${getReadingTime(post)}</span>
             <span class="w-1 h-1 rounded-full bg-warm-300"></span>
             <span>${escapeHtml(post.penulis)}</span>
           </div>
@@ -243,14 +347,11 @@
             <a href="/artikel/${post.id}" data-link>${escapeHtml(post.judul)}</a>
           </h3>
           <p class="text-sm text-warm-500 dark:text-warm-400 font-light flex-1 mb-4">${escapeHtml(post.ringkasan)}</p>
-          <a href="/artikel/${post.id}" data-link class="inline-flex items-center gap-1.5 text-sm font-semibold text-red-600 dark:text-red-500 hover:gap-3 transition-all">
-            Baca selengkapnya →
-          </a>
+          <a href="/artikel/${post.id}" data-link class="inline-flex items-center gap-1.5 text-sm font-semibold text-red-600 dark:text-red-500 hover:gap-3 transition-all">Baca selengkapnya →</a>
         </div>
       </article>
     `;
 
-    // Header untuk halaman list
     const ListHeaderComponent = (title, description, accent = 'green') => `
       <section class="relative py-16 md:py-20 bg-gradient-to-br from-${accent === 'red' ? 'red-600 to-red-800' : 'green-600 to-green-800'} overflow-hidden">
         <div class="absolute inset-0" style="background-image: radial-gradient(circle at 30% 50%, rgba(251,191,36,0.1) 0%, transparent 50%);"></div>
@@ -261,31 +362,55 @@
       </section>
     `;
 
-    // Grid artikel (dengan empty state)
-    const ArticleGridComponent = (articles, emptyMessage = 'Belum ada artikel di kategori ini.') => {
+    // Filter kategori chip
+    const FilterChipsComponent = (categories, activeCat) => `
+      <div class="flex flex-wrap gap-2 justify-center mb-10">
+        <button data-filter="all" class="filter-chip ${!activeCat || activeCat === 'all' ? 'active' : ''} px-4 py-2 bg-white dark:bg-warm-800 border border-warm-200 dark:border-warm-700 rounded-full text-sm font-medium hover:border-green-500 transition-all">Semua</button>
+        ${categories.map(cat => `
+          <button data-filter="${escapeHtml(cat)}" class="filter-chip ${activeCat === cat ? 'active' : ''} px-4 py-2 bg-white dark:bg-warm-800 border border-warm-200 dark:border-warm-700 rounded-full text-sm font-medium hover:border-green-500 transition-all">${escapeHtml(cat)}</button>
+        `).join('')}
+      </div>
+    `;
+
+    const ArticleGridComponent = (articles, emptyMessage = 'Belum ada artikel.') => {
       if (articles.length === 0) {
-        return `
-          <div class="text-center py-20">
-            <div class="text-6xl mb-4">📭</div>
-            <p class="text-warm-500 dark:text-warm-400 font-light">${emptyMessage}</p>
-          </div>
-        `;
+        return `<div class="text-center py-20"><div class="text-6xl mb-4">📭</div><p class="text-warm-500 dark:text-warm-400 font-light">${emptyMessage}</p></div>`;
       }
-      return `
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          ${articles.map(CardComponent).join('')}
-        </div>
-      `;
+      return `<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">${articles.map(CardComponent).join('')}</div>`;
     };
+
+    // Skeleton card
+    const SkeletonCard = () => `
+      <div class="bg-white dark:bg-warm-800 rounded-2xl overflow-hidden border border-warm-200 dark:border-warm-700">
+        <div class="h-56 skeleton"></div>
+        <div class="p-6 space-y-3">
+          <div class="h-3 w-1/3 skeleton rounded"></div>
+          <div class="h-5 w-full skeleton rounded"></div>
+          <div class="h-5 w-2/3 skeleton rounded"></div>
+          <div class="h-3 w-full skeleton rounded"></div>
+          <div class="h-3 w-4/5 skeleton rounded"></div>
+        </div>
+      </div>
+    `;
+
+    const SkeletonGridComponent = (n = 6) => `
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        ${Array(n).fill(0).map(SkeletonCard).join('')}
+      </div>
+    `;
 
     /* ============================================================
        VIEWS
        ============================================================ */
-
-    // BERANDA
     const HomeView = {
       async render() {
         const latest = await DataService.getLatest(6);
+        setMeta({
+          title: 'Jelajah Indonesia — Travel, Lifestyle & Beyond',
+          description: 'Media perjalanan dan gaya hidup yang menginspirasi penjelajahan Nusantara.',
+          image: 'https://images.pexels.com/photos/2166553/pexels-photo-2166553.jpeg?auto=compress&cs=tinysrgb&w=1200',
+          url: 'https://jelajahindonesia.vercel.app/'
+        });
         return `
           <section class="relative min-h-[90vh] flex items-center justify-center text-center overflow-hidden">
             <div class="absolute inset-0 bg-cover bg-center animate-hero-zoom" style="background-image: url('https://images.pexels.com/photos/2166553/pexels-photo-2166553.jpeg?auto=compress&cs=tinysrgb&w=1920');"></div>
@@ -305,22 +430,22 @@
           <section class="relative py-16 bg-gradient-to-br from-green-700 via-green-800 to-red-800 overflow-hidden">
             <div class="absolute inset-0" style="background-image: radial-gradient(circle at 20% 50%, rgba(251,191,36,0.12) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(239,68,68,0.15) 0%, transparent 50%);"></div>
             <div class="relative max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-              <div><h3 class="font-heading text-4xl md:text-5xl font-extrabold text-white">120<span class="text-gold-400">+</span></h3><p class="text-white/85 text-sm mt-1 font-light">Destinasi Nusantara</p></div>
-              <div><h3 class="font-heading text-4xl md:text-5xl font-extrabold text-white">45<span class="text-gold-400">K</span></h3><p class="text-white/85 text-sm mt-1 font-light">Pembaca Setia</p></div>
-              <div><h3 class="font-heading text-4xl md:text-5xl font-extrabold text-white">850<span class="text-gold-400">+</span></h3><p class="text-white/85 text-sm mt-1 font-light">Artikel Diterbitkan</p></div>
-              <div><h3 class="font-heading text-4xl md:text-5xl font-extrabold text-white">30<span class="text-gold-400">+</span></h3><p class="text-white/85 text-sm mt-1 font-light">Event Nusantara</p></div>
+              <div class="reveal"><h3 class="font-heading text-4xl md:text-5xl font-extrabold text-white">120<span class="text-gold-400">+</span></h3><p class="text-white/85 text-sm mt-1 font-light">Destinasi Nusantara</p></div>
+              <div class="reveal"><h3 class="font-heading text-4xl md:text-5xl font-extrabold text-white">45<span class="text-gold-400">K</span></h3><p class="text-white/85 text-sm mt-1 font-light">Pembaca Setia</p></div>
+              <div class="reveal"><h3 class="font-heading text-4xl md:text-5xl font-extrabold text-white">850<span class="text-gold-400">+</span></h3><p class="text-white/85 text-sm mt-1 font-light">Artikel Diterbitkan</p></div>
+              <div class="reveal"><h3 class="font-heading text-4xl md:text-5xl font-extrabold text-white">30<span class="text-gold-400">+</span></h3><p class="text-white/85 text-sm mt-1 font-light">Event Nusantara</p></div>
             </div>
           </section>
 
           <section class="py-20 bg-warm-50 dark:bg-warm-900">
             <div class="max-w-7xl mx-auto px-6">
-              <div class="text-center max-w-2xl mx-auto mb-14">
+              <div class="text-center max-w-2xl mx-auto mb-14 reveal">
                 <span class="inline-flex items-center gap-2 px-4 py-1.5 bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-800 text-green-700 dark:text-green-400 text-xs font-semibold uppercase tracking-wider rounded-full mb-4"><span class="w-1.5 h-1.5 rounded-full bg-red-500"></span> Terbaru</span>
                 <h2 class="font-heading text-3xl md:text-5xl font-extrabold mb-4">Cerita <em class="italic text-gradient">Terbaru</em></h2>
                 <p class="text-warm-500 dark:text-warm-400 font-light">Bacaan pilihan dari para penjelajah yang menyusuri sudut-sudut Nusantara.</p>
               </div>
-              ${ArticleGridComponent(latest)}
-              <div class="text-center mt-12">
+              <div class="reveal">${ArticleGridComponent(latest)}</div>
+              <div class="text-center mt-12 reveal">
                 <a href="/cerita" data-link class="inline-flex items-center gap-2 px-8 py-3.5 bg-gradient-to-br from-green-600 to-green-700 text-white font-semibold rounded-full shadow-glow-green hover:-translate-y-1 transition-all duration-300">Lihat Semua Cerita →</a>
               </div>
             </div>
@@ -329,7 +454,7 @@
           <section class="py-20 bg-gradient-to-br from-green-700 via-green-800 to-red-800 relative overflow-hidden">
             <div class="absolute -top-40 -right-20 w-96 h-96 bg-gold-400/10 rounded-full"></div>
             <div class="absolute -bottom-32 -left-16 w-80 h-80 bg-white/5 rounded-full"></div>
-            <div class="relative max-w-2xl mx-auto px-6 text-center">
+            <div class="relative max-w-2xl mx-auto px-6 text-center reveal">
               <h2 class="font-heading text-3xl md:text-4xl font-extrabold text-white mb-3">Dapatkan Inspirasi Perjalanan</h2>
               <p class="text-white/85 font-light mb-8">Berlangganan newsletter mingguan kami untuk tips, cerita, dan penawaran eksklusif.</p>
               <form onsubmit="handleSubscribe(event)" class="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto">
@@ -343,84 +468,47 @@
       }
     };
 
-    // CERITA
-    const CeritaView = {
+    // List view dengan filter (reusable)
+    const createListView = (tipe, title, description, accent) => ({
       async render() {
-        const articles = await DataService.getByType('cerita');
+        const articles = await DataService.getByType(tipe);
+        const categories = [...new Set(articles.map(a => a.kategori))].sort();
+        setMeta({
+          title: `${title} — Jelajah Indonesia`,
+          description,
+          image: articles[0]?.gambar || 'https://images.pexels.com/photos/2166553/pexels-photo-2166553.jpeg?auto=compress&cs=tinysrgb&w=1200',
+          url: `https://jelajahindonesia.vercel.app/${tipe === 'gaya-hidup' ? 'gaya-hidup' : tipe}`
+        });
+
+        // Simpan data untuk filter client-side
+        window._currentArticles = articles;
+
         return `
-          ${ListHeaderComponent('Cerita Perjalanan', 'Kisah tulus dari para penjelajah yang menyusuri sudut-sudut tersembunyi Nusantara.', 'green')}
+          ${ListHeaderComponent(title, description, accent)}
           <section class="py-16 bg-warm-50 dark:bg-warm-900">
             <div class="max-w-7xl mx-auto px-6">
-              ${ArticleGridComponent(articles, 'Belum ada cerita perjalanan.')}
+              ${categories.length > 1 ? FilterChipsComponent(categories, 'all') : ''}
+              <div id="articlesGrid">${ArticleGridComponent(articles, `Belum ada ${title.toLowerCase()}.`)}</div>
             </div>
           </section>
         `;
       }
-    };
+    });
 
-    // GAYA HIDUP
-    const GayaHidupView = {
-      async render() {
-        const articles = await DataService.getByType('gaya-hidup');
-        return `
-          ${ListHeaderComponent('Gaya Hidup', 'Inspirasi hidup modern berakar budaya lokal — dari kuliner, wellness, hingga keseharian bermakna.', 'red')}
-          <section class="py-16 bg-warm-50 dark:bg-warm-900">
-            <div class="max-w-7xl mx-auto px-6">
-              ${ArticleGridComponent(articles, 'Belum ada artikel gaya hidup.')}
-            </div>
-          </section>
-        `;
-      }
-    };
+    const CeritaView = createListView('cerita', 'Cerita Perjalanan', 'Kisah tulus dari para penjelajah yang menyusuri sudut-sudut tersembunyi Nusantara.', 'green');
+    const GayaHidupView = createListView('gaya-hidup', 'Gaya Hidup', 'Inspirasi hidup modern berakar budaya lokal — dari kuliner, wellness, hingga keseharian bermakna.', 'red');
+    const AkomodasiView = createListView('akomodasi', 'Akomodasi', 'Pilihan penginapan dari resor mewah hingga homestay otentik — semua dikurasi untuk pengalaman terbaik.', 'green');
+    const NewseduView = createListView('newsedu', 'Newsedu', 'Update terbaru dunia travel, tips praktis, dan wawasan edukatif untuk perjalanan lebih cerdas.', 'red');
+    const EventView = createListView('event', 'Event Nusantara', 'Festival, konser, dan pertemuan budaya dari berbagai penjuru Indonesia — jangan sampai terlewat.', 'green');
 
-    // AKOMODASI
-    const AkomodasiView = {
-      async render() {
-        const articles = await DataService.getByType('akomodasi');
-        return `
-          ${ListHeaderComponent('Akomodasi', 'Pilihan penginapan dari resor mewah hingga homestay otentik — semua dikurasi untuk pengalaman terbaik.', 'green')}
-          <section class="py-16 bg-warm-50 dark:bg-warm-900">
-            <div class="max-w-7xl mx-auto px-6">
-              ${ArticleGridComponent(articles, 'Belum ada akomodasi.')}
-            </div>
-          </section>
-        `;
-      }
-    };
-
-    // NEWSEDU
-    const NewseduView = {
-      async render() {
-        const articles = await DataService.getByType('newsedu');
-        return `
-          ${ListHeaderComponent('Newsedu', 'Update terbaru dunia travel, tips praktis, dan wawasan edukatif untuk perjalanan lebih cerdas.', 'red')}
-          <section class="py-16 bg-warm-50 dark:bg-warm-900">
-            <div class="max-w-7xl mx-auto px-6">
-              ${ArticleGridComponent(articles, 'Belum ada artikel newsedu.')}
-            </div>
-          </section>
-        `;
-      }
-    };
-
-    // EVENT
-    const EventView = {
-      async render() {
-        const articles = await DataService.getByType('event');
-        return `
-          ${ListHeaderComponent('Event Nusantara', 'Festival, konser, dan pertemuan budaya dari berbagai penjuru Indonesia — jangan sampai terlewat.', 'green')}
-          <section class="py-16 bg-warm-50 dark:bg-warm-900">
-            <div class="max-w-7xl mx-auto px-6">
-              ${ArticleGridComponent(articles, 'Belum ada event mendatang.')}
-            </div>
-          </section>
-        `;
-      }
-    };
-
-    // NEWSLETTER
     const NewsletterView = {
       render() {
+        setMeta({
+          title: 'Berlangganan Newsletter — Jelajah Indonesia',
+          description: 'Dapatkan inspirasi perjalanan mingguan langsung ke kotak masukmu.',
+          image: 'https://images.pexels.com/photos/2166553/pexels-photo-2166553.jpeg?auto=compress&cs=tinysrgb&w=1200',
+          url: 'https://jelajahindonesia.vercel.app/newsletter'
+        });
         return `
           <section class="min-h-[70vh] py-20 bg-gradient-to-br from-green-700 via-green-800 to-red-800 relative overflow-hidden flex items-center">
             <div class="absolute -top-40 -right-20 w-96 h-96 bg-gold-400/10 rounded-full"></div>
@@ -440,36 +528,115 @@
       }
     };
 
-    // DETAIL ARTIKEL
     const ArticleDetailView = {
       async render(id) {
         const post = await DataService.getPost(id);
         if (!post) return NotFoundView.render();
+
+        const related = await DataService.getRelated(post, 3);
         const backPath = post.tipe === 'cerita' ? '/cerita'
                        : post.tipe === 'gaya-hidup' ? '/gaya-hidup'
                        : post.tipe === 'akomodasi' ? '/akomodasi'
                        : post.tipe === 'newsedu' ? '/newsedu'
                        : post.tipe === 'event' ? '/event' : '/';
+        const backLabel = post.tipe === 'cerita' ? 'Cerita Perjalanan'
+                        : post.tipe === 'gaya-hidup' ? 'Gaya Hidup'
+                        : post.tipe === 'akomodasi' ? 'Akomodasi'
+                        : post.tipe === 'newsedu' ? 'Newsedu'
+                        : post.tipe === 'event' ? 'Event' : 'Beranda';
+
+        const currentUrl = `https://jelajahindonesia.vercel.app/artikel/${post.id}`;
+
+        setMeta({
+          title: `${post.judul} — Jelajah Indonesia`,
+          description: post.ringkasan,
+          image: post.gambar,
+          url: currentUrl
+        });
+
         return `
-          <section class="max-w-3xl mx-auto px-6 py-16">
-            <a href="${backPath}" data-link class="inline-flex items-center gap-2 text-green-700 dark:text-green-400 text-sm font-medium mb-6 hover:gap-3 transition-all">← Kembali</a>
+          <article class="max-w-3xl mx-auto px-6 py-16">
+            <!-- Breadcrumb -->
+            <nav class="flex items-center gap-2 text-sm text-warm-400 mb-8 flex-wrap">
+              <a href="/" data-link class="hover:text-green-600 transition-colors">Beranda</a>
+              <span>/</span>
+              <a href="${backPath}" data-link class="hover:text-green-600 transition-colors">${backLabel}</a>
+              <span>/</span>
+              <span class="text-warm-600 dark:text-warm-300 font-medium truncate max-w-[200px]">${escapeHtml(post.judul)}</span>
+            </nav>
+
             <span class="inline-block px-3 py-1.5 bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-400 text-xs font-semibold rounded-full mb-4 border-l-4 border-red-500">${escapeHtml(post.kategori)}</span>
             <h1 class="font-heading text-4xl md:text-5xl font-extrabold mb-4">${escapeHtml(post.judul)}</h1>
-            <div class="flex items-center gap-3 text-sm text-warm-400 mb-8">
+
+            <div class="flex items-center gap-3 text-sm text-warm-400 mb-8 flex-wrap">
               <span>${formatDate(post.tanggal)}</span>
+              <span class="w-1 h-1 rounded-full bg-warm-300"></span>
+              <span>${getReadingTime(post)}</span>
               <span class="w-1 h-1 rounded-full bg-warm-300"></span>
               <span>${escapeHtml(post.penulis)}</span>
             </div>
+
             <img src="${escapeHtml(post.gambar)}" alt="${escapeHtml(post.judul)}" class="w-full h-96 object-cover rounded-2xl mb-8" />
+
+            <!-- Share buttons (top) -->
+            <div class="flex items-center gap-3 mb-10 pb-6 border-b border-warm-200 dark:border-warm-700">
+              <span class="text-sm text-warm-500 font-medium">Bagikan:</span>
+              <button onclick="shareTo('whatsapp','${escapeHtml(post.judul)}','${currentUrl}')" aria-label="Share WhatsApp" class="w-9 h-9 flex items-center justify-center bg-green-500 hover:bg-green-600 text-white rounded-full transition-colors"><svg class="w-4 h-4 fill-white" viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.1-1.7-.8-1.9-.9-.3-.1-.5-.1-.7.1-.2.3-.8.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.4-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.4.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4 0 1.4 1 2.7 1.2 2.9.1.2 2 3 4.8 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3-.1-.1-.3-.2-.5-.2z"/></svg></button>
+              <button onclick="shareTo('facebook','${escapeHtml(post.judul)}','${currentUrl}')" aria-label="Share Facebook" class="w-9 h-9 flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white rounded-full transition-colors"><svg class="w-4 h-4 fill-white" viewBox="0 0 24 24"><path d="M22 12c0-5.5-4.5-10-10-10S2 6.5 2 12c0 5 3.7 9.1 8.4 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6V12h2.7l-.4 2.9h-2.3v7C18.3 21.1 22 17 22 12z"/></svg></button>
+              <button onclick="shareTo('twitter','${escapeHtml(post.judul)}','${currentUrl}')" aria-label="Share Twitter" class="w-9 h-9 flex items-center justify-center bg-sky-500 hover:bg-sky-600 text-white rounded-full transition-colors"><svg class="w-4 h-4 fill-white" viewBox="0 0 24 24"><path d="M22 5.8c-.7.3-1.5.5-2.3.6.8-.5 1.5-1.3 1.8-2.3-.8.5-1.7.8-2.6 1-.8-.8-1.9-1.3-3.1-1.3-2.3 0-4.2 1.9-4.2 4.2 0 .3 0 .6.1.9-3.5-.2-6.6-1.8-8.7-4.4-.4.6-.6 1.3-.6 2.1 0 1.5.7 2.8 1.9 3.5-.7 0-1.3-.2-1.9-.5v.1c0 2 1.4 3.7 3.3 4.1-.3.1-.7.1-1 .1-.3 0-.5 0-.8-.1.5 1.7 2.1 2.9 4 2.9-1.5 1.1-3.3 1.8-5.3 1.8H2c1.9 1.2 4.2 1.9 6.6 1.9 7.9 0 12.2-6.5 12.2-12.2v-.6c.8-.6 1.5-1.3 2-2.1z"/></svg></button>
+              <button onclick="shareTo('copy','','${currentUrl}')" aria-label="Copy link" class="w-9 h-9 flex items-center justify-center bg-warm-500 hover:bg-warm-600 text-white rounded-full transition-colors"><svg class="w-4 h-4 fill-none stroke-white" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+            </div>
+
             <div class="prose prose-lg dark:prose-invert max-w-none font-light leading-relaxed">${post.isi}</div>
+
+            <!-- Related articles -->
+            ${related.length > 0 ? `
+              <section class="mt-16 pt-10 border-t border-warm-200 dark:border-warm-700">
+                <h2 class="font-heading text-2xl md:text-3xl font-extrabold mb-8">Artikel <em class="italic text-gradient">Terkait</em></h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  ${related.map(CardComponent).join('')}
+                </div>
+              </section>
+            ` : ''}
+
+            <div class="mt-12 text-center">
+              <a href="${backPath}" data-link class="inline-flex items-center gap-2 px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-medium rounded-full transition-all">← Kembali ke ${backLabel}</a>
+            </div>
+          </article>
+        `;
+      }
+    };
+
+    const SearchView = {
+      async render(query) {
+        const results = await DataService.search(query);
+        setMeta({
+          title: `Cari: "${query}" — Jelajah Indonesia`,
+          description: `Hasil pencarian untuk "${query}"`,
+          image: 'https://images.pexels.com/photos/2166553/pexels-photo-2166553.jpeg?auto=compress&cs=tinysrgb&w=1200',
+          url: `https://jelajahindonesia.vercel.app/cari?q=${encodeURIComponent(query)}`
+        });
+        return `
+          ${ListHeaderComponent(`Hasil Pencarian`, `${results.length} artikel ditemukan untuk "${escapeHtml(query)}"`, 'green')}
+          <section class="py-16 bg-warm-50 dark:bg-warm-900">
+            <div class="max-w-7xl mx-auto px-6">
+              ${results.length > 0
+                ? ArticleGridComponent(results)
+                : `<div class="text-center py-20"><div class="text-6xl mb-4">🔍</div><p class="text-warm-500 font-light">Tidak ada artikel yang cocok dengan pencarian "${escapeHtml(query)}".</p></div>`}
+            </div>
           </section>
         `;
       }
     };
 
-    // 404
     const NotFoundView = {
       render() {
+        setMeta({
+          title: 'Halaman Tidak Ditemukan — Jelajah Indonesia',
+          description: 'Halaman yang Anda cari tidak ditemukan.',
+          image: 'https://images.pexels.com/photos/2166553/pexels-photo-2166553.jpeg?auto=compress&cs=tinysrgb&w=1200',
+          url: 'https://jelajahindonesia.vercel.app/404'
+        });
         return `
           <section class="min-h-[70vh] flex items-center justify-center px-6 py-20">
             <div class="text-center max-w-lg">
@@ -499,17 +666,20 @@
 
       async navigate(path) {
         const app = document.getElementById('app');
-        app.innerHTML = `<div class="min-h-[60vh] flex items-center justify-center"><div class="w-12 h-12 border-4 border-green-500 border-t-transparent rounded-full animate-spin"></div></div>`;
+        app.innerHTML = `<div class="max-w-7xl mx-auto px-6 py-20">${SkeletonGridComponent(6)}</div>`;
+
+        // Handle query string untuk search
+        const url = new URL(window.location.href);
+        const searchQuery = url.searchParams.get('q');
 
         let View = this.routes[path];
-        let isDynamic = false;
 
-        // Dynamic routes
         if (!View) {
           if (path.startsWith('/artikel/')) {
             const id = path.split('/')[2];
             View = { render: () => ArticleDetailView.render(id) };
-            isDynamic = true;
+          } else if (path === '/cari') {
+            View = { render: () => SearchView.render(searchQuery || '') };
           } else {
             View = NotFoundView;
           }
@@ -521,6 +691,7 @@
           window.scrollTo({ top: 0, behavior: 'instant' });
           this.updateActiveNav(path);
           this.observeReveals();
+          this.attachFilterHandlers();
         } catch (err) {
           console.error(err);
           app.innerHTML = `
@@ -557,6 +728,35 @@
           });
         }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+      },
+
+      attachFilterHandlers() {
+        const chips = document.querySelectorAll('.filter-chip');
+        if (!chips.length) return;
+        chips.forEach(chip => {
+          chip.addEventListener('click', () => {
+            const cat = chip.dataset.filter;
+            chips.forEach(c => c.classList.remove('active'));
+            chip.classList.add('active');
+
+            const articles = window._currentArticles || [];
+            const filtered = cat === 'all' ? articles : articles.filter(a => a.kategori === cat);
+            const grid = document.getElementById('articlesGrid');
+            if (grid) {
+              grid.innerHTML = ArticleGridComponent(filtered);
+              // Animate
+              grid.querySelectorAll('article').forEach((el, i) => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                  el.style.transition = 'all .4s cubic-bezier(.16,1,.3,1)';
+                  el.style.opacity = '1';
+                  el.style.transform = 'translateY(0)';
+                }, i * 50);
+              });
+            }
+          });
+        });
       }
     };
 
@@ -565,6 +765,8 @@
        ============================================================ */
     document.addEventListener('DOMContentLoaded', () => {
       initTheme();
+      initSearch();
+      initBackToTop();
       Router.navigate(window.location.pathname);
 
       document.addEventListener('click', (e) => {
@@ -578,6 +780,7 @@
           Router.navigate(href);
         }
         closeMobileMenu();
+        closeSearch();
       });
 
       window.addEventListener('popstate', () => Router.navigate(window.location.pathname));
@@ -600,6 +803,48 @@
         localStorage.setItem('theme', nowDark ? 'dark' : 'light');
         document.getElementById('themeIcon').textContent = nowDark ? '☀️' : '🌙';
       });
+    }
+
+    function initSearch() {
+      const toggle = document.getElementById('searchToggle');
+      const bar = document.getElementById('searchBar');
+      const input = document.getElementById('searchInput');
+      const close = document.getElementById('searchClose');
+
+      toggle.addEventListener('click', () => {
+        bar.classList.toggle('hidden');
+        if (!bar.classList.contains('hidden')) setTimeout(() => input.focus(), 100);
+      });
+
+      close.addEventListener('click', () => {
+        bar.classList.add('hidden');
+        input.value = '';
+      });
+
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          const q = input.value.trim();
+          if (q) {
+            history.pushState(null, '', `/cari?q=${encodeURIComponent(q)}`);
+            Router.navigate('/cari');
+            closeSearch();
+          }
+        }
+        if (e.key === 'Escape') closeSearch();
+      });
+    }
+
+    function closeSearch() {
+      document.getElementById('searchBar').classList.add('hidden');
+    }
+
+    function initBackToTop() {
+      const btn = document.getElementById('backToTop');
+      window.addEventListener('scroll', () => {
+        btn.classList.toggle('show', window.scrollY > 400);
+      });
+      btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
     }
 
     function closeMobileMenu() {
