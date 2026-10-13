@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Panel — Jelajah Indonesia</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#16a34a" />
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔐</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            heading: ['"Playfair Display"', 'Georgia', 'serif'],
+            body: ['Poppins', 'system-ui', 'sans-serif'],
+          },
+          colors: {
+            green: { 50:'#f0fdf4',100:'#dcfce7',200:'#bbf7d0',300:'#86efac',400:'#4ade80',500:'#22c55e',600:'#16a34a',700:'#15803d',800:'#166534',900:'#14532d' },
+            red: { 50:'#fef2f2',100:'#fee2e2',200:'#fecaca',300:'#fca5a5',400:'#f87171',500:'#ef4444',600:'#dc2626',700:'#b91c1c',800:'#991b1b',900:'#7f1d1d' },
+            gold: { 400:'#fbbf24',500:'#f59e0b',600:'#d97706' },
+            warm: { 50:'#fefdfb',100:'#f7f5f2',200:'#ebe7e1',300:'#d6d0c7',400:'#a8a29e',500:'#78716c',600:'#57534e',700:'#44403c',800:'#292524',900:'#1c1917' }
+          },
+          boxShadow: {
+            'glow-green': '0 10px 30px rgba(22, 163, 74, 0.35)',
+            'glow-red': '0 10px 30px rgba(220, 38, 38, 0.35)',
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body { font-family: 'Poppins', system-ui, sans-serif; }
+    h1, h2, h3, h4 { font-family: 'Playfair Display', Georgia, serif; }
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-track { background: #f7f5f2; }
+    ::-webkit-scrollbar-thumb { background: #16a34a; border-radius: 5px; }
+    .dark ::-webkit-scrollbar-track { background: #1c1917; }
+    .dark ::-webkit-scrollbar-thumb { background: #22c55e; }
+    a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+      outline: 3px solid #22c55e; outline-offset: 3px; border-radius: 4px;
+    }
+    .prose p { margin-bottom: 1.25rem; }
+    .prose h2, .prose h3 { margin-top: 2rem; margin-bottom: 1rem; font-weight: 700; }
+    .prose ul, .prose ol { margin-left: 1.5rem; margin-bottom: 1.25rem; }
+    .prose li { margin-bottom: .5rem; }
+    .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  </style>
+</head>
+
+<body class="bg-warm-50 dark:bg-warm-900 text-warm-700 dark:text-warm-200 transition-colors duration-300 min-h-screen flex flex-col">
+
+  <!-- Navbar Minimalis -->
+  <nav class="sticky top-0 z-50 py-3 bg-white/95 dark:bg-warm-900/95 backdrop-blur-xl border-b border-warm-200/60 dark:border-warm-800/60">
+    <div class="max-w-7xl mx-auto px-6 flex items-center justify-between gap-4">
+      <!-- Logo -->
+      <a href="admin.html" class="flex items-center gap-2.5 whitespace-nowrap">
+        <span class="w-9 h-9 flex items-center justify-center bg-gradient-to-br from-green-500 to-green-700 rounded-lg text-white text-base shadow-glow-green">🔐</span>
+        <div class="flex flex-col leading-tight">
+          <span class="font-heading text-base md:text-lg font-extrabold text-green-700 dark:text-green-400">Jelajah<span class="text-red-600 dark:text-red-500">Indonesia</span></span>
+          <span class="text-[10px] uppercase tracking-widest text-warm-400 font-medium">Admin Panel</span>
+        </div>
+      </a>
+
+      <!-- Action buttons -->
+      <div class="flex items-center gap-2 md:gap-3">
+        <!-- Kunjungi Website -->
+        <a href="/" target="_blank" rel="noopener"
+           class="hidden sm:inline-flex items-center gap-2 px-4 py-2 bg-warm-100 dark:bg-warm-800 hover:bg-green-100 dark:hover:bg-green-900/30 text-warm-700 dark:text-warm-200 hover:text-green-700 dark:hover:text-green-400 text-xs md:text-sm font-semibold rounded-full transition-all">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+            <polyline points="15 3 21 3 21 9"/>
+            <line x1="10" y1="14" x2="21" y2="3"/>
+          </svg>
+          <span class="hidden md:inline">Kunjungi Website</span>
+          <span class="md:hidden">Website</span>
+        </a>
+
+        <!-- Dark mode toggle -->
+        <button id="themeToggle" aria-label="Ganti tema" class="w-9 h-9 flex items-center justify-center rounded-full bg-warm-100 dark:bg-warm-800 hover:bg-warm-200 dark:hover:bg-warm-700 transition-colors text-base">
+          <span id="themeIcon">🌙</span>
+        </button>
+
+        <!-- User info + Logout (hanya tampil kalau login) -->
+        <div id="userSection" class="hidden items-center gap-2">
+          <div class="hidden md:flex flex-col items-end leading-tight mr-1">
+            <span id="userName" class="text-xs font-semibold text-warm-700 dark:text-warm-200">-</span>
+            <span id="userRole" class="text-[10px] uppercase tracking-wider text-warm-400 font-medium">-</span>
+          </div>
+          <button id="logoutBtn" class="inline-flex items-center gap-1.5 px-3 py-2 bg-warm-100 dark:bg-warm-800 hover:bg-red-500 hover:text-white text-warm-700 dark:text-warm-200 text-xs font-semibold rounded-full transition-all">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+              <polyline points="16 17 21 12 16 7"/>
+              <line x1="21" y1="12" x2="9" y2="12"/>
+            </svg>
+            <span class="hidden sm:inline">Logout</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main -->
+  <main id="app" class="flex-1"></main>
+
+  <!-- Modal Form -->
+  <div id="postModal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-white dark:bg-warm-800 rounded-2xl shadow-2xl max-w-3xl w-full my-8 border border-warm-200 dark:border-warm-700">
+      <div class="flex items-center justify-between p-6 border-b border-warm-200 dark:border-warm-700">
+        <h2 id="modalTitle" class="font-heading text-2xl font-bold">Tambah Artikel</h2>
+        <button id="modalClose" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-warm-100 dark:hover:bg-warm-700 transition-colors text-xl">×</button>
+      </div>
+      <form id="postForm" class="p-6 space-y-4 max-h-[70vh] overflow-y-auto">
+        <input type="hidden" id="postId" />
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium mb-2">Judul *</label>
+            <input type="text" id="postJudul" required class="w-full px-4 py-2.5 bg-warm-50 dark:bg-warm-900 border border-warm-200 dark:border-warm-700 rounded-xl outline-none focus:border-green-500" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-2">Penulis *</label>
+            <input type="text" id="postPenulis" required class="w-full px-4 py-2.5 bg-warm-50 dark:bg-warm-900 border border-warm-200 dark:border-warm-700 rounded-xl outline-none focus:border-green-500" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-2">Tipe *</label>
+            <select id="postTipe" required class="w-full px-4 py-2.5 bg-warm-50 dark:bg-warm-900 border border-warm-200 dark:border-warm-700 rounded-xl outline-none focus:border-green-500">
+              <option value="cerita">Cerita Perjalanan</option>
+              <option value="gaya-hidup">Gaya Hidup</option>
+              <option value="akomodasi">Akomodasi</option>
+              <option value="newsedu">Newsedu</option>
+              <option value="event">Event</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-2">Kategori *</label>
+            <input type="text" id="postKategori" required placeholder="cth: Gunung, Kuliner" class="w-full px-4 py-2.5 bg-warm-50 dark:bg-warm-900 border border-warm-200 dark:border-warm-700 rounded-xl outline-none focus:border-green-500" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-2">Tanggal *</label>
+            <input type="date" id="postTanggal" required class="w-full px-4 py-2.5 bg-warm-50 dark:bg-warm-900 border border-warm-200 dark:border-warm-700 rounded-xl outline-none focus:border-green-500" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-2">Status *</label>
+            <select id="postStatus" required class="w-full px-4 py-2.5 bg-warm-50 dark:bg-warm-900 border border-warm-200 dark:border-warm-700 rounded-xl outline-none focus:border-green-500">
+              <option value="draft">Draft</option>
+              <option value="published">Published</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-2">URL Gambar *</label>
+          <input type="url" id="postGambar" required placeholder="https://..." class="w-full px-4 py-2.5 bg-warm-50 dark:bg-warm-900 border border-warm-200 dark:border-warm-700 rounded-xl outline-none focus:border-green-500" />
+          <p class="text-xs text-warm-400 mt-1">Gunakan URL dari Unsplash, Pexels, atau hosting gambar lain</p>
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-2">Ringkasan *</label>
+          <textarea id="postRingkasan" required rows="2" class="w-full px-4 py-2.5 bg-warm-50 dark:bg-warm-900 border border-warm-200 dark:border-warm-700 rounded-xl outline-none focus:border-green-500 resize-none"></textarea>
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-2">Isi Artikel *</label>
+          <textarea id="postIsi" required rows="10" placeholder="Bisa menggunakan tag HTML seperti <p>, <h2>, <strong>, dll." class="w-full px-4 py-2.5 bg-warm-50 dark:bg-warm-900 border border-warm-200 dark:border-warm-700 rounded-xl outline-none focus:border-green-500 resize-none font-mono text-sm"></textarea>
+          <p class="text-xs text-warm-400 mt-1">Gunakan tag HTML untuk formatting</p>
+        </div>
+        <div id="formError" class="hidden p-3 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 text-sm rounded-xl"></div>
+        <div class="flex gap-3 justify-end pt-4 border-t border-warm-200 dark:border-warm-700">
+          <button type="button" id="previewBtn" class="px-5 py-2.5 bg-warm-100 dark:bg-warm-700 text-warm-700 dark:text-warm-200 text-sm font-semibold rounded-xl hover:bg-warm-200 dark:hover:bg-warm-600 transition-all">👁 Preview</button>
+          <button type="submit" id="saveBtn" class="px-6 py-2.5 bg-gradient-to-br from-green-600 to-green-700 text-white text-sm font-semibold rounded-xl shadow-glow-green hover:-translate-y-0.5 transition-all disabled:opacity-50">Simpan</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Preview -->
+  <div id="previewModal" class="hidden fixed inset-0 z-[60] bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-white dark:bg-warm-800 rounded-2xl shadow-2xl max-w-3xl w-full my-8 border border-warm-200 dark:border-warm-700 max-h-[90vh] overflow-y-auto">
+      <div class="sticky top-0 flex items-center justify-between p-4 border-b border-warm-200 dark:border-warm-700 bg-white dark:bg-warm-800 z-10">
+        <h2 class="font-heading text-xl font-bold">👁 Preview Artikel</h2>
+        <button id="previewClose" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-warm-100 dark:hover:bg-warm-700 transition-colors text-xl">×</button>
+      </div>
+      <div id="previewContent" class="p-6"></div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-[70] px-6 py-3 rounded-full text-white font-medium shadow-lg"></div>
+
+  <script>
+    /* ============================================================
+       KONFIGURASI API
+       ============================================================ */
+    const API_URL = 'https://jelajah-api.akabonanza-official.workers.dev';
+
+    const api = {
+      getToken() { return localStorage.getItem('admin_token'); },
+      setToken(t) { localStorage.setItem('admin_token', t); },
+      clearToken() { localStorage.removeItem('admin_token'); localStorage.removeItem('admin_user'); },
+      getUser() { try { return JSON.parse(localStorage.getItem('admin_user') || 'null'); } catch { return null; } },
+      setUser(u) { localStorage.setItem('admin_user', JSON.stringify(u)); },
+
+      async request(path, options = {}) {
+        const headers = { 'Content-Type': 'application/json', ...(options.headers || {}) };
+        const token = this.getToken();
+        if (token) headers['Authorization'] = `Bearer ${token}`;
+        const res = await fetch(`${API_URL}${path}`, { ...options, headers });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Request failed');
+        return data;
+      },
+      async login(username, password) {
+        const res = await fetch(`${API_URL}/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password }),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Login gagal');
+        return data;
+      },
+      getPosts() { return this.request('/posts'); },
+      createPost(post) { return this.request('/posts', { method: 'POST', body: JSON.stringify({ post }) }); },
+      updatePost(id, post) { return this.request(`/posts/${id}`, { method: 'PUT', body: JSON.stringify({ post }) }); },
+      deletePost(id) { return this.request(`/posts/${id}`, { method: 'DELETE' }); },
+      getMe() { return this.request('/me'); },
+    };
+
+    /* ============================================================
+       HELPERS
+       ============================================================ */
+    const formatDate = (iso) => {
+      if (!iso) return '-';
+      const bulan = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Ags','Sep','Okt','Nov','Des'];
+      const d = new Date(iso);
+      return `${d.getDate()} ${bulan[d.getMonth()]} ${d.getFullYear()}`;
+    };
+
+    const escapeHtml = (str = '') => String(str)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+
+    /* ============================================================
+       INIT THEME
+       ============================================================ */
+    function initTheme() {
+      const saved = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const isDark = saved ? saved === 'dark' : prefersDark;
+      document.documentElement.classList.toggle('dark', isDark);
+      document.getElementById('themeIcon').textContent = isDark ? '☀️' : '🌙';
+      document.getElementById('themeToggle').addEventListener('click', () => {
+        const nowDark = !document.documentElement.classList.contains('dark');
+        document.documentElement.classList.toggle('dark', nowDark);
+        localStorage.setItem('theme', nowDark ? 'dark' : 'light');
+        document.getElementById('themeIcon').textContent = nowDark ? '☀️' : '🌙';
+      });
+    }
+
+    /* ============================================================
+       TOAST
+       ============================================================ */
+    function showToast(message, type = 'success') {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.className = `fixed bottom-6 left-1/2 -translate-x-1/2 z-[70] px-6 py-3 rounded-full text-white font-medium shadow-lg ${type === 'success' ? 'bg-green-600' : 'bg-red-600'}`;
+      toast.classList.remove('hidden');
+      setTimeout(() => toast.classList.add('hidden'), 3000);
+    }
+
+    /* ============================================================
+       APP
+       ============================================================ */
+    const app = document.getElementById('app');
+    const userSection = document.getElementById('userSection');
+
+    let allPosts = [];
+    let filteredPosts = [];
+
+    // ============ LOGIN VIEW ============
+    function renderLogin() {
+      userSection.classList.add('hidden');
+      userSection.classList.remove('flex');
+      document.title = 'Login — Admin Jelajah Indonesia';
+      app.innerHTML = `
+        <section class="min-h-[80vh] flex items-center justify-center px-6 py-20">
+          <div class="w-full max-w-md">
+            <div class="text-center mb-8">
+              <div class="w-16 h-16 mx-auto flex items-center justify-center bg-gradient-to-br from-green-500 to-green-700 rounded-2xl text-white text-3xl shadow-glow-green mb-4">🔐</div>
+              <h1 class="font-heading text-3xl font-extrabold mb-2">Admin Panel</h1>
+              <p class="text-warm-500 dark:text-warm-400 font-light text-sm">Masuk untuk mengelola konten Jelajah Indonesia</p>
+            </div>
+            <form id="loginForm" class="bg-white dark:bg-warm-800 rounded-2xl shadow-lg p-8 border border-warm-200 dark:border-warm-700">
+              <div class="mb-5">
+                <label class="block text-sm font-medium mb-2">Username</label>
+                <input type="text" id="loginUsername" required autocomplete="username" class="w-full px-4 py-3 bg-warm-50 dark:bg-warm-900 border border-warm-200 dark:border-warm-700 rounded-xl outline-none focus:border-green-500 transition-colors" />
+              </div>
+              <div class="mb-6">
+                <label class="block text-sm font-medium mb-2">Password</label>
+                <input type="password" id="loginPassword" required autocomplete="current-password" class="w-full px-4 py-3 bg-warm-50 dark:bg-warm-900 border border-warm-200 dark:border-warm-700 rounded-xl outline-none focus:border-green-500 transition-colors" />
+              </div>
+              <div id="loginError" class="hidden mb-4 p-3 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 text-sm rounded-xl"></div>
+              <button type="submit" id="loginBtn" class="w-full py-3.5 bg-gradient-to-br from-green-600 to-green-700 text-white font-semibold rounded-xl shadow-glow-green hover:-translate-y-0.5 transition-all disabled:opacity-50 disabled:cursor-not-allowed">Masuk</button>
+            </form>
+            <p class="text-center text-xs text-warm-400 mt-6">
+              <a href="/" target="_blank" class="hover:text-green-600 transition-colors">← Kunjungi Website</a>
+            </p>
+          </div>
+        </section>
+      `;
+      attachLoginHandlers();
+    }
+
+    function attachLoginHandlers() {
+      const form = document.getElementById('loginForm');
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const username = document.getElementById('loginUsername').value.trim();
+        const password = document.getElementById('loginPassword').value;
+        const btn = document.getElementById('loginBtn');
+        const err = document.getElementById('loginError');
+        btn.disabled = true;
+        btn.textContent = 'Memproses...';
+        err.classList.add('hidden');
+        try {
+          const res = await api.login(username, password);
+          api.setToken(res.token);
+          api.setUser(res.user);
+          renderDashboard();
+        } catch (e) {
+          err.textContent = e.message;
+          err.classList.remove('hidden');
+          btn.disabled = false;
+          btn.textContent = 'Masuk';
+        }
+      });
+    }
+
+    // ============ DASHBOARD VIEW ============
+    function renderDashboard() {
+      const user = api.getUser();
+      if (!user) return renderLogin();
+
+      // Tampilkan user info + logout
+      userSection.classList.remove('hidden');
+      userSection.classList.add('flex');
+      document.getElementById('userName').textContent = user.name || user.username;
+      document.getElementById('userRole').textContent = user.role || 'admin';
+
+      document.title = 'Dashboard — Admin Jelajah Indonesia';
+
+      app.innerHTML = `
+        <section class="py-8 px-6">
+          <div class="max-w-7xl mx-auto">
+            <!-- Header -->
+            <div class="flex items-center justify-between mb-8 flex-wrap gap-4">
+              <div>
+                <h1 class="font-heading text-3xl font-extrabold mb-1">Dashboard Admin</h1>
+                <p class="text-sm text-warm-500 dark:text-warm-400 font-light">Kelola semua artikel Jelajah Indonesia</p>
+              </div>
+              <button id="addPostBtn" class="px-5 py-2.5 bg-gradient-to-br from-green-600 to-green-700 text-white text-sm font-semibold rounded-full shadow-glow-green hover:-translate-y-0.5 transition-all">
+                + Tambah Artikel
+              </button>
+            </div>
+
+            <!-- Stats -->
+            <div id="adminStats" class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8"></div>
+
+            <!-- Filters -->
+            <div class="bg-white dark:bg-warm-800 rounded-2xl p-4 mb-6 border border-warm-200 dark:border-warm-700 flex flex-wrap gap-3 items-center">
+              <input type="text" id="adminSearch" placeholder="Cari artikel..." class="flex-1 min-w-[200px] px-4 py-2.5 bg-warm-50 dark:bg-warm-900 border border-warm-200 dark:border-warm-700 rounded-xl text-sm outline-none focus:border-green-500" />
+              <select id="adminFilterStatus" class="px-4 py-2.5 bg-warm-50 dark:bg-warm-900 border border-warm-200 dark:border-warm-700 rounded-xl text-sm outline-none focus:border-green-500">
+                <option value="all">Semua Status</option>
+                <option value="published">Published</option>
+                <option value="draft">Draft</option>
+              </select>
+              <select id="adminFilterTipe" class="px-4 py-2.5 bg-warm-50 dark:bg-warm-900 border border-warm-200 dark:border-warm-700 rounded-xl text-sm outline-none focus:border-green-500">
+                <option value="all">Semua Tipe</option>
+                <option value="cerita">Cerita</option>
+                <option value="gaya-hidup">Gaya Hidup</option>
+                <option value="akomodasi">Akomodasi</option>
+                <option value="newsedu">Newsedu</option>
+                <option value="event">Event</option>
+              </select>
+              <button id="refreshBtn" class="px-4 py-2.5 bg-warm-100 dark:bg-warm-700 hover:bg-green-100 dark:hover:bg-green-900/30 text-warm-700 dark:text-warm-200 hover:text-green-700 dark:hover:text-green-400 text-sm font-semibold rounded-xl transition-all" title="Refresh data">🔄</button>
+            </div>
+
+            <!-- Table -->
+            <div id="adminTable" class="bg-white dark:bg-warm-800 rounded-2xl border border-warm-200 dark:border-warm-700 overflow-hidden">
+              <div class="p-8 text-center text-warm-400">
+                <div class="w-12 h-12 mx-auto border-4 border-green-500 border-t-transparent rounded-full animate-spin"></div>
+                <p class="mt-3 text-sm">Memuat data...</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      `;
+
+      attachDashboardHandlers();
+      loadPosts();
+    }
+
+    function attachDashboardHandlers() {
+      // Logout
+      document.getElementById('logoutBtn').addEventListener('click', () => {
+        if (confirm('Logout dari admin panel?')) {
+          api.clearToken();
+          renderLogin();
+        }
+      });
+
+      // Add post
+      document.getElementById('addPostBtn').addEventListener('click', openAddModal);
+
+      // Refresh
+      document.getElementById('refreshBtn').addEventListener('click', () => {
+        loadPosts();
+        showToast('Data di-refresh', 'success');
+      });
+
+      // Filters
+      document.getElementById('adminSearch').addEventListener('input', applyFilters);
+      document.getElementById('adminFilterStatus').addEventListener('change', applyFilters);
+      document.getElementById('adminFilterTipe').addEventListener('change', applyFilters);
+
+      // Modal close
+      document.getElementById('modalClose').addEventListener('click', closeModal);
+      document.getElementById('previewClose').addEventListener('click', () => {
+        document.getElementById('previewModal').classList.add('hidden');
+      });
+
+      // Modal backdrop click
+      const modal = document.getElementById('postModal');
+      const previewModal = document.getElementById('previewModal');
+      modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+      previewModal.addEventListener('click', (e) => { if (e.target === previewModal) previewModal.classList.add('hidden'); });
+
+      // Form submit
+      document.getElementById('postForm').addEventListener('submit', handleFormSubmit);
+      document.getElementById('previewBtn').addEventListener('click', handlePreview);
+
+      // ESC to close
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          modal.classList.add('hidden');
+          previewModal.classList.add('hidden');
+        }
+      });
+    }
+
+    // ============ LOAD POSTS ============
+    async function loadPosts() {
+      const table = document.getElementById('adminTable');
+      if (!table) return;
+      try {
+        const res = await api.getPosts();
+        allPosts = res.posts || [];
+        applyFilters();
+        renderStats();
+      } catch (e) {
+        table.innerHTML = `<div class="p-8 text-center text-red-500">Error: ${escapeHtml(e.message)}</div>`;
+        if (e.message.toLowerCase().includes('unauthorized')) {
+          api.clearToken();
+          setTimeout(() => renderLogin(), 1500);
+        }
+      }
+    }
+
+    function renderStats() {
+      const statsEl = document.getElementById('adminStats');
+      if (!statsEl) return;
+      const total = allPosts.length;
+      const published = allPosts.filter(p => p.status === 'published').length;
+      const draft = allPosts.filter(p => p.status === 'draft').length;
+      const kategori = new Set(allPosts.map(p => p.kategori)).size;
+      statsEl.innerHTML = `
+        <div class="bg-white dark:bg-warm-800 rounded-xl p-4 border border-warm-200 dark:border-warm-700">
+          <div class="text-xs text-warm-500 uppercase tracking-wider mb-1">Total Artikel</div>
+          <div class="font-heading text-2xl font-extrabold text-green-700 dark:text-green-400">${total}</div>
+        </div>
+        <div class="bg-white dark:bg-warm-800 rounded-xl p-4 border border-warm-200 dark:border-warm-700">
+          <div class="text-xs text-warm-500 uppercase tracking-wider mb-1">Published</div>
+          <div class="font-heading text-2xl font-extrabold text-green-600">${published}</div>
+        </div>
+        <div class="bg-white dark:bg-warm-800 rounded-xl p-4 border border-warm-200 dark:border-warm-700">
+          <div class="text-xs text-warm-500 uppercase tracking-wider mb-1">Draft</div>
+          <div class="font-heading text-2xl font-extrabold text-gold-500">${draft}</div>
+        </div>
+        <div class="bg-white dark:bg-warm-800 rounded-xl p-4 border border-warm-200 dark:border-warm-700">
+          <div class="text-xs text-warm-500 uppercase tracking-wider mb-1">Kategori</div>
+          <div class="font-heading text-2xl font-extrabold text-red-600">${kategori}</div>
+        </div>
+      `;
+    }
+
+    function applyFilters() {
+      const searchInput = document.getElementById('adminSearch');
+      const filterStatus = document.getElementById('adminFilterStatus');
+      const filterTipe = document.getElementById('adminFilterTipe');
+      if (!searchInput) return;
+
+      const q = searchInput.value.toLowerCase().trim();
+      const status = filterStatus.value;
+      const tipe = filterTipe.value;
+
+      filteredPosts = allPosts.filter(p => {
+        if (status !== 'all' && p.status !== status) return false;
+        if (tipe !== 'all' && p.tipe !== tipe) return false;
+        if (q && !p.judul.toLowerCase().includes(q) && !p.penulis.toLowerCase().includes(q) && !p.kategori.toLowerCase().includes(q)) return false;
+        return true;
+      });
+      renderTable();
+    }
+
+    function renderTable() {
+      const table = document.getElementById('adminTable');
+      if (!table) return;
+
+      if (filteredPosts.length === 0) {
+        table.innerHTML = `<div class="p-12 text-center text-warm-400"><div class="text-5xl mb-3">📭</div><p>Tidak ada artikel yang cocok.</p></div>`;
+        return;
+      }
+
+      table.innerHTML = `
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead class="bg-warm-100 dark:bg-warm-900 text-warm-600 dark:text-warm-300">
+              <tr>
+                <th class="text-left p-4 font-semibold">Judul</th>
+                <th class="text-left p-4 font-semibold hidden md:table-cell">Tipe</th>
+                <th class="text-left p-4 font-semibold hidden lg:table-cell">Kategori</th>
+                <th class="text-left p-4 font-semibold hidden lg:table-cell">Penulis</th>
+                <th class="text-left p-4 font-semibold">Status</th>
+                <th class="text-right p-4 font-semibold">Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${filteredPosts.map(p => `
+                <tr class="border-t border-warm-200 dark:border-warm-700 hover:bg-warm-50 dark:hover:bg-warm-900/50">
+                  <td class="p-4">
+                    <div class="font-medium line-clamp-2 max-w-md">${escapeHtml(p.judul)}</div>
+                    <div class="text-xs text-warm-400 mt-1">${formatDate(p.tanggal)}</div>
+                  </td>
+                  <td class="p-4 hidden md:table-cell">
+                    <span class="px-2 py-1 bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-400 text-xs rounded-full">${escapeHtml(p.tipe)}</span>
+                  </td>
+                  <td class="p-4 hidden lg:table-cell text-warm-500">${escapeHtml(p.kategori)}</td>
+                  <td class="p-4 hidden lg:table-cell text-warm-500">${escapeHtml(p.penulis)}</td>
+                  <td class="p-4">
+                    ${p.status === 'published'
+                      ? '<span class="px-2 py-1 bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-400 text-xs font-semibold rounded-full">✓ Published</span>'
+                      : '<span class="px-2 py-1 bg-gold-400/20 text-gold-600 dark:text-gold-400 text-xs font-semibold rounded-full">◐ Draft</span>'}
+                  </td>
+                  <td class="p-4 text-right">
+                    <div class="flex gap-1 justify-end">
+                      <button data-action="view" data-id="${p.id}" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-warm-200 dark:hover:bg-warm-700 text-warm-600 dark:text-warm-300 transition-colors" title="Lihat di website">🔗</button>
+                      <button data-action="edit" data-id="${p.id}" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-green-100 dark:hover:bg-green-900/30 text-green-700 dark:text-green-400 transition-colors" title="Edit">✏️</button>
+                      <button data-action="delete" data-id="${p.id}" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-red-100 dark:hover:bg-red-900/30 text-red-600 dark:text-red-400 transition-colors" title="Hapus">🗑️</button>
+                    </div>
+                  </td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      `;
+
+      table.querySelectorAll('[data-action]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = btn.dataset.id;
+          const action = btn.dataset.action;
+          if (action === 'edit') openEditModal(id);
+          else if (action === 'delete') confirmDelete(id);
+          else if (action === 'view') {
+            window.open(`/artikel/${id}`, '_blank');
+          }
+        });
+      });
+    }
+
+    // ============ MODAL ============
+    function openAddModal() {
+      document.getElementById('modalTitle').textContent = 'Tambah Artikel Baru';
+      document.getElementById('postForm').reset();
+      document.getElementById('postId').value = '';
+      document.getElementById('postTanggal').value = new Date().toISOString().split('T')[0];
+      document.getElementById('postStatus').value = 'draft';
+      document.getElementById('formError').classList.add('hidden');
+      document.getElementById('postModal').classList.remove('hidden');
+    }
+
+    function openEditModal(id) {
+      const post = allPosts.find(p => p.id === id);
+      if (!post) return;
+      document.getElementById('modalTitle').textContent = 'Edit Artikel';
+      document.getElementById('postId').value = post.id;
+      document.getElementById('postJudul').value = post.judul;
+      document.getElementById('postPenulis').value = post.penulis;
+      document.getElementById('postTipe').value = post.tipe;
+      document.getElementById('postKategori').value = post.kategori;
+      document.getElementById('postTanggal').value = post.tanggal;
+      document.getElementById('postStatus').value = post.status || 'draft';
+      document.getElementById('postGambar').value = post.gambar;
+      document.getElementById('postRingkasan').value = post.ringkasan;
+      document.getElementById('postIsi').value = post.isi;
+      document.getElementById('formError').classList.add('hidden');
+      document.getElementById('postModal').classList.remove('hidden');
+    }
+
+    function closeModal() {
+      document.getElementById('postModal').classList.add('hidden');
+    }
+
+    function getFormData() {
+      return {
+        judul: document.getElementById('postJudul').value.trim(),
+        penulis: document.getElementById('postPenulis').value.trim(),
+        tipe: document.getElementById('postTipe').value,
+        kategori: document.getElementById('postKategori').value.trim(),
+        tanggal: document.getElementById('postTanggal').value,
+        status: document.getElementById('postStatus').value,
+        gambar: document.getElementById('postGambar').value.trim(),
+        ringkasan: document.getElementById('postRingkasan').value.trim(),
+        isi: document.getElementById('postIsi').value.trim(),
+      };
+    }
+
+    async function handleFormSubmit(e) {
+      e.preventDefault();
+      const id = document.getElementById('postId').value;
+      const data = getFormData();
+      const btn = document.getElementById('saveBtn');
+      const err = document.getElementById('formError');
+
+      btn.disabled = true;
+      btn.textContent = 'Menyimpan...';
+      err.classList.add('hidden');
+
+      try {
+        if (id) {
+          await api.updatePost(id, { ...data, updatedAt: new Date().toISOString() });
+          showToast('Artikel berhasil diupdate', 'success');
+        } else {
+          await api.createPost({ ...data, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() });
+          showToast('Artikel berhasil ditambahkan', 'success');
+        }
+        closeModal();
+        await loadPosts();
+      } catch (e) {
+        err.textContent = e.message;
+        err.classList.remove('hidden');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Simpan';
+      }
+    }
+
+    function handlePreview() {
+      const data = getFormData();
+      const previewContent = document.getElementById('previewContent');
+      previewContent.innerHTML = `
+        <span class="inline-block px-3 py-1 bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-400 text-xs font-semibold rounded-full mb-4 border-l-4 border-red-500">${escapeHtml(data.kategori)}</span>
+        <h1 class="font-heading text-3xl md:text-4xl font-extrabold mb-3">${escapeHtml(data.judul)}</h1>
+        <div class="flex items-center gap-3 text-sm text-warm-400 mb-6 flex-wrap">
+          <span>${formatDate(data.tanggal)}</span>
+          <span class="w-1 h-1 rounded-full bg-warm-300"></span>
+          <span>${escapeHtml(data.penulis)}</span>
+          <span class="px-2 py-0.5 rounded-full text-xs font-semibold ${data.status === 'published' ? 'bg-green-100 text-green-700' : 'bg-gold-400/20 text-gold-600'}">${data.status === 'published' ? '✓ Published' : '◐ Draft'}</span>
+        </div>
+        ${data.gambar ? `<img src="${escapeHtml(data.gambar)}" class="w-full h-64 object-cover rounded-xl mb-6" onerror="this.style.display='none'" />` : ''}
+        <p class="text-warm-500 italic mb-6">${escapeHtml(data.ringkasan)}</p>
+        <div class="prose prose-lg dark:prose-invert max-w-none font-light leading-relaxed">${data.isi}</div>
+      `;
+      document.getElementById('previewModal').classList.remove('hidden');
+    }
+
+    async function confirmDelete(id) {
+      const post = allPosts.find(p => p.id === id);
+      if (!post) return;
+      if (!confirm(`Hapus artikel "${post.judul}"?\n\nTindakan ini tidak bisa dibatalkan.`)) return;
+      try {
+        await api.deletePost(id);
+        showToast('Artikel berhasil dihapus', 'success');
+        await loadPosts();
+      } catch (e) {
+        showToast('Gagal hapus: ' + e.message, 'error');
+      }
+    }
+
+    /* ============================================================
+       INIT
+       ============================================================ */
+    document.addEventListener('DOMContentLoaded', () => {
+      initTheme();
+
+      // Cek login
+      const token = api.getToken();
+      const user = api.getUser();
+
+      if (token && user) {
+        // Optional: verifikasi token masih valid
+        renderDashboard();
+      } else {
+        renderLogin();
+      }
+    });
+  </script>
+</body>
+</html>
