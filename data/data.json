@@ -8,7 +8,10 @@
     "tanggal": "2026-10-12",
     "gambar": "https://images.pexels.com/photos/2166553/pexels-photo-2166553.jpeg?auto=compress&cs=tinysrgb&w=1200",
     "ringkasan": "Pendakian tengah malam menuju puncak untuk menyaksikan matahari terbit di atas Danau Segara Anak.",
-    "isi": "<p>Perjalanan dimulai pukul 2 pagi dari Sembalun. Udara dingin menusuk tulang, tapi semangat para pendaki tetap membara.</p><p>Setelah 4 jam mendaki, kami tiba di puncak tepat saat fajar menyingsing. Pemandangan Danau Segara Anak dari ketinggian 3.726 mdpl sungguh memukau — seperti permata biru yang tersembunyi di antara awan.</p><p>Momen ini mengingatkan kami betapa kaya dan indahnya Indonesia.</p>"
+    "isi": "<p>Perjalanan dimulai pukul 2 pagi dari Sembalun. Udara dingin menusuk tulang, tapi semangat para pendaki tetap membara.</p><p>Setelah 4 jam mendaki, kami tiba di puncak tepat saat fajar menyingsing. Pemandangan Danau Segara Anak dari ketinggian 3.726 mdpl sungguh memukau — seperti permata biru yang tersembunyi di antara awan.</p><p>Momen ini mengingatkan kami betapa kaya dan indahnya Indonesia.</p>",
+    "status": "published",
+    "createdAt": "2026-10-12T08:00:00.000Z",
+    "updatedAt": "2026-10-12T08:00:00.000Z"
   },
   {
     "id": "post-1710000000002",
@@ -19,7 +22,10 @@
     "tanggal": "2026-10-10",
     "gambar": "https://images.pexels.com/photos/2474689/pexels-photo-2474689.jpeg?auto=compress&cs=tinysrgb&w=1200",
     "ringkasan": "Ketika kabut pagi menyelimuti pura di tepi danau — sebuah momen yang menenangkan jiwa.",
-    "isi": "<p>Pura Ulun Danu Beratan terletak di tepi Danau Beratan, Bedugul, Bali. Saat pagi hari, kabut tipis menyelimuti permukaan danau, menciptakan suasana magis.</p><p>Kami datang pukul 6 pagi, saat matahari baru muncul. Cahaya keemasan memantul di air danau, membuat pura yang mengambang terlihat seperti lukisan.</p>"
+    "isi": "<p>Pura Ulun Danu Beratan terletak di tepi Danau Beratan, Bedugul, Bali. Saat pagi hari, kabut tipis menyelimuti permukaan danau, menciptakan suasana magis.</p><p>Kami datang pukul 6 pagi, saat matahari baru muncul. Cahaya keemasan memantul di air danau, membuat pura yang mengambang terlihat seperti lukisan.</p>",
+    "status": "published",
+    "createdAt": "2026-10-10T08:00:00.000Z",
+    "updatedAt": "2026-10-10T08:00:00.000Z"
   },
   {
     "id": "post-1710000000003",
@@ -30,7 +36,10 @@
     "tanggal": "2026-10-08",
     "gambar": "https://images.pexels.com/photos/10093623/pexels-photo-10093623.jpeg?auto=compress&cs=tinysrgb&w=1200",
     "ringkasan": "Dari Rendang Padang hingga Papeda Maluku — petualangan rasa di sepanjang kepulauan.",
-    "isi": "<p>Indonesia memiliki lebih dari 5.000 resep masakan tradisional. Setiap daerah punya cita rasa khas yang mencerminkan budaya dan alamnya.</p><p>Di Sumatera Barat, Rendang bukan sekadar makanan — ia adalah simbol kehormatan. Di Maluku, Papeda disajikan dengan ikan kuah kuning yang segar.</p>"
+    "isi": "<p>Indonesia memiliki lebih dari 5.000 resep masakan tradisional. Setiap daerah punya cita rasa khas yang mencerminkan budaya dan alamnya.</p><p>Di Sumatera Barat, Rendang bukan sekadar makanan — ia adalah simbol kehormatan. Di Maluku, Papeda disajikan dengan ikan kuah kuning yang segar.</p>",
+    "status": "published",
+    "createdAt": "2026-10-08T08:00:00.000Z",
+    "updatedAt": "2026-10-08T08:00:00.000Z"
   },
   {
     "id": "post-1710000000004",
@@ -41,7 +50,10 @@
     "tanggal": "2026-10-06",
     "gambar": "https://images.pexels.com/photos/3757942/pexels-photo-3757942.jpeg?auto=compress&cs=tinysrgb&w=1200",
     "ringkasan": "Filosofi hidup lambat yang mengutamakan kualitas momen daripada sekadar jumlah aktivitas.",
-    "isi": "<p>Bali mengajarkan kami bahwa hidup tidak harus selalu terburu-buru. Di Ubud, pagi dimulai dengan yoga, dilanjutkan sarapan sehat, dan diakhiri dengan meditasi.</p><p>Slow living bukan berarti malas — ini tentang hadir sepenuhnya di setiap momen.</p>"
+    "isi": "<p>Bali mengajarkan kami bahwa hidup tidak harus selalu terburu-buru. Di Ubud, pagi dimulai dengan yoga, dilanjutkan sarapan sehat, dan diakhiri dengan meditasi.</p><p>Slow living bukan berarti malas — ini tentang hadir sepenuhnya di setiap momen.</p>",
+    "status": "published",
+    "createdAt": "2026-10-06T08:00:00.000Z",
+    "updatedAt": "2026-10-06T08:00:00.000Z"
   },
   {
     "id": "post-1710000000005",
@@ -52,7 +64,10 @@
     "tanggal": "2026-10-05",
     "gambar": "https://images.pexels.com/photos/14036444/pexels-photo-14036444.jpeg?auto=compress&cs=tinysrgb&w=1200",
     "ringkasan": "Arsitektur Bali modern berbalut sawah hijau dengan kolam renang menghadap lembah.",
-    "isi": "<p>Terletak di jantung Ubud, resor ini menawarkan pemandangan sawah terasering yang memukau. Setiap vila punya kolam renang privat yang menghadap langsung ke lembah hijau.</p><p>Harga mulai Rp 2.5 juta per malam — worth it untuk pengalaman sekali seumur hidup.</p>"
+    "isi": "<p>Terletak di jantung Ubud, resor ini menawarkan pemandangan sawah terasering yang memukau. Setiap vila punya kolam renang privat yang menghadap langsung ke lembah hijau.</p><p>Harga mulai Rp 2.5 juta per malam — worth it untuk pengalaman sekali seumur hidup.</p>",
+    "status": "published",
+    "createdAt": "2026-10-05T08:00:00.000Z",
+    "updatedAt": "2026-10-05T08:00:00.000Z"
   },
   {
     "id": "post-1710000000006",
@@ -63,7 +78,10 @@
     "tanggal": "2026-10-04",
     "gambar": "https://images.pexels.com/photos/9119782/pexels-photo-9119782.jpeg?auto=compress&cs=tinysrgb&w=1200",
     "ringkasan": "Suasana keraton modern dengan sentuhan batik dan kolam renang bercahaya malam.",
-    "isi": "<p>Hotel ini memadukan arsitektur Jawa klasik dengan kenyamanan modern. Setiap kamar didekorasi dengan batik asli Yogyakarta.</p><p>Kolam renangnya bercahaya biru saat malam — spot favorit untuk foto.</p>"
+    "isi": "<p>Hotel ini memadukan arsitektur Jawa klasik dengan kenyamanan modern. Setiap kamar didekorasi dengan batik asli Yogyakarta.</p><p>Kolam renangnya bercahaya biru saat malam — spot favorit untuk foto.</p>",
+    "status": "published",
+    "createdAt": "2026-10-04T08:00:00.000Z",
+    "updatedAt": "2026-10-04T08:00:00.000Z"
   },
   {
     "id": "post-1710000000007",
@@ -74,7 +92,10 @@
     "tanggal": "2026-10-03",
     "gambar": "https://images.pexels.com/photos/5357086/pexels-photo-5357086.jpeg?auto=compress&cs=tinysrgb&w=1200",
     "ringkasan": "Cara sederhana mencatat pengalaman untuk mengubah perjalanan menjadi cerita yang abadi.",
-    "isi": "<p>Menulis jurnal perjalanan bukan sekadar dokumentasi — ini adalah cara untuk memahami diri sendiri lebih dalam.</p><p>Mulailah dengan 3 pertanyaan sederhana setiap hari: Apa yang saya lihat? Apa yang saya rasakan? Apa yang saya pelajari?</p>"
+    "isi": "<p>Menulis jurnal perjalanan bukan sekadar dokumentasi — ini adalah cara untuk memahami diri sendiri lebih dalam.</p><p>Mulailah dengan 3 pertanyaan sederhana setiap hari: Apa yang saya lihat? Apa yang saya rasakan? Apa yang saya pelajari?</p>",
+    "status": "published",
+    "createdAt": "2026-10-03T08:00:00.000Z",
+    "updatedAt": "2026-10-03T08:00:00.000Z"
   },
   {
     "id": "post-1710000000008",
@@ -85,7 +106,10 @@
     "tanggal": "2026-10-02",
     "gambar": "https://images.pexels.com/photos/33350398/pexels-photo-33350398.jpeg?auto=compress&cs=tinysrgb&w=1200",
     "ringkasan": "Trik membawa barang seminimal mungkin tanpa mengorbankan kenyamanan di perjalanan.",
-    "isi": "<p>Backpacker berpengalaman tahu: semakin ringan tas, semakin menyenangkan perjalanan.</p><p>Aturan emas: bawa hanya yang benar-benar dipakai. Sisakan 20% ruang untuk oleh-oleh.</p>"
+    "isi": "<p>Backpacker berpengalaman tahu: semakin ringan tas, semakin menyenangkan perjalanan.</p><p>Aturan emas: bawa hanya yang benar-benar dipakai. Sisakan 20% ruang untuk oleh-oleh.</p>",
+    "status": "published",
+    "createdAt": "2026-10-02T08:00:00.000Z",
+    "updatedAt": "2026-10-02T08:00:00.000Z"
   },
   {
     "id": "post-1710000000009",
@@ -96,7 +120,10 @@
     "tanggal": "2026-10-12",
     "gambar": "https://images.pexels.com/photos/12657546/pexels-photo-12657546.jpeg?auto=compress&cs=tinysrgb&w=1200",
     "ringkasan": "Nikmati musik live di tepi pantai saat matahari terbenam dengan lineup artis lokal dan internasional.",
-    "isi": "<p>Festival musik tahunan di Pantai Kuta, Bali. Menampilkan artis lokal dan internasional dengan latar matahari terbenam yang spektakuler.</p><p>Tiket mulai Rp 500.000. Tanggal: 12 Oktober 2026.</p>"
+    "isi": "<p>Festival musik tahunan di Pantai Kuta, Bali. Menampilkan artis lokal dan internasional dengan latar matahari terbenam yang spektakuler.</p><p>Tiket mulai Rp 500.000. Tanggal: 12 Oktober 2026.</p>",
+    "status": "published",
+    "createdAt": "2026-10-12T08:00:00.000Z",
+    "updatedAt": "2026-10-12T08:00:00.000Z"
   },
   {
     "id": "post-1710000000010",
@@ -107,6 +134,9 @@
     "tanggal": "2026-11-08",
     "gambar": "https://images.pexels.com/photos/7513442/pexels-photo-7513442.jpeg?auto=compress&cs=tinysrgb&w=1200",
     "ringkasan": "Pameran budaya dan kuliner tradisional yang merayakan kekayaan warisan Nusantara.",
-    "isi": "<p>Pameran budaya terbesar di Yogyakarta. Menampilkan tari tradisional, wayang, batik, dan kuliner khas Nusantara.</p><p>Gratis untuk umum. Tanggal: 8 November 2026.</p>"
+    "isi": "<p>Pameran budaya terbesar di Yogyakarta. Menampilkan tari tradisional, wayang, batik, dan kuliner khas Nusantara.</p><p>Gratis untuk umum. Tanggal: 8 November 2026.</p>",
+    "status": "published",
+    "createdAt": "2026-11-08T08:00:00.000Z",
+    "updatedAt": "2026-11-08T08:00:00.000Z"
   }
 ]
