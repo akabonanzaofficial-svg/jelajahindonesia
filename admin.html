@@ -12,6 +12,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
+  <!-- Quill.js CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
+
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -53,6 +56,119 @@
     .prose ul, .prose ol { margin-left: 1.5rem; margin-bottom: 1.25rem; }
     .prose li { margin-bottom: .5rem; }
     .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+    /* ============================================================
+       QUILL CUSTOM STYLING
+       ============================================================ */
+    .ql-toolbar.ql-snow {
+      border: 1px solid #ebe7e1;
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+      background: #fefdfb;
+      padding: 10px 12px;
+      font-family: 'Poppins', sans-serif;
+      position: sticky;
+      top: 0;
+      z-index: 5;
+    }
+    .ql-container.ql-snow {
+      border: 1px solid #ebe7e1;
+      border-top: none;
+      border-bottom-left-radius: 12px;
+      border-bottom-right-radius: 12px;
+      background: #ffffff;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+    }
+    .ql-editor {
+      min-height: 300px;
+      padding: 20px;
+      line-height: 1.7;
+      color: #44403c;
+    }
+    .ql-editor.ql-blank::before {
+      color: #a8a29e;
+      font-style: normal;
+      left: 20px;
+      right: 20px;
+    }
+    .ql-editor h1 { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 800; margin: 1rem 0 .5rem; }
+    .ql-editor h2 { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; margin: 1rem 0 .5rem; }
+    .ql-editor h3 { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; margin: 1rem 0 .5rem; }
+    .ql-editor p { margin-bottom: .75rem; }
+    .ql-editor blockquote {
+      border-left: 4px solid #dc2626;
+      padding-left: 1rem;
+      font-style: italic;
+      color: #57534e;
+      margin: 1rem 0;
+      background: #fef2f2;
+      border-radius: 0 8px 8px 0;
+      padding: 1rem 1rem 1rem 1.25rem;
+    }
+    .ql-editor a { color: #15803d; text-decoration: underline; }
+    .ql-editor img { max-width: 100%; height: auto; border-radius: 8px; margin: 1rem 0; }
+    .ql-editor ul, .ql-editor ol { padding-left: 1.5rem; margin-bottom: .75rem; }
+    .ql-editor li { margin-bottom: .25rem; }
+
+    /* Toolbar buttons hover */
+    .ql-snow .ql-toolbar button:hover,
+    .ql-snow .ql-toolbar button:focus,
+    .ql-snow .ql-toolbar button.ql-active {
+      color: #16a34a !important;
+    }
+    .ql-snow .ql-toolbar button:hover .ql-stroke,
+    .ql-snow .ql-toolbar button:focus .ql-stroke,
+    .ql-snow .ql-toolbar button.ql-active .ql-stroke {
+      stroke: #16a34a !important;
+    }
+    .ql-snow .ql-toolbar button:hover .ql-fill,
+    .ql-snow .ql-toolbar button:focus .ql-fill,
+    .ql-snow .ql-toolbar button.ql-active .ql-fill {
+      fill: #16a34a !important;
+    }
+    .ql-snow .ql-picker-label:hover,
+    .ql-snow .ql-picker-label.ql-active {
+      color: #16a34a !important;
+    }
+    .ql-snow .ql-picker-label:hover .ql-stroke,
+    .ql-snow .ql-picker-label.ql-active .ql-stroke {
+      stroke: #16a34a !important;
+    }
+    .ql-snow .ql-picker-item:hover,
+    .ql-snow .ql-picker-item.ql-selected {
+      color: #16a34a !important;
+    }
+
+    /* Dark mode Quill */
+    .dark .ql-toolbar.ql-snow {
+      background: #292524;
+      border-color: #44403c;
+    }
+    .dark .ql-container.ql-snow {
+      background: #1c1917;
+      border-color: #44403c;
+    }
+    .dark .ql-editor {
+      color: #f5f5f4;
+    }
+    .dark .ql-editor.ql-blank::before {
+      color: #78716c;
+    }
+    .dark .ql-editor blockquote {
+      background: #7f1d1d33;
+      color: #d6d3d1;
+      border-left-color: #ef4444;
+    }
+    .dark .ql-snow .ql-stroke { stroke: #a8a29e; }
+    .dark .ql-snow .ql-fill { fill: #a8a29e; }
+    .dark .ql-snow .ql-picker { color: #a8a29e; }
+    .dark .ql-snow .ql-picker-options {
+      background: #292524;
+      border-color: #44403c;
+    }
+    .dark .ql-snow .ql-picker-item { color: #d6d3d1; }
+    .dark .ql-editor a { color: #4ade80; }
   </style>
 </head>
 
@@ -61,7 +177,6 @@
   <!-- Navbar Minimalis -->
   <nav class="sticky top-0 z-50 py-3 bg-white/95 dark:bg-warm-900/95 backdrop-blur-xl border-b border-warm-200/60 dark:border-warm-800/60">
     <div class="max-w-7xl mx-auto px-6 flex items-center justify-between gap-4">
-      <!-- Logo -->
       <a href="admin.html" class="flex items-center gap-2.5 whitespace-nowrap">
         <span class="w-9 h-9 flex items-center justify-center bg-gradient-to-br from-green-500 to-green-700 rounded-lg text-white text-base shadow-glow-green">🔐</span>
         <div class="flex flex-col leading-tight">
@@ -70,9 +185,7 @@
         </div>
       </a>
 
-      <!-- Action buttons -->
       <div class="flex items-center gap-2 md:gap-3">
-        <!-- Kunjungi Website -->
         <a href="/" target="_blank" rel="noopener"
            class="hidden sm:inline-flex items-center gap-2 px-4 py-2 bg-warm-100 dark:bg-warm-800 hover:bg-green-100 dark:hover:bg-green-900/30 text-warm-700 dark:text-warm-200 hover:text-green-700 dark:hover:text-green-400 text-xs md:text-sm font-semibold rounded-full transition-all">
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
@@ -84,12 +197,10 @@
           <span class="md:hidden">Website</span>
         </a>
 
-        <!-- Dark mode toggle -->
         <button id="themeToggle" aria-label="Ganti tema" class="w-9 h-9 flex items-center justify-center rounded-full bg-warm-100 dark:bg-warm-800 hover:bg-warm-200 dark:hover:bg-warm-700 transition-colors text-base">
           <span id="themeIcon">🌙</span>
         </button>
 
-        <!-- User info + Logout (hanya tampil kalau login) -->
         <div id="userSection" class="hidden items-center gap-2">
           <div class="hidden md:flex flex-col items-end leading-tight mr-1">
             <span id="userName" class="text-xs font-semibold text-warm-700 dark:text-warm-200">-</span>
@@ -108,17 +219,16 @@
     </div>
   </nav>
 
-  <!-- Main -->
   <main id="app" class="flex-1"></main>
 
   <!-- Modal Form -->
-  <div id="postModal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+  <div id="postModal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-start justify-center p-4 overflow-y-auto">
     <div class="bg-white dark:bg-warm-800 rounded-2xl shadow-2xl max-w-3xl w-full my-8 border border-warm-200 dark:border-warm-700">
       <div class="flex items-center justify-between p-6 border-b border-warm-200 dark:border-warm-700">
         <h2 id="modalTitle" class="font-heading text-2xl font-bold">Tambah Artikel</h2>
         <button id="modalClose" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-warm-100 dark:hover:bg-warm-700 transition-colors text-xl">×</button>
       </div>
-      <form id="postForm" class="p-6 space-y-4 max-h-[70vh] overflow-y-auto">
+      <form id="postForm" class="p-6 space-y-4 max-h-[75vh] overflow-y-auto">
         <input type="hidden" id="postId" />
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
@@ -156,9 +266,9 @@
           </div>
         </div>
         <div>
-          <label class="block text-sm font-medium mb-2">URL Gambar *</label>
+          <label class="block text-sm font-medium mb-2">URL Gambar Utama *</label>
           <input type="url" id="postGambar" required placeholder="https://..." class="w-full px-4 py-2.5 bg-warm-50 dark:bg-warm-900 border border-warm-200 dark:border-warm-700 rounded-xl outline-none focus:border-green-500" />
-          <p class="text-xs text-warm-400 mt-1">Gunakan URL dari Unsplash, Pexels, atau hosting gambar lain</p>
+          <p class="text-xs text-warm-400 mt-1">Gambar sampul artikel — gunakan URL dari Unsplash, Pexels, dll.</p>
         </div>
         <div>
           <label class="block text-sm font-medium mb-2">Ringkasan *</label>
@@ -166,8 +276,13 @@
         </div>
         <div>
           <label class="block text-sm font-medium mb-2">Isi Artikel *</label>
-          <textarea id="postIsi" required rows="10" placeholder="Bisa menggunakan tag HTML seperti <p>, <h2>, <strong>, dll." class="w-full px-4 py-2.5 bg-warm-50 dark:bg-warm-900 border border-warm-200 dark:border-warm-700 rounded-xl outline-none focus:border-green-500 resize-none font-mono text-sm"></textarea>
-          <p class="text-xs text-warm-400 mt-1">Gunakan tag HTML untuk formatting</p>
+          <div id="editorContainer" class="bg-white dark:bg-warm-900 rounded-xl">
+            <div id="editor"></div>
+          </div>
+          <p class="text-xs text-warm-400 mt-2">
+            💡 <strong>Tips:</strong> Gunakan tombol di toolbar untuk format teks.
+            Bisa <strong>copy-paste dari Word/Google Docs</strong> — format otomatis dibersihkan.
+          </p>
         </div>
         <div id="formError" class="hidden p-3 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 text-sm rounded-xl"></div>
         <div class="flex gap-3 justify-end pt-4 border-t border-warm-200 dark:border-warm-700">
@@ -191,6 +306,9 @@
 
   <!-- Toast -->
   <div id="toast" class="hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-[70] px-6 py-3 rounded-full text-white font-medium shadow-lg"></div>
+
+  <!-- Quill.js -->
+  <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
 
   <script>
     /* ============================================================
@@ -244,6 +362,66 @@
     const escapeHtml = (str = '') => String(str)
       .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
       .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+
+    /* ============================================================
+       QUILL EDITOR INSTANCE
+       ============================================================ */
+    let quill = null;
+
+    function initQuill() {
+      if (quill) return quill;
+
+      quill = new Quill('#editor', {
+        theme: 'snow',
+        placeholder: 'Mulai tulis artikel di sini...',
+        modules: {
+          toolbar: [
+            [{ 'header': [1, 2, 3, false] }],
+            ['bold', 'italic', 'underline', 'strike'],
+            [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+            ['blockquote', 'link', 'image'],
+            [{ 'align': [] }],
+            ['clean']
+          ]
+        }
+      });
+
+      // Custom handler: image via URL (bukan upload)
+      const toolbar = quill.getModule('toolbar');
+      toolbar.addHandler('image', () => {
+        const url = prompt('Masukkan URL gambar:');
+        if (url) {
+          const range = quill.getSelection(true);
+          quill.insertEmbed(range.index, 'image', url);
+          quill.setSelection(range.index + 1);
+        }
+      });
+
+      // Custom handler: link via URL
+      toolbar.addHandler('link', () => {
+        const url = prompt('Masukkan URL link:');
+        if (url) {
+          const range = quill.getSelection(true);
+          if (range.length > 0) {
+            quill.formatText(range.index, range.length, 'link', url, 'user');
+          } else {
+            quill.insertText(range.index, url, 'link', url);
+          }
+        }
+      });
+
+      return quill;
+    }
+
+    function setQuillContent(html) {
+      if (!quill) initQuill();
+      quill.root.innerHTML = html || '';
+    }
+
+    function getQuillContent() {
+      if (!quill) return '';
+      return quill.root.innerHTML;
+    }
 
     /* ============================================================
        INIT THEME
@@ -346,7 +524,6 @@
       const user = api.getUser();
       if (!user) return renderLogin();
 
-      // Tampilkan user info + logout
       userSection.classList.remove('hidden');
       userSection.classList.add('flex');
       document.getElementById('userName').textContent = user.name || user.username;
@@ -357,7 +534,6 @@
       app.innerHTML = `
         <section class="py-8 px-6">
           <div class="max-w-7xl mx-auto">
-            <!-- Header -->
             <div class="flex items-center justify-between mb-8 flex-wrap gap-4">
               <div>
                 <h1 class="font-heading text-3xl font-extrabold mb-1">Dashboard Admin</h1>
@@ -368,10 +544,8 @@
               </button>
             </div>
 
-            <!-- Stats -->
             <div id="adminStats" class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8"></div>
 
-            <!-- Filters -->
             <div class="bg-white dark:bg-warm-800 rounded-2xl p-4 mb-6 border border-warm-200 dark:border-warm-700 flex flex-wrap gap-3 items-center">
               <input type="text" id="adminSearch" placeholder="Cari artikel..." class="flex-1 min-w-[200px] px-4 py-2.5 bg-warm-50 dark:bg-warm-900 border border-warm-200 dark:border-warm-700 rounded-xl text-sm outline-none focus:border-green-500" />
               <select id="adminFilterStatus" class="px-4 py-2.5 bg-warm-50 dark:bg-warm-900 border border-warm-200 dark:border-warm-700 rounded-xl text-sm outline-none focus:border-green-500">
@@ -390,7 +564,6 @@
               <button id="refreshBtn" class="px-4 py-2.5 bg-warm-100 dark:bg-warm-700 hover:bg-green-100 dark:hover:bg-green-900/30 text-warm-700 dark:text-warm-200 hover:text-green-700 dark:hover:text-green-400 text-sm font-semibold rounded-xl transition-all" title="Refresh data">🔄</button>
             </div>
 
-            <!-- Table -->
             <div id="adminTable" class="bg-white dark:bg-warm-800 rounded-2xl border border-warm-200 dark:border-warm-700 overflow-hidden">
               <div class="p-8 text-center text-warm-400">
                 <div class="w-12 h-12 mx-auto border-4 border-green-500 border-t-transparent rounded-full animate-spin"></div>
@@ -406,7 +579,6 @@
     }
 
     function attachDashboardHandlers() {
-      // Logout
       document.getElementById('logoutBtn').addEventListener('click', () => {
         if (confirm('Logout dari admin panel?')) {
           api.clearToken();
@@ -414,37 +586,29 @@
         }
       });
 
-      // Add post
       document.getElementById('addPostBtn').addEventListener('click', openAddModal);
-
-      // Refresh
       document.getElementById('refreshBtn').addEventListener('click', () => {
         loadPosts();
         showToast('Data di-refresh', 'success');
       });
 
-      // Filters
       document.getElementById('adminSearch').addEventListener('input', applyFilters);
       document.getElementById('adminFilterStatus').addEventListener('change', applyFilters);
       document.getElementById('adminFilterTipe').addEventListener('change', applyFilters);
 
-      // Modal close
       document.getElementById('modalClose').addEventListener('click', closeModal);
       document.getElementById('previewClose').addEventListener('click', () => {
         document.getElementById('previewModal').classList.add('hidden');
       });
 
-      // Modal backdrop click
       const modal = document.getElementById('postModal');
       const previewModal = document.getElementById('previewModal');
       modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
       previewModal.addEventListener('click', (e) => { if (e.target === previewModal) previewModal.classList.add('hidden'); });
 
-      // Form submit
       document.getElementById('postForm').addEventListener('submit', handleFormSubmit);
       document.getElementById('previewBtn').addEventListener('click', handlePreview);
 
-      // ESC to close
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
           modal.classList.add('hidden');
@@ -503,11 +667,9 @@
       const filterStatus = document.getElementById('adminFilterStatus');
       const filterTipe = document.getElementById('adminFilterTipe');
       if (!searchInput) return;
-
       const q = searchInput.value.toLowerCase().trim();
       const status = filterStatus.value;
       const tipe = filterTipe.value;
-
       filteredPosts = allPosts.filter(p => {
         if (status !== 'all' && p.status !== status) return false;
         if (tipe !== 'all' && p.tipe !== tipe) return false;
@@ -520,12 +682,10 @@
     function renderTable() {
       const table = document.getElementById('adminTable');
       if (!table) return;
-
       if (filteredPosts.length === 0) {
         table.innerHTML = `<div class="p-12 text-center text-warm-400"><div class="text-5xl mb-3">📭</div><p>Tidak ada artikel yang cocok.</p></div>`;
         return;
       }
-
       table.innerHTML = `
         <div class="overflow-x-auto">
           <table class="w-full text-sm">
@@ -569,16 +729,13 @@
           </table>
         </div>
       `;
-
       table.querySelectorAll('[data-action]').forEach(btn => {
         btn.addEventListener('click', () => {
           const id = btn.dataset.id;
           const action = btn.dataset.action;
           if (action === 'edit') openEditModal(id);
           else if (action === 'delete') confirmDelete(id);
-          else if (action === 'view') {
-            window.open(`/artikel/${id}`, '_blank');
-          }
+          else if (action === 'view') window.open(`/artikel/${id}`, '_blank');
         });
       });
     }
@@ -591,7 +748,15 @@
       document.getElementById('postTanggal').value = new Date().toISOString().split('T')[0];
       document.getElementById('postStatus').value = 'draft';
       document.getElementById('formError').classList.add('hidden');
+
+      // Reset editor
+      initQuill();
+      quill.root.innerHTML = '';
+      quill.history.clear();
+
       document.getElementById('postModal').classList.remove('hidden');
+      // Focus ke editor
+      setTimeout(() => quill.focus(), 200);
     }
 
     function openEditModal(id) {
@@ -607,7 +772,12 @@
       document.getElementById('postStatus').value = post.status || 'draft';
       document.getElementById('postGambar').value = post.gambar;
       document.getElementById('postRingkasan').value = post.ringkasan;
-      document.getElementById('postIsi').value = post.isi;
+
+      // Load ke Quill editor
+      initQuill();
+      setQuillContent(post.isi || '');
+      quill.history.clear();
+
       document.getElementById('formError').classList.add('hidden');
       document.getElementById('postModal').classList.remove('hidden');
     }
@@ -626,7 +796,7 @@
         status: document.getElementById('postStatus').value,
         gambar: document.getElementById('postGambar').value.trim(),
         ringkasan: document.getElementById('postRingkasan').value.trim(),
-        isi: document.getElementById('postIsi').value.trim(),
+        isi: getQuillContent(),
       };
     }
 
@@ -636,6 +806,14 @@
       const data = getFormData();
       const btn = document.getElementById('saveBtn');
       const err = document.getElementById('formError');
+
+      // Validasi: editor tidak boleh kosong
+      const isiText = quill.getText().trim();
+      if (!isiText) {
+        err.textContent = 'Isi artikel tidak boleh kosong.';
+        err.classList.remove('hidden');
+        return;
+      }
 
       btn.disabled = true;
       btn.textContent = 'Menyimpan...';
@@ -697,13 +875,9 @@
        ============================================================ */
     document.addEventListener('DOMContentLoaded', () => {
       initTheme();
-
-      // Cek login
       const token = api.getToken();
       const user = api.getUser();
-
       if (token && user) {
-        // Optional: verifikasi token masih valid
         renderDashboard();
       } else {
         renderLogin();
