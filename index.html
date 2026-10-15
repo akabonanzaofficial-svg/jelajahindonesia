@@ -11,7 +11,7 @@
   <meta property="og:title" id="ogTitle" content="Jelajah Indonesia" />
   <meta property="og:description" id="ogDescription" content="Media perjalanan & gaya hidup Nusantara." />
   <meta property="og:image" id="ogImage" content="https://images.pexels.com/photos/2166553/pexels-photo-2166553.jpeg?auto=compress&cs=tinysrgb&w=1200" />
-  <meta property="og:url" id="ogUrl" content="https://jelajahindonesia.com" />
+  <meta property="og:url" id="ogUrl" content="https://jelajahindonesia.vercel.app" />
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" id="twTitle" content="Jelajah Indonesia" />
@@ -383,7 +383,7 @@
           title: 'Jelajah Indonesia — Travel, Lifestyle & Beyond',
           description: 'Media perjalanan dan gaya hidup yang menginspirasi penjelajahan Nusantara.',
           image: 'https://images.pexels.com/photos/2166553/pexels-photo-2166553.jpeg?auto=compress&cs=tinysrgb&w=1200',
-          url: 'https://jelajahindonesia.com/'
+          url: 'https://jelajahindonesia.vercel.app/'
         });
         return `
           <section class="relative min-h-[90vh] flex items-center justify-center text-center overflow-hidden">
@@ -450,7 +450,7 @@
           title: `${title} — Jelajah Indonesia`,
           description,
           image: articles[0]?.gambar || 'https://images.pexels.com/photos/2166553/pexels-photo-2166553.jpeg?auto=compress&cs=tinysrgb&w=1200',
-          url: `https://jelajahindonesia.com/${tipe === 'gaya-hidup' ? 'gaya-hidup' : tipe}`
+          url: `https://jelajahindonesia.vercel.app/${tipe === 'gaya-hidup' ? 'gaya-hidup' : tipe}`
         });
         window._currentArticles = articles;
         return `
@@ -477,7 +477,7 @@
           title: 'Berlangganan Newsletter — Jelajah Indonesia',
           description: 'Dapatkan inspirasi perjalanan mingguan langsung ke kotak masukmu.',
           image: 'https://images.pexels.com/photos/2166553/pexels-photo-2166553.jpeg?auto=compress&cs=tinysrgb&w=1200',
-          url: 'https://jelajahindonesia.com/newsletter'
+          url: 'https://jelajahindonesia.vercel.app/newsletter'
         });
         return `
           <section class="min-h-[70vh] py-20 bg-gradient-to-br from-green-700 via-green-800 to-red-800 relative overflow-hidden flex items-center">
@@ -513,7 +513,7 @@
                         : post.tipe === 'akomodasi' ? 'Akomodasi'
                         : post.tipe === 'newsedu' ? 'Newsedu'
                         : post.tipe === 'event' ? 'Event' : 'Beranda';
-        const currentUrl = `https://jelajahindonesia.com/artikel/${post.id}`;
+        const currentUrl = `https://jelajahindonesia.vercel.app/artikel/${post.id}`;
         setMeta({
           title: `${post.judul} — Jelajah Indonesia`,
           description: post.ringkasan,
@@ -570,7 +570,7 @@
           title: `Cari: "${query}" — Jelajah Indonesia`,
           description: `Hasil pencarian untuk "${query}"`,
           image: 'https://images.pexels.com/photos/2166553/pexels-photo-2166553.jpeg?auto=compress&cs=tinysrgb&w=1200',
-          url: `https://jelajahindonesia.com/cari?q=${encodeURIComponent(query)}`
+          url: `https://jelajahindonesia.vercel.app/cari?q=${encodeURIComponent(query)}`
         });
         return `
           ${ListHeaderComponent(`Hasil Pencarian`, `${results.length} artikel ditemukan untuk "${escapeHtml(query)}"`, 'green')}
@@ -591,7 +591,7 @@
           title: 'Halaman Tidak Ditemukan — Jelajah Indonesia',
           description: 'Halaman yang Anda cari tidak ditemukan.',
           image: 'https://images.pexels.com/photos/2166553/pexels-photo-2166553.jpeg?auto=compress&cs=tinysrgb&w=1200',
-          url: 'https://jelajahindonesia.com/404'
+          url: 'https://jelajahindonesia.vercel.app/404'
         });
         return `
           <section class="min-h-[70vh] flex items-center justify-center px-6 py-20">
