@@ -124,9 +124,7 @@
         <button id="searchToggle" aria-label="Cari" class="w-10 h-10 flex items-center justify-center rounded-full bg-warm-100 dark:bg-warm-800 hover:bg-warm-200 dark:hover:bg-warm-700 transition-colors">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
         </button>
-        <button id="themeToggle" aria-label="Ganti tema" class="w-10 h-10 flex items-center justify-center rounded-full bg-warm-100 dark:bg-warm-800 hover:bg-warm-200 dark:hover:bg-warm-700 transition-colors text-lg">
-          <span id="themeIcon">🌙</span>
-        </button>
+        
         <a href="/newsletter" data-link class="hidden md:inline-flex px-5 py-2.5 bg-gradient-to-br from-red-500 to-red-700 text-white text-sm font-semibold rounded-full shadow-glow-red hover:-translate-y-0.5 transition-all duration-300">Berlangganan</a>
         <button id="menuToggle" aria-label="Menu" class="lg:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5">
           <span class="menu-line w-6 h-0.5 bg-warm-700 dark:bg-warm-200 rounded transition-all"></span>
@@ -716,7 +714,6 @@
        INIT
        ============================================================ */
     document.addEventListener('DOMContentLoaded', () => {
-      initTheme();
       initSearch();
       initBackToTop();
       Router.navigate(window.location.pathname);
@@ -742,20 +739,6 @@
         document.getElementById('mobileMenu').classList.toggle('open');
       });
     });
-
-    function initTheme() {
-      const saved = localStorage.getItem('theme');
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      const isDark = saved ? saved === 'dark' : prefersDark;
-      document.documentElement.classList.toggle('dark', isDark);
-      document.getElementById('themeIcon').textContent = isDark ? '☀️' : '🌙';
-      document.getElementById('themeToggle').addEventListener('click', () => {
-        const nowDark = !document.documentElement.classList.contains('dark');
-        document.documentElement.classList.toggle('dark', nowDark);
-        localStorage.setItem('theme', nowDark ? 'dark' : 'light');
-        document.getElementById('themeIcon').textContent = nowDark ? '☀️' : '🌙';
-      });
-    }
 
     function initSearch() {
       const toggle = document.getElementById('searchToggle');
