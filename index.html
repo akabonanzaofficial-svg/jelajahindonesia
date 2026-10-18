@@ -571,19 +571,6 @@
             }
           }
         }
-
-        // 5. Mobile Sticky (Hanya HP)
-        if (stickyAds.length > 0) {
-          const stickyDiv = document.createElement('div');
-          stickyDiv.className = 'lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-warm-200 p-2 shadow-[0_-4px_20px_rgba(0,0,0,0.1)]';
-          stickyDiv.innerHTML = `
-            <button onclick="this.parentElement.remove()" class="absolute -top-3 right-2 bg-warm-800 text-white w-6 h-6 rounded-full text-xs flex items-center justify-center shadow-md">✕</button>
-            <a href="${escapeHtml(stickyAds[0].link)}" target="_blank" rel="noopener sponsored" class="block w-full h-12">
-              <img src="${escapeHtml(stickyAds[0].gambar)}" alt="Iklan" class="w-full h-full object-contain mx-auto" />
-            </a>
-          `;
-          document.body.appendChild(stickyDiv);
-        }
       }
     };
 
@@ -597,6 +584,31 @@
     /* ============================================================
        ROUTER
        ============================================================ */
+        /* ============================================================
+       GLOBAL MOBILE STICKY AD
+       ============================================================ */
+    async function renderStickyAd() {
+      // Hapus sticky lama jika ada (saat pindah halaman)
+      const oldSticky = document.getElementById('global-mobile-sticky');
+      if (oldSticky) oldSticky.remove();
+
+      // Hanya jalankan di HP / Mobile
+      if (window.innerWidth >= 1024) return;
+
+      const stickyAds = await AdsService.getByPosition('mobile-sticky');
+      if (stickyAds.length > 0) {
+        const stickyDiv = document.createElement('div');
+        stickyDiv.id = 'global-mobile-sticky';
+        stickyDiv.className = 'lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-warm-200 p-2 shadow-[0_-4px_20px_rgba(0,0,0,0.1)]';
+        stickyDiv.innerHTML = `
+          <button onclick="this.parentElement.remove()" class="absolute -top-3 right-2 bg-warm-800 text-white w-6 h-6 rounded-full text-xs flex items-center justify-center shadow-md">✕</button>
+          <a href="${escapeHtml(stickyAds[0].link)}" target="_blank" rel="noopener sponsored" class="block w-full h-12">
+            <img src="${escapeHtml(stickyAds[0].gambar)}" alt="Iklan" class="w-full h-full object-contain mx-auto" />
+          </a>
+        `;
+        document.body.appendChild(stickyDiv);
+      }
+    }
     const Router = {
       routes: {
         '/': HomeView, '/cerita': CeritaView, '/gaya-hidup': GayaHidupView, '/akomodasi': AkomodasiView, '/newsedu': NewseduView, '/event': EventView,
@@ -624,6 +636,8 @@
           if (typeof View.afterRender === 'function') {
             await View.afterRender();
           }
+           // Panggil iklan sticky di semua halaman
+          await renderStickyAd();
         } catch (err) {
           app.innerHTML = `<div class="text-center py-20"><h2>Terjadi Kesalahan</h2><p>${escapeHtml(err.message)}</p></div>`;
         }
