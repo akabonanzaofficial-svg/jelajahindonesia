@@ -48,5 +48,15 @@
     "status": "aktif",
     "createdAt": "2026-10-18T09:28:01.020Z",
     "id": "ad-1792315681907"
+  },
+  {
+    "judul": "Fun Diving",
+    "tipe": "gambar",
+    "gambar": "/assets/uploads/img-1792315746882.jpg",
+    "link": "https://example.com",
+    "posisi": "sidebar-grid",
+    "status": "aktif",
+    "createdAt": "2026-10-18T09:29:33.019Z",
+    "id": "ad-1792315773893"
   }
 ]
