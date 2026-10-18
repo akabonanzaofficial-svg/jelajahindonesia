@@ -25,5 +25,14 @@
     "posisi": "feed-1",
     "status": "aktif",
     "createdAt": "2026-10-18T00:00:00.000Z"
+  },
+  {
+    "judul": "Promo Bali",
+    "gambar": "https://dummyimage.com/320x50/16a34a/ffffff&text=Promo+Spesial)",
+    "link": "https://example.com",
+    "posisi": "mobile-sticky",
+    "status": "aktif",
+    "createdAt": "2026-10-18T03:41:57.697Z",
+    "id": "ad-1792294920024"
   }
 ]
