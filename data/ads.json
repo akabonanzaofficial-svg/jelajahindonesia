@@ -64,7 +64,7 @@
     "tipe": "gambar",
     "gambar": "/assets/uploads/img-1792315790632.jpg",
     "link": "https://example.com",
-    "posisi": "header",
+    "posisi": "sidebar-grid",
     "status": "aktif",
     "createdAt": "2026-10-18T09:30:04.064Z",
     "id": "ad-1792315804945"
