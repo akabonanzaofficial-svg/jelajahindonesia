@@ -628,7 +628,15 @@
           app.innerHTML = `<div class="text-center py-20"><h2>Terjadi Kesalahan</h2><p>${escapeHtml(err.message)}</p></div>`;
         }
       },
-      updateActiveNav(path) { /* ... */ }
+            updateActiveNav(path) {
+        document.querySelectorAll('[data-link]').forEach(a => {
+          const href = a.getAttribute('href');
+          const isActive = href === path;
+          if (a.classList.contains('nav-item') || a.classList.contains('mobile-nav-item')) {
+            a.classList.toggle('text-green-700', isActive);
+          }
+        });
+      }
     };
 
     document.addEventListener('DOMContentLoaded', () => {
@@ -645,6 +653,7 @@
           Router.navigate(href);
         }
         closeMobileMenu();
+        closeSearch();
       });
 
       window.addEventListener('popstate', () => Router.navigate(window.location.pathname));
@@ -653,16 +662,45 @@
         document.getElementById('menuToggle').classList.toggle('open');
         document.getElementById('mobileMenu').classList.toggle('open');
       });
+
+      // Fungsi Search
+      const searchToggle = document.getElementById('searchToggle');
+      const searchBar = document.getElementById('searchBar');
+      const searchInput = document.getElementById('searchInput');
+      const searchClose = document.getElementById('searchClose');
+
+      searchToggle.addEventListener('click', () => {
+        searchBar.classList.toggle('hidden');
+        if (!searchBar.classList.contains('hidden')) setTimeout(() => searchInput.focus(), 100);
+      });
       
-      // Search dummy
-      document.getElementById('searchToggle').addEventListener('click', () => document.getElementById('searchBar').classList.toggle('hidden'));
-      document.getElementById('searchClose').addEventListener('click', () => document.getElementById('searchBar').classList.add('hidden'));
+      searchClose.addEventListener('click', () => { searchBar.classList.add('hidden'); searchInput.value = ''; });
+      
+      searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          const q = searchInput.value.trim();
+          if (q) {
+            history.pushState(null, '', `/cari?q=${encodeURIComponent(q)}`);
+            Router.navigate('/cari');
+            closeSearch();
+          }
+        }
+        if (e.key === 'Escape') closeSearch();
+      });
+
+      // Back to top
+      const backToTopBtn = document.getElementById('backToTop');
+      window.addEventListener('scroll', () => { backToTopBtn.classList.toggle('show', window.scrollY > 400); });
+      backToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
     });
 
     function closeMobileMenu() {
       document.getElementById('menuToggle').classList.remove('open');
       document.getElementById('mobileMenu').classList.remove('open');
     }
-  </script>
+
+    function closeSearch() { document.getElementById('searchBar').classList.add('hidden'); }
+      </script>
 </body>
 </html>
