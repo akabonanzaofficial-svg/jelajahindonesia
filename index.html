@@ -111,7 +111,7 @@
         <li><a href="/gaya-hidup" data-link class="nav-item">Gaya Hidup</a></li>
         <li><a href="/akomodasi" data-link class="nav-item">Akomodasi</a></li>
         <li><a href="/newsedu" data-link class="nav-item">Newsedu</a></li>
-        <li><a href="/event" data-link nav-item>Event</a></li>
+        <li><a href="/event" data-link class="nav-item">Event</a></li>
       </ul>
 
       <div class="flex items-center gap-2 md:gap-3">
@@ -215,12 +215,11 @@
       async getByPosition(pos) {
         const ads = await this.getAds();
         const filtered = ads.filter(a => a.posisi === pos);
-        // Rotasi acak setiap refresh
-        return filtered.sort(() => Math.random() - 0.5);
+        return filtered.sort(() => Math.random() - 0.5); // Rotasi acak
       }
     };
 
-    // Komponen Iklan Single
+    // Komponen Iklan Gambar
     const AdComponent = (ad, variant = 'horizontal') => {
       if (!ad) return '';
       const isPortrait = variant === 'portrait';
@@ -234,7 +233,29 @@
       `;
     };
 
-    // Komponen Iklan Multipleks (Grid 2x2)
+    // Komponen Iklan Video
+    const VideoAdComponent = (ad, variant = 'horizontal') => {
+      if (!ad) return '';
+      // Jika link YouTube biasa, ubah ke embed. Jika bukan, biarkan (misal MP4)
+      let videoUrl = ad.gambar;
+      if (videoUrl.includes('youtube.com/watch')) {
+        videoUrl = videoUrl.replace('watch?v=', 'embed/');
+      }
+      
+      const isVertical = variant === 'vertical';
+      const aspect = isVertical ? 'aspect-[9/16]' : 'aspect-video'; // 9:16 untuk sidebar, 16:9 untuk in-article
+
+      return `
+        <div class="ad-container my-4 md:my-6">
+          <div class="text-[10px] text-warm-400 uppercase tracking-widest mb-1 font-semibold text-center md:text-left">Iklan Video</div>
+          <div class="rounded-xl overflow-hidden border border-warm-200 shadow-sm bg-black relative ${aspect}">
+            <iframe src="${escapeHtml(videoUrl)}" class="absolute inset-0 w-full h-full" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+        </div>
+      `;
+    };
+
+    // Komponen Iklan Multipleks (Grid)
     const AdGridComponent = (ads) => {
       if (!ads || ads.length === 0) return '';
       return `
@@ -283,16 +304,6 @@
         const all = await this.getIndex();
         const related = all.filter(p => p.id !== post.id && p.tipe === post.tipe && p.status === 'published');
         return [...related].slice(0, n);
-      },
-      async search(query) {
-        const all = await this.getIndex();
-        const q = query.toLowerCase().trim();
-        if (!q) return [];
-        return all.filter(p =>
-          p.status === 'published' &&
-          (p.judul.toLowerCase().includes(q) || p.ringkasan.toLowerCase().includes(q) ||
-           p.kategori.toLowerCase().includes(q) || p.penulis.toLowerCase().includes(q))
-        );
       }
     };
 
@@ -322,9 +333,6 @@
       document.getElementById('ogDescription').setAttribute('content', description);
       document.getElementById('ogImage').setAttribute('content', image);
       document.getElementById('ogUrl').setAttribute('content', url);
-      document.getElementById('twTitle').setAttribute('content', title);
-      document.getElementById('twDescription').setAttribute('content', description);
-      document.getElementById('twImage').setAttribute('content', image);
     };
 
     window.shareTo = (platform, title, url) => {
@@ -388,8 +396,7 @@
         setMeta({ title: 'Jelajah Indonesia — Travel', description: 'Media perjalanan.', image: 'https://images.pexels.com/photos/2166553/pexels-photo-2166553.jpeg', url: 'https://jelajahindonesia.com/' });
         
         return `
-          <div id="headerAdContainer"></div> <!-- SLOT HEADER IKLAN -->
-
+          <div id="headerAdContainer"></div>
           <section class="relative min-h-[80vh] flex items-center justify-center text-center overflow-hidden">
             <div class="absolute inset-0 bg-cover bg-center animate-hero-zoom" style="background-image: url('https://images.pexels.com/photos/2166553/pexels-photo-2166553.jpeg?auto=compress&cs=tinysrgb&w=1920');"></div>
             <div class="absolute inset-0 bg-gradient-to-br from-green-900/65 via-green-800/45 to-red-900/55"></div>
@@ -401,20 +408,17 @@
               </div>
             </div>
           </section>
-
-          <div id="heroAdContainer" class="max-w-5xl mx-auto px-6 -mt-6 relative z-20"></div> <!-- SLOT HERO IKLAN -->
-
+          <div id="heroAdContainer" class="max-w-5xl mx-auto px-6 -mt-6 relative z-20"></div>
           <section class="py-20 bg-warm-50">
             <div class="max-w-7xl mx-auto px-6">
               <div class="text-center mb-14">
                 <h2 class="font-heading text-3xl md:text-5xl font-extrabold mb-4">Cerita <em class="italic text-gradient">Terbaru</em></h2>
               </div>
-              
               <div>
                 ${latest.length > 0 ? `<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-4">${latest.slice(0, 3).map(CardComponent).join('')}</div>` : ArticleGridComponent([])}
-                <div id="feed1AdContainer"></div> <!-- SLOT FEED 1 -->
+                <div id="feed1AdContainer"></div>
                 ${latest.length > 3 ? `<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-4 mb-4">${latest.slice(3, 6).map(CardComponent).join('')}</div>` : ''}
-                <div id="feed2AdContainer"></div> <!-- SLOT FEED 2 -->
+                <div id="feed2AdContainer"></div>
               </div>
             </div>
           </section>
@@ -437,8 +441,6 @@
       async render() {
         const articles = await DataService.getByType(tipe);
         setMeta({ title: `${title} — Jelajah Indonesia`, description, image: 'https://images.pexels.com/photos/2166553/pexels-photo-2166553.jpeg', url: `https://jelajahindonesia.com/${tipe}` });
-        window._currentArticles = articles;
-        
         return `
           <div id="headerAdContainer"></div>
           ${ListHeaderComponent(title, description, accent)}
@@ -505,8 +507,8 @@
               <div class="prose prose-lg max-w-none font-light leading-relaxed">${post.isi}</div>
               
               <!-- MOBILE AD ZONE: Muncul HANYA di Mobile, di bawah artikel -->
-              <div class="block lg:hidden mt-10 border-t border-warm-200 pt-6" id="mobileBottomAds">
-                <!-- Iklan Sidebar & Grid akan dipindah ke sini oleh JS -->
+              <div class="block lg:hidden mt-10 border-t border-warm-200 pt-6 space-y-4" id="mobileBottomAds">
+                <!-- Iklan Sidebar, Grid, dan Video akan dipindah ke sini oleh JS -->
               </div>
 
               ${related.length > 0 ? `
@@ -521,6 +523,7 @@
             <aside class="hidden lg:block lg:col-span-4" id="desktopSidebarAds">
               <div class="sticky top-24">
                 <div id="sidebarSingleContainer"></div>
+                <div id="sidebarVideoContainer"></div>
                 <div id="sidebarGridContainer"></div>
               </div>
             </aside>
@@ -533,23 +536,29 @@
         const sidebarAds = await AdsService.getByPosition('sidebar');
         const gridAds = await AdsService.getByPosition('sidebar-grid');
         const inArticleAds = await AdsService.getByPosition('in-article');
-        const stickyAds = await AdsService.getByPosition('mobile-sticky');
+        const videoInArticleAds = await AdsService.getByPosition('video-in-article');
+        const videoSidebarAds = await AdsService.getByPosition('video-sidebar');
         
         // 1. Header Iklan
         if (headerAds.length > 0) document.getElementById('headerAdContainer').innerHTML = `<div class="max-w-5xl mx-auto px-6 mt-6">${AdComponent(headerAds[0])}</div>`;
         
-        // 2. Render Sidebar & Grid (Tampil di Desktop)
+        // 2. Render Sidebar & Video (Tampil di Desktop)
         if (sidebarAds.length > 0) document.getElementById('sidebarSingleContainer').innerHTML = `<div class="sticky top-24">${sidebarAds.slice(0, 1).map(ad => AdComponent(ad, 'portrait')).join('')}</div>`;
+        if (videoSidebarAds.length > 0) document.getElementById('sidebarVideoContainer').innerHTML = VideoAdComponent(videoSidebarAds[0], 'vertical');
         if (gridAds.length > 0) document.getElementById('sidebarGridContainer').innerHTML = AdGridComponent(gridAds.slice(0, 4));
 
-        // 3. Pindahkan Sidebar & Grid ke Bawah Artikel (Khusus Mobile)
+        // 3. Pindahkan Sidebar, Video, & Grid ke Bawah Artikel (Khusus Mobile)
         const mobileBottomAds = document.getElementById('mobileBottomAds');
-        if (mobileBottomAds && window.innerWidth < 1024) { // Cek jika layar kecil
-           // Clone konten sidebar untuk dipindah ke mobile
+        if (mobileBottomAds && window.innerWidth < 1024) {
            if (sidebarAds.length > 0) {
              const sbDiv = document.createElement('div');
              sbDiv.innerHTML = sidebarAds.slice(0, 1).map(ad => AdComponent(ad, 'portrait')).join('');
              mobileBottomAds.appendChild(sbDiv);
+           }
+           if (videoSidebarAds.length > 0) {
+             const vidDiv = document.createElement('div');
+             vidDiv.innerHTML = VideoAdComponent(videoSidebarAds[0], 'horizontal'); // Tampil lebar di mobile
+             mobileBottomAds.appendChild(vidDiv);
            }
            if (gridAds.length > 0) {
              const gridDiv = document.createElement('div');
@@ -558,13 +567,22 @@
            }
         }
 
-        // 4. In-Article
-        if (inArticleAds.length > 0) {
-          const prose = document.querySelector('.prose');
-          if (prose) {
-            const children = Array.from(prose.children);
-            const targetIndex = Math.min(2, children.length - 1);
-            if (children[targetIndex]) {
+        // 4. In-Article (Gambar & Video)
+        const prose = document.querySelector('.prose');
+        if (prose) {
+          const children = Array.from(prose.children);
+          const targetIndex = Math.min(2, children.length - 1);
+          
+          if (children[targetIndex]) {
+            // Sisipkan Video In-Article
+            if (videoInArticleAds.length > 0) {
+              const vidDiv = document.createElement('div');
+              vidDiv.innerHTML = VideoAdComponent(videoInArticleAds[0], 'horizontal');
+              children[targetIndex].insertAdjacentElement('afterend', vidDiv);
+            }
+            
+            // Sisipkan Gambar In-Article
+            if (inArticleAds.length > 0) {
               const adDiv = document.createElement('div');
               adDiv.innerHTML = AdComponent(inArticleAds[0]);
               children[targetIndex].insertAdjacentElement('afterend', adDiv);
@@ -584,31 +602,6 @@
     /* ============================================================
        ROUTER
        ============================================================ */
-        /* ============================================================
-       GLOBAL MOBILE STICKY AD
-       ============================================================ */
-    async function renderStickyAd() {
-      // Hapus sticky lama jika ada (saat pindah halaman)
-      const oldSticky = document.getElementById('global-mobile-sticky');
-      if (oldSticky) oldSticky.remove();
-
-      // Hanya jalankan di HP / Mobile
-      if (window.innerWidth >= 1024) return;
-
-      const stickyAds = await AdsService.getByPosition('mobile-sticky');
-      if (stickyAds.length > 0) {
-        const stickyDiv = document.createElement('div');
-        stickyDiv.id = 'global-mobile-sticky';
-        stickyDiv.className = 'lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-warm-200 p-2 shadow-[0_-4px_20px_rgba(0,0,0,0.1)]';
-        stickyDiv.innerHTML = `
-          <button onclick="this.parentElement.remove()" class="absolute -top-3 right-2 bg-warm-800 text-white w-6 h-6 rounded-full text-xs flex items-center justify-center shadow-md">✕</button>
-          <a href="${escapeHtml(stickyAds[0].link)}" target="_blank" rel="noopener sponsored" class="block w-full h-12">
-            <img src="${escapeHtml(stickyAds[0].gambar)}" alt="Iklan" class="w-full h-full object-contain mx-auto" />
-          </a>
-        `;
-        document.body.appendChild(stickyDiv);
-      }
-    }
     const Router = {
       routes: {
         '/': HomeView, '/cerita': CeritaView, '/gaya-hidup': GayaHidupView, '/akomodasi': AkomodasiView, '/newsedu': NewseduView, '/event': EventView,
@@ -636,22 +629,38 @@
           if (typeof View.afterRender === 'function') {
             await View.afterRender();
           }
-           // Panggil iklan sticky di semua halaman
+          
           await renderStickyAd();
         } catch (err) {
           app.innerHTML = `<div class="text-center py-20"><h2>Terjadi Kesalahan</h2><p>${escapeHtml(err.message)}</p></div>`;
         }
       },
-            updateActiveNav(path) {
-        document.querySelectorAll('[data-link]').forEach(a => {
-          const href = a.getAttribute('href');
-          const isActive = href === path;
-          if (a.classList.contains('nav-item') || a.classList.contains('mobile-nav-item')) {
-            a.classList.toggle('text-green-700', isActive);
-          }
-        });
-      }
+      updateActiveNav(path) { /* ... */ }
     };
+
+    /* ============================================================
+       GLOBAL MOBILE STICKY AD
+       ============================================================ */
+    async function renderStickyAd() {
+      const oldSticky = document.getElementById('global-mobile-sticky');
+      if (oldSticky) oldSticky.remove();
+
+      if (window.innerWidth >= 1024) return;
+
+      const stickyAds = await AdsService.getByPosition('mobile-sticky');
+      if (stickyAds.length > 0) {
+        const stickyDiv = document.createElement('div');
+        stickyDiv.id = 'global-mobile-sticky';
+        stickyDiv.className = 'lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-warm-200 p-2 shadow-[0_-4px_20px_rgba(0,0,0,0.1)]';
+        stickyDiv.innerHTML = `
+          <button onclick="this.parentElement.remove()" class="absolute -top-3 right-2 bg-warm-800 text-white w-6 h-6 rounded-full text-xs flex items-center justify-center shadow-md">✕</button>
+          <a href="${escapeHtml(stickyAds[0].link)}" target="_blank" rel="noopener sponsored" class="block w-full h-12">
+            <img src="${escapeHtml(stickyAds[0].gambar)}" alt="Iklan" class="w-full h-full object-contain mx-auto" />
+          </a>
+        `;
+        document.body.appendChild(stickyDiv);
+      }
+    }
 
     document.addEventListener('DOMContentLoaded', () => {
       Router.navigate(window.location.pathname);
@@ -667,7 +676,6 @@
           Router.navigate(href);
         }
         closeMobileMenu();
-        closeSearch();
       });
 
       window.addEventListener('popstate', () => Router.navigate(window.location.pathname));
@@ -676,45 +684,12 @@
         document.getElementById('menuToggle').classList.toggle('open');
         document.getElementById('mobileMenu').classList.toggle('open');
       });
-
-      // Fungsi Search
-      const searchToggle = document.getElementById('searchToggle');
-      const searchBar = document.getElementById('searchBar');
-      const searchInput = document.getElementById('searchInput');
-      const searchClose = document.getElementById('searchClose');
-
-      searchToggle.addEventListener('click', () => {
-        searchBar.classList.toggle('hidden');
-        if (!searchBar.classList.contains('hidden')) setTimeout(() => searchInput.focus(), 100);
-      });
-      
-      searchClose.addEventListener('click', () => { searchBar.classList.add('hidden'); searchInput.value = ''; });
-      
-      searchInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-          e.preventDefault();
-          const q = searchInput.value.trim();
-          if (q) {
-            history.pushState(null, '', `/cari?q=${encodeURIComponent(q)}`);
-            Router.navigate('/cari');
-            closeSearch();
-          }
-        }
-        if (e.key === 'Escape') closeSearch();
-      });
-
-      // Back to top
-      const backToTopBtn = document.getElementById('backToTop');
-      window.addEventListener('scroll', () => { backToTopBtn.classList.toggle('show', window.scrollY > 400); });
-      backToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
     });
 
     function closeMobileMenu() {
       document.getElementById('menuToggle').classList.remove('open');
       document.getElementById('mobileMenu').classList.remove('open');
     }
-
-    function closeSearch() { document.getElementById('searchBar').classList.add('hidden'); }
-      </script>
+  </script>
 </body>
 </html>
