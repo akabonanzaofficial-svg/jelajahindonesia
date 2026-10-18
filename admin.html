@@ -12,9 +12,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
-  <!-- Quill.js CSS -->
   <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
-
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -50,17 +48,8 @@
     }
     .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 
-    /* QUILL CUSTOM STYLING */
-    .ql-toolbar.ql-snow {
-      border: 1px solid #ebe7e1; border-top-left-radius: 12px; border-top-right-radius: 12px;
-      background: #fefdfb; padding: 10px 12px; font-family: 'Poppins', sans-serif;
-      position: sticky; top: 0; z-index: 5;
-    }
-    .ql-container.ql-snow {
-      border: 1px solid #ebe7e1; border-top: none;
-      border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;
-      background: #ffffff; font-family: 'Poppins', sans-serif; font-size: 1rem;
-    }
+    .ql-toolbar.ql-snow { border: 1px solid #ebe7e1; border-top-left-radius: 12px; border-top-right-radius: 12px; background: #fefdfb; padding: 10px 12px; font-family: 'Poppins', sans-serif; position: sticky; top: 0; z-index: 5; }
+    .ql-container.ql-snow { border: 1px solid #ebe7e1; border-top: none; border-bottom-left-radius: 12px; border-bottom-right-radius: 12px; background: #ffffff; font-family: 'Poppins', sans-serif; font-size: 1rem; }
     .ql-editor { min-height: 300px; padding: 20px; line-height: 1.7; color: #44403c; }
     .ql-editor.ql-blank::before { color: #a8a29e; font-style: normal; left: 20px; right: 20px; }
     .ql-editor h1 { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 800; margin: 1rem 0 .5rem; }
@@ -80,13 +69,11 @@
         <img src="/assets/logo-navbar.png" alt="Jelajah Indonesia" class="h-10 w-auto" />
         <span class="hidden sm:inline-block ml-1 px-2 py-0.5 bg-green-100 text-green-700 text-[10px] uppercase tracking-widest font-bold rounded">Admin</span>
       </a>
-
       <div class="flex items-center gap-2 md:gap-3">
         <a href="/" target="_blank" rel="noopener" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 bg-warm-100 hover:bg-green-100 text-warm-700 hover:text-green-700 text-xs md:text-sm font-semibold rounded-full transition-all">
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
           <span class="hidden md:inline">Kunjungi Website</span>
         </a>
-
         <div id="userSection" class="hidden items-center gap-2">
           <div class="hidden md:flex flex-col items-end leading-tight mr-1">
             <span id="userName" class="text-xs font-semibold text-warm-700">-</span>
@@ -147,7 +134,7 @@
         <h2 id="adModalTitle" class="font-heading text-2xl font-bold">Tambah Iklan</h2>
         <button id="adModalClose" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-warm-100 transition-colors text-xl">×</button>
       </div>
-      <form id="adForm" class="p-6 space-y-4">
+      <form id="adForm" class="p-6 space-y-4 max-h-[75vh] overflow-y-auto">
         <input type="hidden" id="adId" />
         <div>
           <label class="block text-sm font-medium mb-2">Judul Iklan (Internal) *</label>
@@ -156,7 +143,7 @@
         <div>
           <label class="block text-sm font-medium mb-2">URL Gambar Banner *</label>
           <input type="url" id="adGambar" required placeholder="https://..." class="w-full px-4 py-2.5 bg-warm-50 border border-warm-200 rounded-xl outline-none focus:border-green-500" />
-          <p class="text-xs text-warm-400 mt-1">Gunakan ukuran horizontal untuk hero/feed, portrait untuk sidebar.</p>
+          <p class="text-xs text-warm-400 mt-1">Gunakan ukuran horizontal (728x90) untuk Header/Feed, dan kotak (300x250) untuk Sidebar/Grid.</p>
         </div>
         <div>
           <label class="block text-sm font-medium mb-2">URL Tujuan (Link) *</label>
@@ -165,11 +152,14 @@
         <div>
           <label class="block text-sm font-medium mb-2">Posisi Iklan *</label>
           <select id="adPosisi" required class="w-full px-4 py-2.5 bg-warm-50 border border-warm-200 rounded-xl outline-none focus:border-green-500">
-            <option value="hero">Hero (Bawah Banner Utama)</option>
-            <option value="feed-1">Feed 1 (Setelah 3 Artikel)</option>
-            <option value="feed-2">Feed 2 (Setelah 6 Artikel)</option>
-            <option value="sidebar">Sidebar Artikel (Kanan)</option>
-            <option value="in-article">In-Article (Tengah Artikel)</option>
+            <option value="header">Header Billboard (Bawah Navbar - Semua Halaman)</option>
+            <option value="hero">Hero Banner (Bawah Hero Beranda)</option>
+            <option value="feed-1">Feed 1 (Sela Artikel Atas)</option>
+            <option value="feed-2">Feed 2 (Sela Artikel Bawah)</option>
+            <option value="sidebar">Sidebar Single (Banner Besar Artikel)</option>
+            <option value="sidebar-grid">Sidebar Grid (Multipleks 2x2 di Artikel)</option>
+            <option value="in-article">In-Article (Tengah Teks Artikel)</option>
+            <option value="mobile-sticky">Mobile Sticky (Nempel Bawah Layar HP)</option>
           </select>
         </div>
         <div>
@@ -187,7 +177,7 @@
     </div>
   </div>
 
-  <!-- Modal Preview -->
+  <!-- Modal Preview Artikel -->
   <div id="previewModal" class="hidden fixed inset-0 z-[60] bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
     <div class="bg-white rounded-2xl shadow-2xl max-w-3xl w-full my-8 border border-warm-200 max-h-[90vh] overflow-y-auto">
       <div class="sticky top-0 flex items-center justify-between p-4 border-b border-warm-200 bg-white z-10">
@@ -387,7 +377,6 @@
       document.getElementById('previewBtn').addEventListener('click', handlePreview);
       document.getElementById('adForm').addEventListener('submit', handleAdSubmit);
 
-      // Init
       document.getElementById('statsGrid').innerHTML = '';
       loadData();
     }
