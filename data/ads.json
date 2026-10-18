@@ -38,5 +38,15 @@
     "createdAt": "2026-10-18T03:41:57.697Z",
     "id": "ad-1792294920024",
     "tipe": "gambar"
+  },
+  {
+    "judul": "Hiburan",
+    "tipe": "gambar",
+    "gambar": "/assets/uploads/img-1792315667590.jpg",
+    "link": "https://example.com",
+    "posisi": "sidebar-grid",
+    "status": "aktif",
+    "createdAt": "2026-10-18T09:28:01.020Z",
+    "id": "ad-1792315681907"
   }
 ]
