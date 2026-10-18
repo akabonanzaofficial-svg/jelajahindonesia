@@ -1,0 +1,29 @@
+[
+  {
+    "id": "ad-dummy-1",
+    "judul": "Rivera Kreasi Adventure",
+    "gambar": "https://dummyimage.com/728x90/14532d/ffffff&text=Rivera+Kreasi+-+Let's+Go+Adventure",
+    "link": "https://wa.me/6282113018920",
+    "posisi": "hero",
+    "status": "aktif",
+    "createdAt": "2026-10-18T00:00:00.000Z"
+  },
+  {
+    "id": "ad-dummy-2",
+    "judul": "Snorkeling Trip",
+    "gambar": "https://dummyimage.com/300x450/1e3a8a/ffffff&text=Snorkeling+Trip",
+    "link": "https://example.com",
+    "posisi": "sidebar",
+    "status": "aktif",
+    "createdAt": "2026-10-18T00:00:00.000Z"
+  },
+  {
+    "id": "ad-dummy-3",
+    "judul": "Explore Jungle",
+    "gambar": "https://dummyimage.com/728x90/b45309/ffffff&text=Explore+Jungle+Now",
+    "link": "https://example.com",
+    "posisi": "feed-1",
+    "status": "aktif",
+    "createdAt": "2026-10-18T00:00:00.000Z"
+  }
+]
