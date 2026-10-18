@@ -120,7 +120,7 @@
         <div>
           <label class="block text-sm font-medium mb-2">URL Gambar Utama *</label>
           <div class="flex flex-col sm:flex-row gap-2">
-            <input type="url" id="postGambar" required placeholder="https://... atau gunakan tombol upload" class="flex-1 px-4 py-2.5 bg-warm-50 border border-warm-200 rounded-xl outline-none focus:border-green-500" />
+            <input type="text" id="postGambar" required placeholder="https://... atau gunakan tombol upload" class="flex-1 px-4 py-2.5 bg-warm-50 border border-warm-200 rounded-xl outline-none focus:border-green-500" />
             <input type="file" id="uploadCover" accept="image/*" class="hidden" onchange="handleImageUpload(this, 'postGambar')" />
             <button type="button" onclick="document.getElementById('uploadCover').click()" class="px-5 py-2.5 bg-green-100 text-green-700 font-semibold rounded-xl hover:bg-green-200 transition-all whitespace-nowrap">
               📁 Upload Gambar
@@ -163,7 +163,7 @@
         <div>
           <label class="block text-sm font-medium mb-2" id="adMediaLabel">URL Gambar Banner *</label>
           <div class="flex flex-col sm:flex-row gap-2">
-            <input type="url" id="adGambar" required placeholder="https://..." class="flex-1 px-4 py-2.5 bg-warm-50 border border-warm-200 rounded-xl outline-none focus:border-green-500" />
+            <input type="text" id="adGambar" required placeholder="https://..." class="flex-1 px-4 py-2.5 bg-warm-50 border border-warm-200 rounded-xl outline-none focus:border-green-500" />
             <input type="file" id="uploadAd" accept="image/*" class="hidden" onchange="handleImageUpload(this, 'adGambar')" />
             <button type="button" id="btnUploadAd" onclick="document.getElementById('uploadAd').click()" class="px-5 py-2.5 bg-green-100 text-green-700 font-semibold rounded-xl hover:bg-green-200 transition-all whitespace-nowrap">
               📁 Upload
