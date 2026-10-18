@@ -58,5 +58,15 @@
     "status": "aktif",
     "createdAt": "2026-10-18T09:29:33.019Z",
     "id": "ad-1792315773893"
+  },
+  {
+    "judul": "Jelajah",
+    "tipe": "gambar",
+    "gambar": "/assets/uploads/img-1792315790632.jpg",
+    "link": "https://example.com",
+    "posisi": "header",
+    "status": "aktif",
+    "createdAt": "2026-10-18T09:30:04.064Z",
+    "id": "ad-1792315804945"
   }
 ]
