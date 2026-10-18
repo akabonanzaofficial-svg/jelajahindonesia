@@ -10,12 +10,13 @@
   },
   {
     "id": "ad-dummy-2",
-    "judul": "Snorkeling Trip",
-    "gambar": "https://dummyimage.com/300x450/1e3a8a/ffffff&text=Snorkeling+Trip",
+    "judul": "Adventure Trip",
+    "gambar": "/assets/uploads/img-1792301562145.jpg",
     "link": "https://example.com",
     "posisi": "sidebar",
     "status": "aktif",
-    "createdAt": "2026-10-18T00:00:00.000Z"
+    "createdAt": "2026-10-18T00:00:00.000Z",
+    "tipe": "gambar"
   },
   {
     "id": "ad-dummy-3",
