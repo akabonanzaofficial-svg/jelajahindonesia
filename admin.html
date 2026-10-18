@@ -130,7 +130,11 @@
         </div>
 
         <div><label class="block text-sm font-medium mb-2">Ringkasan *</label><textarea id="postRingkasan" required rows="2" class="w-full px-4 py-2.5 bg-warm-50 border border-warm-200 rounded-xl outline-none focus:border-green-500 resize-none"></textarea></div>
-        <div><label class="block text-sm font-medium mb-2">Isi Artikel *</label><div id="editorContainer" class="bg-white rounded-xl"><div id="editor"></div></div></div>
+        <div>
+  <label class="block text-sm font-medium mb-2">Isi Artikel *</label>
+  <div id="editorContainer" class="bg-white rounded-xl"><div id="editor"></div></div>
+  <p class="text-xs text-warm-400 mt-1">💡 Klik ikon 🖼️ di toolbar untuk mengunggah gambar dari perangkat. (Maksimal 3 gambar sisipan).</p>
+</div>
         <div id="formError" class="hidden p-3 bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl"></div>
         <div class="flex gap-3 justify-end pt-4 border-t border-warm-200">
           <button type="button" id="previewBtn" class="px-5 py-2.5 bg-warm-100 text-warm-700 text-sm font-semibold rounded-xl hover:bg-warm-200 transition-all">👁 Preview</button>
@@ -334,27 +338,34 @@
       });
       const toolbar = quill.getModule('toolbar');
       
-      toolbar.addHandler('image', () => {
+        toolbar.addHandler('image', () => {
+        // 1. Cek jumlah gambar yang sudah ada di editor
+        const currentImages = quill.root.querySelectorAll('img').length;
+        if (currentImages >= 3) {
+          showToast('Maksimal 3 gambar sisipan per artikel.', 'error');
+          return; // Hentikan proses jika sudah 3
+        }
+
+        // 2. Jika belum 3, buka jendela pilih file
         const input = document.createElement('input');
         input.type = 'file';
         input.accept = 'image/*';
         input.onchange = async () => {
           if (input.files && input.files[0]) {
-            const file = input.files[0];
-            if (file.size > 2 * 1024 * 1024) {
-              showToast('Gagal: Ukuran gambar melebihi 2MB!', 'error');
-              return;
-            }
+            // (Opsional) Tampilkan notifikasi sedang mengunggah
+            showToast('Mengunggah gambar...', 'success'); 
+            
             try {
-              showToast('Mengupload gambar...');
-              const url = await uploadToGithub(file);
+              // Panggil fungsi upload ke GitHub yang sudah kita buat sebelumnya
+              const url = await uploadToGithub(input.files[0]);
               if (url) {
                 const range = quill.getSelection(true);
                 quill.insertEmbed(range.index, 'image', url);
                 quill.setSelection(range.index + 1);
+                showToast('Gambar berhasil disisipkan');
               }
-            } catch (err) {
-              showToast('Gagal upload: ' + err.message, 'error');
+            } catch (e) {
+              showToast('Gagal upload: ' + e.message, 'error');
             }
           }
         };
