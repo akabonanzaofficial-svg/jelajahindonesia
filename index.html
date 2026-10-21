@@ -104,37 +104,36 @@
 
 <body class="bg-warm-50 text-warm-700 min-h-screen flex flex-col">
 
-    <!-- Navbar (Perbaikan Layout Desktop & Mobile Center) -->
+      <!-- Navbar (Layout Desktop: Logo Kiri & Menu Kanan, Layout Mobile: Logo Center) -->
   <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 py-4 bg-white/95 backdrop-blur-xl border-b border-warm-200/60 transition-all duration-300">
     <div class="max-w-7xl mx-auto px-6 flex items-center justify-between relative">
       
-      <!-- 1. LOGO: Di Kiri pada Desktop, Di Tengah pada Mobile -->
+      <!-- LOGO: Di Kiri (Desktop) / Center (Mobile) -->
       <a href="/" data-link class="flex items-center lg:static absolute left-1/2 lg:left-auto -translate-x-1/2 lg:translate-x-0">
         <img src="/assets/logo-navbar.png" alt="Jelajah Indonesia" class="h-10 md:h-12 w-auto" />
       </a>
 
-      <!-- 2. MENU KIRI (Hanya Desktop) -->
-      <ul class="hidden lg:flex items-center gap-7 ml-8">
-        <li><a href="/" data-link class="nav-item">Beranda</a></li>
-        <li><a href="/cerita" data-link class="nav-item">Cerita</a></li>
-        <li><a href="/gaya-hidup" data-link class="nav-item">Gaya Hidup</a></li>
-        <li><a href="/akomodasi" data-link class="nav-item">Akomodasi</a></li>
-      </ul>
-
-      <!-- 3. MENU KANAN (Hanya Desktop) & TOMBOL MENU (Mobile) -->
-      <div class="flex items-center justify-end gap-4 ml-auto">
+      <!-- MENU KANAN (Hanya tampil Desktop) & HAMBURGER (Mobile) -->
+      <div class="flex items-center justify-end w-full lg:w-auto">
+        
+        <!-- List Menu (Desktop) -->
         <ul class="hidden lg:flex items-center gap-7">
+          <li><a href="/" data-link class="nav-item">Beranda</a></li>
+          <li><a href="/cerita" data-link class="nav-item">Cerita</a></li>
+          <li><a href="/gaya-hidup" data-link class="nav-item">Gaya Hidup</a></li>
+          <li><a href="/akomodasi" data-link class="nav-item">Akomodasi</a></li>
           <li><a href="/tips-trip" data-link class="nav-item">Tips & Trip</a></li>
           <li><a href="/event" data-link class="nav-item">Event</a></li>
         </ul>
-        
-        <!-- Hamburger Mobile -->
-        <button id="menuToggle" aria-label="Menu" class="lg:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5 z-10 relative">
+
+        <!-- Hamburger Menu (Mobile) -->
+        <button id="menuToggle" aria-label="Menu" class="lg:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5 z-10 relative ml-auto">
           <span class="menu-line w-6 h-0.5 bg-warm-700 rounded transition-all"></span>
           <span class="menu-line w-6 h-0.5 bg-warm-700 rounded transition-all"></span>
           <span class="menu-line w-6 h-0.5 bg-warm-700 rounded transition-all"></span>
         </button>
       </div>
+
     </div>
 
     <!-- Mobile Menu Dropdown -->
@@ -143,7 +142,7 @@
         <li><a href="/" data-link class="mobile-nav-item">Beranda</a></li>
         <li><a href="/cerita" data-link class="mobile-nav-item">Cerita</a></li>
         <li><a href="/gaya-hidup" data-link class="mobile-nav-item">Gaya Hidup</a></li>
-        <li><a href="/akomodasi" data-link mobile-nav-item>Akomodasi</a></li>
+        <li><a href="/akomodasi" data-link class="mobile-nav-item">Akomodasi</a></li>
         <li><a href="/tips-trip" data-link class="mobile-nav-item">Tips & Trip</a></li>
         <li><a href="/event" data-link class="mobile-nav-item">Event</a></li>
       </ul>
