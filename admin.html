@@ -123,7 +123,11 @@
             <button type="button" onclick="document.getElementById('uploadCover').click()" class="px-4 py-2.5 bg-green-100 text-green-700 font-semibold rounded-xl hover:bg-green-200 transition-all whitespace-nowrap">📁 Upload</button>
           </div>
         </div>
-        <div><label class="block text-sm font-medium mb-2">Ringkasan *</label><textarea id="postRingkasan" required rows="2" class="w-full px-4 py-2.5 bg-warm-50 border border-warm-200 rounded-xl outline-none focus:border-green-500 resize-none"></textarea></div>
+        <div>
+  <label class="block text-sm font-medium mb-2">Ringkasan *</label>
+  <textarea id="postRingkasan" required rows="2" maxlength="200" placeholder="Maksimal 200 karakter agar rapi..." class="w-full px-4 py-2.5 bg-warm-50 border border-warm-200 rounded-xl outline-none focus:border-green-500 resize-none"></textarea>
+  <p class="text-[10px] text-warm-400 text-right mt-1">Maks. 200 karakter</p>
+    </div>
         <div>
           <label class="block text-sm font-medium mb-2">Isi Artikel *</label>
           <div id="editorContainer" class="bg-white rounded-xl"><div id="editor"></div></div>
@@ -416,16 +420,65 @@
       catch (e) { document.getElementById('tableContainer').innerHTML = `<div class="p-8 text-red-500 text-center">Error: ${escapeHtml(e.message)}</div>`; }
     }
 
-    function renderPostsTable() {
-      const c = document.getElementById('tableContainer');
-      if (allPosts.length === 0) return c.innerHTML = '<div class="p-8 text-center text-warm-400">Belum ada artikel.</div>';
-      c.innerHTML = `<table class="w-full text-sm text-left"><thead class="bg-warm-50 border-b border-warm-200 text-warm-500"><tr><th class="p-4">Judul</th><th class="p-4">Tipe</th><th class="p-4">Status</th><th class="p-4 text-right">Aksi</th></tr></thead><tbody>
-        ${allPosts.map(p => `<tr class="border-b border-warm-100 hover:bg-warm-50">
-          <td class="p-4 font-medium">${escapeHtml(p.judul)}</td>
-          <td class="p-4"><span class="px-2 py-1 bg-green-100 text-green-700 rounded-md text-xs">${p.tipe}</span></td>
-          <td class="p-4">${p.status === 'published' ? '<span class="text-green-600 font-bold text-xs">● Published</span>' : '<span class="text-warm-400 font-bold text-xs">○ Draft</span>'}</td>
-          <td class="p-4 text-right"><button onclick="editPost('${p.id}')" class="text-blue-600 hover:underline mr-2 text-xs font-semibold">Edit</button><button onclick="deleteItem('post', '${p.id}')" class="text-red-600 hover:underline text-xs font-semibold">Hapus</button></td>
-        </tr>`).join('')}</tbody></table>`;
+        function renderPostTable() {
+      const table = document.getElementById('dataTable');
+      if (allPosts.length === 0) return table.innerHTML = `<div class="p-12 text-center text-warm-400">Belum ada artikel.</div>`;
+      
+      table.innerHTML = `
+        <!-- TAMPILAN DESKTOP (Tabel) -->
+        <div class="hidden lg:block overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead class="bg-warm-50 text-warm-600 border-b border-warm-200">
+              <tr><th class="text-left p-4">Judul</th><th class="text-left p-4">Tipe</th><th class="text-left p-4">Status</th><th class="text-right p-4">Aksi</th></tr>
+            </thead>
+            <tbody>
+              ${allPosts.map(p => `
+                <tr class="border-b border-warm-100 hover:bg-warm-50">
+                  <td class="p-4"><div class="font-bold text-warm-800 line-clamp-1">${escapeHtml(p.judul)}</div><div class="text-xs text-warm-400 mt-1">${formatDate(p.tanggal)}</div></td>
+                  <td class="p-4"><span class="px-2 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-lg">${p.tipe === 'newsedu' ? 'Tips & Trip' : p.tipe}</span></td>
+                  <td class="p-4">${p.status === 'published' ? '<span class="text-green-600 font-bold text-xs">✓ Published</span>' : '<span class="text-gold-500 font-bold text-xs">◐ Draft</span>'}</td>
+                  <td class="p-4 text-right">
+                    <div class="flex gap-1 justify-end">
+                      <button onclick="window.open('/artikel/${p.id}', '_blank')" class="w-8 h-8 rounded-full hover:bg-warm-200" title="Lihat">🔗</button>
+                      <button data-edit="${p.id}" class="w-8 h-8 rounded-full hover:bg-green-100 text-green-700" title="Edit">✏️</button>
+                      <button data-del="${p.id}" class="w-8 h-8 rounded-full hover:bg-red-100 text-red-600" title="Hapus">🗑️</button>
+                    </div>
+                  </td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+
+        <!-- TAMPILAN MOBILE (Card) -->
+        <div class="lg:hidden flex flex-col divide-y divide-warm-100">
+          ${allPosts.map(p => `
+            <div class="p-4 flex flex-col gap-3">
+              <div>
+                <div class="font-bold text-warm-800 leading-tight">${escapeHtml(p.judul)}</div>
+                <div class="text-xs text-warm-400 mt-1 flex items-center gap-2">
+                  <span>${formatDate(p.tanggal)}</span>
+                  <span class="w-1 h-1 bg-warm-300 rounded-full"></span>
+                  <span class="text-green-700 font-semibold">${p.tipe === 'newsedu' ? 'Tips & Trip' : p.tipe}</span>
+                </div>
+              </div>
+              <div class="flex items-center justify-between">
+                <div>
+                  ${p.status === 'published' ? '<span class="text-green-600 font-bold text-xs bg-green-50 px-2 py-1 rounded">✓ Published</span>' : '<span class="text-gold-500 font-bold text-xs bg-gold-400/10 px-2 py-1 rounded">◐ Draft</span>'}
+                </div>
+                <div class="flex gap-2">
+                  <button onclick="window.open('/artikel/${p.id}', '_blank')" class="w-9 h-9 rounded-lg bg-warm-100 flex items-center justify-center">🔗</button>
+                  <button data-edit="${p.id}" class="w-9 h-9 rounded-lg bg-green-100 text-green-700 flex items-center justify-center">✏️</button>
+                  <button data-del="${p.id}" class="w-9 h-9 rounded-lg bg-red-100 text-red-600 flex items-center justify-center">🗑️</button>
+                </div>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      `;
+
+      table.querySelectorAll('[data-edit]').forEach(b => b.addEventListener('click', () => openEditPostModal(b.dataset.edit)));
+      table.querySelectorAll('[data-del]').forEach(b => b.addEventListener('click', () => confirmDelete('posts', b.dataset.del)));
     }
 
     function renderAdsTable() {
