@@ -21,7 +21,8 @@
   <link rel="icon" type="image/png" href="/assets/favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Perbaikan 5: Font diganti ke Plus Jakarta Sans (Sans-serif tanpa kait) untuk Heading & Body -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -29,8 +30,9 @@
       theme: {
         extend: {
           fontFamily: {
-            heading: ['"Playfair Display"', 'Georgia', 'serif'],
-            body: ['Poppins', 'system-ui', 'sans-serif'],
+            // Menggunakan font yang sama agar seragam dan modern
+            heading: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            body: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
           },
           colors: {
             green: { 50:'#f0fdf4',100:'#dcfce7',200:'#bbf7d0',300:'#86efac',400:'#4ade80',500:'#22c55e',600:'#16a34a',700:'#15803d',800:'#166534',900:'#14532d' },
@@ -43,12 +45,10 @@
             'glow-red': '0 10px 30px rgba(220, 38, 38, 0.35)',
           },
           animation: {
-            'hero-zoom': 'heroZoom 20s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate',
             'hero-fade': 'heroFade 1.2s cubic-bezier(0.16, 1, 0.3, 1) both',
             'bounce-slow': 'bounceSlow 2s cubic-bezier(0.4, 0, 0.2, 1) infinite',
           },
           keyframes: {
-            heroZoom: { '0%':{transform:'scale(1.05)'}, '100%':{transform:'scale(1.15)'} },
             heroFade: { '0%':{opacity:0,transform:'translateY(30px)'}, '100%':{opacity:1,transform:'translateY(0)'} },
             bounceSlow: { '0%,100%':{transform:'translate(-50%,0)'}, '50%':{transform:'translate(-50%,10px)'} },
           },
@@ -58,8 +58,10 @@
   </script>
 
   <style>
-    body { font-family: 'Poppins', system-ui, sans-serif; }
-    h1, h2, h3, h4 { font-family: 'Playfair Display', Georgia, serif; }
+    /* Perbaikan 5: Terapkan font ke body dan heading */
+    body { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; }
+    h1, h2, h3, h4 { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-weight: 700; }
+    
     ::-webkit-scrollbar { width: 10px; }
     ::-webkit-scrollbar-track { background: #f7f5f2; }
     ::-webkit-scrollbar-thumb { background: #16a34a; border-radius: 5px; }
@@ -72,13 +74,13 @@
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
     }
-    .nav-item { position: relative; font-size: .92rem; font-weight: 500; padding: .3rem 0; color: inherit; transition: color .3s; }
+    .nav-item { position: relative; font-size: .92rem; font-weight: 600; padding: .3rem 0; color: inherit; transition: color .3s; }
     .nav-item::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 2px; background: linear-gradient(90deg, #22c55e, #ef4444); border-radius: 2px; transition: width .3s; }
     .nav-item:hover { color: #15803d; }
     .nav-item:hover::after { width: 100%; }
-    .mobile-nav-item { display: block; padding: .75rem 0; font-size: 1rem; font-weight: 500; color: inherit; border-bottom: 1px solid rgba(120,113,108,.1); }
+    .mobile-nav-item { display: block; padding: .75rem 0; font-size: 1rem; font-weight: 600; color: inherit; border-bottom: 1px solid rgba(120,113,108,.1); }
     .mobile-nav-item:hover { color: #15803d; }
-    .footer-link { font-size: .9rem; font-weight: 300; color: #a8a29e; transition: color .3s, padding-left .3s; }
+    .footer-link { font-size: .9rem; font-weight: 400; color: #a8a29e; transition: color .3s, padding-left .3s; }
     .footer-link:hover { color: #4ade80; padding-left: 4px; }
     #mobileMenu.open { transform: translateY(0); opacity: 1; pointer-events: auto; }
     #menuToggle.open .menu-line:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
@@ -93,32 +95,40 @@
     #backToTop { transform: translateY(100px); opacity: 0; pointer-events: none; transition: all .3s; }
     #backToTop.show { transform: translateY(0); opacity: 1; pointer-events: auto; }
     .filter-chip.active { background: #16a34a; color: white; border-color: #16a34a; }
+
+    /* Animasi Slider Hero */
+    .hero-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1s ease-in-out; background-size: cover; background-position: center; }
+    .hero-slide.active { opacity: 1; }
   </style>
 </head>
 
 <body class="bg-warm-50 text-warm-700 min-h-screen flex flex-col">
 
-  <!-- Navbar -->
-  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 py-4 bg-white/90 backdrop-blur-xl border-b border-warm-200/60 transition-all duration-300">
-    <div class="max-w-7xl mx-auto px-6 flex items-center justify-between gap-4">
-      <a href="/" data-link class="flex items-center gap-2.5 whitespace-nowrap">
-        <img src="/assets/logo-navbar.png" alt="Jelajah Indonesia" class="h-10 md:h-12 w-auto" />
-      </a>
-
-      <ul class="hidden lg:flex items-center gap-7">
+  <!-- Navbar (Perbaikan 3: Pencarian dihilangkan & Logo Center) -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 py-4 bg-white/95 backdrop-blur-xl border-b border-warm-200/60 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-6 flex items-center justify-between relative">
+      
+      <!-- Menu Kiri (Desktop) -->
+      <ul class="hidden lg:flex items-center gap-7 flex-1">
         <li><a href="/" data-link class="nav-item">Beranda</a></li>
         <li><a href="/cerita" data-link class="nav-item">Cerita</a></li>
         <li><a href="/gaya-hidup" data-link class="nav-item">Gaya Hidup</a></li>
         <li><a href="/akomodasi" data-link class="nav-item">Akomodasi</a></li>
-        <li><a href="/newsedu" data-link class="nav-item">Newsedu</a></li>
-        <li><a href="/event" data-link class="nav-item">Event</a></li>
       </ul>
 
-      <div class="flex items-center gap-2 md:gap-3">
-        <button id="searchToggle" aria-label="Cari" class="w-10 h-10 flex items-center justify-center rounded-full bg-warm-100 hover:bg-warm-200 transition-colors">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-        </button>
-        <a href="/cerita" data-link class="hidden md:inline-flex px-5 py-2.5 bg-gradient-to-br from-red-500 to-red-700 text-white text-sm font-semibold rounded-full shadow-glow-red hover:-translate-y-0.5 transition-all duration-300">Mulai Jelajah</a>
+      <!-- Logo (Center Absolute) -->
+      <a href="/" data-link class="absolute left-1/2 -translate-x-1/2 flex items-center justify-center">
+        <img src="/assets/logo-navbar.png" alt="Jelajah Indonesia" class="h-10 md:h-12 w-auto" />
+      </a>
+
+      <!-- Menu Kanan (Desktop) & Mobile Toggle -->
+      <div class="flex items-center justify-end gap-4 flex-1">
+        <ul class="hidden lg:flex items-center gap-7">
+          <li><a href="/tips-trip" data-link class="nav-item">Tips & Trip</a></li> <!-- Perbaikan 7 -->
+          <li><a href="/event" data-link class="nav-item">Event</a></li>
+        </ul>
+        
+        <!-- Hamburger Mobile -->
         <button id="menuToggle" aria-label="Menu" class="lg:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5">
           <span class="menu-line w-6 h-0.5 bg-warm-700 rounded transition-all"></span>
           <span class="menu-line w-6 h-0.5 bg-warm-700 rounded transition-all"></span>
@@ -127,28 +137,20 @@
       </div>
     </div>
 
-    <div id="searchBar" class="hidden max-w-7xl mx-auto px-6 mt-3 pb-1">
-      <div class="relative">
-        <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-warm-400" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-        <input id="searchInput" type="text" placeholder="Cari cerita, gaya hidup, event..." class="w-full pl-11 pr-4 py-3 bg-warm-100 border border-warm-200 rounded-full text-sm outline-none focus:border-green-500" />
-        <button id="searchClose" class="absolute right-4 top-1/2 -translate-y-1/2 text-warm-400 hover:text-warm-700 text-xl">×</button>
-      </div>
-    </div>
-
+    <!-- Mobile Menu -->
     <div id="mobileMenu" class="lg:hidden absolute top-full left-0 right-0 bg-white border-b border-warm-200 shadow-xl -translate-y-[200%] transition-transform duration-300 opacity-0 pointer-events-none">
-      <ul class="px-6 py-4 space-y-3">
+      <ul class="px-6 py-4 space-y-3 text-center">
         <li><a href="/" data-link class="mobile-nav-item">Beranda</a></li>
         <li><a href="/cerita" data-link class="mobile-nav-item">Cerita</a></li>
         <li><a href="/gaya-hidup" data-link class="mobile-nav-item">Gaya Hidup</a></li>
         <li><a href="/akomodasi" data-link class="mobile-nav-item">Akomodasi</a></li>
-        <li><a href="/newsedu" data-link class="mobile-nav-item">Newsedu</a></li>
+        <li><a href="/tips-trip" data-link class="mobile-nav-item">Tips & Trip</a></li>
         <li><a href="/event" data-link class="mobile-nav-item">Event</a></li>
-        <li><a href="/cerita" data-link class="mobile-nav-item">Mulai Jelajah</a></li>
       </ul>
     </div>
   </nav>
 
-  <main id="app" class="flex-1 pt-20"></main>
+  <main id="app" class="flex-1 pt-24"></main>
 
   <button id="backToTop" aria-label="Kembali ke atas" class="fixed bottom-6 right-6 z-40 w-12 h-12 flex items-center justify-center bg-gradient-to-br from-green-600 to-green-700 text-white rounded-full shadow-glow-green hover:-translate-y-1 transition-all">
     <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="m18 15-6-6-6 6"/></svg>
@@ -158,21 +160,21 @@
     <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-green-500 via-gold-500 to-red-500"></div>
     <div class="max-w-7xl mx-auto px-6 py-16">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
-        <div class="lg:col-span-1">
-          <img src="/assets/logo-navbar.png" alt="Jelajah Indonesia" class="h-16 w-auto mb-3 brightness-0 invert opacity-90" />
-          <p class="text-sm font-light leading-relaxed max-w-xs">Media perjalanan dan gaya hidup yang menginspirasi jutaan pembaca untuk menjelajah Nusantara dengan lebih bermakna.</p>
+        <div class="lg:col-span-1 text-center md:text-left">
+          <img src="/assets/logo-navbar.png" alt="Jelajah Indonesia" class="h-16 w-auto mb-3 brightness-0 invert opacity-90 mx-auto md:mx-0" />
+          <p class="text-sm font-light leading-relaxed max-w-xs mx-auto md:mx-0">Media perjalanan dan gaya hidup yang menginspirasi jutaan pembaca untuk menjelajah Nusantara.</p>
         </div>
-        <div>
+        <div class="text-center md:text-left">
           <h4 class="text-white text-sm font-semibold uppercase tracking-wider mb-4">Menu</h4>
           <ul class="space-y-3">
             <li><a href="/cerita" data-link class="footer-link">Cerita Perjalanan</a></li>
             <li><a href="/gaya-hidup" data-link class="footer-link">Gaya Hidup</a></li>
             <li><a href="/akomodasi" data-link class="footer-link">Akomodasi</a></li>
-            <li><a href="/newsedu" data-link class="footer-link">Newsedu</a></li>
+            <li><a href="/tips-trip" data-link class="footer-link">Tips & Trip</a></li>
             <li><a href="/event" data-link class="footer-link">Event</a></li>
           </ul>
         </div>
-        <div>
+        <div class="text-center md:text-left">
           <h4 class="text-white text-sm font-semibold uppercase tracking-wider mb-4">Tentang</h4>
           <ul class="space-y-3">
             <li><a href="/tentang" data-link class="footer-link">Tentang Kami</a></li>
@@ -181,7 +183,7 @@
             <li><a href="/syarat" data-link class="footer-link">Syarat & Ketentuan</a></li>
           </ul>
         </div>
-        <div>
+        <div class="text-center md:text-left">
           <h4 class="text-white text-sm font-semibold uppercase tracking-wider mb-4">Kontak</h4>
           <ul class="space-y-3">
             <li><a href="mailto:halo@jelajahindonesia.id" class="footer-link">halo@jelajahindonesia.id</a></li>
@@ -215,55 +217,45 @@
       async getByPosition(pos) {
         const ads = await this.getAds();
         const filtered = ads.filter(a => a.posisi === pos);
-        return filtered.sort(() => Math.random() - 0.5); // Rotasi acak
+        return filtered.sort(() => Math.random() - 0.5);
       }
     };
 
-    // Komponen Iklan Gambar
+    // Komponen Iklan Gambar (Perbaikan 4: Tulisan 'Iklan' dihapus)
     const AdComponent = (ad, variant = 'horizontal') => {
       if (!ad) return '';
       const isPortrait = variant === 'portrait';
       return `
-        <div class="ad-container my-4 md:my-6">
-          <div class="text-[10px] text-warm-400 uppercase tracking-widest mb-1 font-semibold text-center md:text-left">Iklan</div>
-          <a href="${escapeHtml(ad.link)}" target="_blank" rel="noopener sponsored" class="block rounded-xl overflow-hidden border border-warm-200 hover:border-green-400 transition-colors shadow-sm bg-white">
+        <div class="ad-container my-6 md:my-8">
+          <a href="${escapeHtml(ad.link)}" target="_blank" rel="noopener sponsored" class="block rounded-xl overflow-hidden shadow-sm bg-white hover:opacity-90 transition-opacity">
             <img src="${escapeHtml(ad.gambar)}" alt="${escapeHtml(ad.judul)}" class="w-full h-auto object-cover ${isPortrait ? '' : 'max-h-[120px] md:max-h-[150px]'}" style="object-fit: cover;" />
           </a>
         </div>
       `;
     };
 
-    // Komponen Iklan Video
     const VideoAdComponent = (ad, variant = 'horizontal') => {
       if (!ad) return '';
-      // Jika link YouTube biasa, ubah ke embed. Jika bukan, biarkan (misal MP4)
       let videoUrl = ad.gambar;
-      if (videoUrl.includes('youtube.com/watch')) {
-        videoUrl = videoUrl.replace('watch?v=', 'embed/');
-      }
-      
+      if (videoUrl.includes('youtube.com/watch')) videoUrl = videoUrl.replace('watch?v=', 'embed/');
       const isVertical = variant === 'vertical';
-      const aspect = isVertical ? 'aspect-[9/16]' : 'aspect-video'; // 9:16 untuk sidebar, 16:9 untuk in-article
-
+      const aspect = isVertical ? 'aspect-[9/16]' : 'aspect-video'; 
       return `
-        <div class="ad-container my-4 md:my-6">
-          <div class="text-[10px] text-warm-400 uppercase tracking-widest mb-1 font-semibold text-center md:text-left">Iklan Video</div>
-          <div class="rounded-xl overflow-hidden border border-warm-200 shadow-sm bg-black relative ${aspect}">
+        <div class="ad-container my-6 md:my-8">
+          <div class="rounded-xl overflow-hidden shadow-sm bg-black relative ${aspect}">
             <iframe src="${escapeHtml(videoUrl)}" class="absolute inset-0 w-full h-full" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
           </div>
         </div>
       `;
     };
 
-    // Komponen Iklan Multipleks (Grid)
     const AdGridComponent = (ads) => {
       if (!ads || ads.length === 0) return '';
       return `
-        <div class="ad-container my-4 md:my-6">
-          <div class="text-[10px] text-warm-400 uppercase tracking-widest mb-2 font-semibold text-center md:text-left">Iklan</div>
-          <div class="grid grid-cols-2 gap-2">
+        <div class="ad-container my-6 md:my-8">
+          <div class="grid grid-cols-2 gap-3">
             ${ads.map(ad => `
-              <a href="${escapeHtml(ad.link)}" target="_blank" rel="noopener sponsored" class="block rounded-lg overflow-hidden border border-warm-200 hover:border-green-400 transition-colors shadow-sm bg-white aspect-square">
+              <a href="${escapeHtml(ad.link)}" target="_blank" rel="noopener sponsored" class="block rounded-lg overflow-hidden border border-warm-200 shadow-sm bg-white aspect-square hover:opacity-90 transition-opacity">
                 <img src="${escapeHtml(ad.gambar)}" alt="${escapeHtml(ad.judul)}" class="w-full h-full object-cover" />
               </a>
             `).join('')}
@@ -276,7 +268,7 @@
        DATA SERVICE (Artikel)
        ============================================================ */
     const DataService = {
-      _cache: { index: null, posts: {} },
+      _cache: { index: null, posts: {}, hero: null },
       async getIndex() {
         if (this._cache.index) return this._cache.index;
         const res = await fetch('/data/data.json');
@@ -284,6 +276,16 @@
         const data = await res.json();
         this._cache.index = data;
         return data;
+      },
+      async getHero() {
+        if (this._cache.hero) return this._cache.hero;
+        try {
+          const res = await fetch('/data/hero.json');
+          if (!res.ok) return [];
+          const data = await res.json();
+          this._cache.hero = data.filter(h => h.status === 'aktif').sort((a,b) => a.urutan - b.urutan).slice(0, 5);
+          return this._cache.hero;
+        } catch { return []; }
       },
       async getByType(tipe) {
         const all = await this.getIndex();
@@ -302,8 +304,7 @@
       },
       async getRelated(post, n = 3) {
         const all = await this.getIndex();
-        const related = all.filter(p => p.id !== post.id && p.tipe === post.tipe && p.status === 'published');
-        return [...related].slice(0, n);
+        return all.filter(p => p.id !== post.id && p.tipe === post.tipe && p.status === 'published').slice(0, n);
       }
     };
 
@@ -350,13 +351,12 @@
     };
 
     /* ============================================================
-       COMPONENTS (Kartu Artikel)
+       COMPONENTS (Kartu Artikel) - Perbaikan 8: Kategori dihapus
        ============================================================ */
     const CardComponent = (post) => `
       <article class="group bg-white rounded-2xl overflow-hidden border border-warm-200 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-green-200 transition-all duration-300 flex flex-col">
         <a href="/artikel/${post.id}" data-link class="block relative h-56 overflow-hidden">
           <img src="${escapeHtml(post.gambar)}" alt="${escapeHtml(post.judul)}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy" />
-          <span class="absolute top-4 left-4 px-3 py-1.5 bg-white/95 backdrop-blur-md text-green-700 text-xs font-semibold rounded-full border-l-4 border-red-500">${escapeHtml(post.kategori)}</span>
         </a>
         <div class="p-6 flex flex-col flex-1">
           <div class="flex items-center gap-2 text-xs text-warm-400 mb-3 flex-wrap">
@@ -393,22 +393,43 @@
     const HomeView = {
       async render() {
         const latest = await DataService.getLatest(6);
+        const heroSlides = await DataService.getHero();
+        
         setMeta({ title: 'Jelajah Indonesia — Travel', description: 'Media perjalanan.', image: 'https://images.pexels.com/photos/2166553/pexels-photo-2166553.jpeg', url: 'https://jelajahindonesia.com/' });
         
+        // Render elemen slider berdasarkan data dari CMS
+        let slidesHtml = '';
+        if (heroSlides.length > 0) {
+          slidesHtml = heroSlides.map((s, i) => `
+            <div class="hero-slide ${i === 0 ? 'active' : ''}" style="background-image: url('${escapeHtml(s.gambar)}');"></div>
+          `).join('');
+        } else {
+          // Fallback jika belum ada data hero
+          slidesHtml = `<div class="hero-slide active" style="background-image: url('https://images.pexels.com/photos/2166553/pexels-photo-2166553.jpeg?auto=compress&cs=tinysrgb&w=1920');"></div>`;
+        }
+
         return `
           <div id="headerAdContainer"></div>
-          <section class="relative min-h-[80vh] flex items-center justify-center text-center overflow-hidden">
-            <div class="absolute inset-0 bg-cover bg-center animate-hero-zoom" style="background-image: url('https://images.pexels.com/photos/2166553/pexels-photo-2166553.jpeg?auto=compress&cs=tinysrgb&w=1920');"></div>
-            <div class="absolute inset-0 bg-gradient-to-br from-green-900/65 via-green-800/45 to-red-900/55"></div>
-            <div class="relative z-10 max-w-3xl px-6 animate-hero-fade">
-              <h1 class="font-heading text-4xl md:text-6xl lg:text-7xl font-extrabold text-white mb-6">Jelajahi <em class="italic text-gold-400">Keajaiban</em> Nusantara</h1>
-              <p class="text-lg md:text-xl text-white/90 font-light max-w-2xl mx-auto mb-10">Temukan pesona alam tropis, kekayaan budaya, dan kuliner legendaris Indonesia.</p>
+          <!-- Perbaikan 6: Hero Slider Otomatis -->
+          <section class="relative h-[80vh] flex items-center justify-center text-center overflow-hidden bg-black">
+            <!-- Container Slider -->
+            <div class="absolute inset-0" id="heroSliderContainer">
+              ${slidesHtml}
+            </div>
+            <div class="absolute inset-0 bg-black/40"></div> <!-- Overlay Gelap -->
+            
+            <div class="relative z-10 max-w-4xl px-6 animate-hero-fade">
+              <!-- Perbaikan 5: Font Sans-serif & Teks Baru -->
+              <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 drop-shadow-lg tracking-tight">Jelajahi Keindahan Indonesia</h1>
+              <p class="text-lg md:text-2xl text-white/90 font-light max-w-2xl mx-auto mb-10 drop-shadow">Temukan pesona alam tropis, kekayaan budaya, dan kuliner legendaris Nusantara.</p>
               <div class="flex flex-wrap justify-center gap-4">
-                <a href="/cerita" data-link class="inline-flex items-center gap-2 px-8 py-3.5 bg-gradient-to-br from-red-500 to-red-700 text-white font-semibold rounded-full hover:-translate-y-1 transition-all">Mulai Menjelajah →</a>
+                <a href="/cerita" data-link class="inline-flex items-center gap-2 px-8 py-4 bg-green-600 hover:bg-green-700 text-white font-bold rounded-full shadow-glow-green hover:-translate-y-1 transition-all">Mulai Menjelajah →</a>
               </div>
             </div>
           </section>
+          
           <div id="heroAdContainer" class="max-w-5xl mx-auto px-6 -mt-6 relative z-20"></div>
+          
           <section class="py-20 bg-warm-50">
             <div class="max-w-7xl mx-auto px-6">
               <div class="text-center mb-14">
@@ -425,6 +446,17 @@
         `;
       },
       async afterRender() {
+        // Logika Slider Otomatis
+        const slides = document.querySelectorAll('.hero-slide');
+        if (slides.length > 1) {
+          let currentSlide = 0;
+          setInterval(() => {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+          }, 5000); // Ganti gambar setiap 5 detik
+        }
+
         const headerAds = await AdsService.getByPosition('header');
         const heroAds = await AdsService.getByPosition('hero');
         const feed1Ads = await AdsService.getByPosition('feed-1');
@@ -463,7 +495,8 @@
     const CeritaView = createListView('cerita', 'Cerita Perjalanan', 'Kisah tulus dari para penjelajah Nusantara.', 'green');
     const GayaHidupView = createListView('gaya-hidup', 'Gaya Hidup', 'Inspirasi hidup modern berakar budaya lokal.', 'red');
     const AkomodasiView = createListView('akomodasi', 'Akomodasi', 'Pilihan penginapan terbaik.', 'green');
-    const NewseduView = createListView('newsedu', 'Newsedu', 'Berita & edukasi perjalanan.', 'red');
+    // Perbaikan 7: Newsedu diubah menjadi Tips & Trip (nilai 'tipe' tetap 'newsedu' agar data lama tetap terbaca)
+    const TipsTripView = createListView('newsedu', 'Tips & Trip', 'Panduan, trik, dan edukasi seputar perjalanan.', 'red');
     const EventView = createListView('event', 'Event Nusantara', 'Festival dan pertemuan budaya.', 'green');
 
     const ArticleDetailView = {
@@ -471,8 +504,8 @@
         const post = await DataService.getPost(id);
         if (!post) return NotFoundView.render();
         const related = await DataService.getRelated(post, 3);
-        const backPath = post.tipe === 'cerita' ? '/cerita' : post.tipe === 'gaya-hidup' ? '/gaya-hidup' : post.tipe === 'akomodasi' ? '/akomodasi' : post.tipe === 'newsedu' ? '/newsedu' : post.tipe === 'event' ? '/event' : '/';
-        const backLabel = post.tipe === 'cerita' ? 'Cerita' : post.tipe === 'gaya-hidup' ? 'Gaya Hidup' : post.tipe === 'akomodasi' ? 'Akomodasi' : post.tipe === 'newsedu' ? 'Newsedu' : post.tipe === 'event' ? 'Event' : 'Beranda';
+        const backPath = post.tipe === 'cerita' ? '/cerita' : post.tipe === 'gaya-hidup' ? '/gaya-hidup' : post.tipe === 'akomodasi' ? '/akomodasi' : post.tipe === 'newsedu' ? '/tips-trip' : post.tipe === 'event' ? '/event' : '/';
+        const backLabel = post.tipe === 'cerita' ? 'Cerita' : post.tipe === 'gaya-hidup' ? 'Gaya Hidup' : post.tipe === 'akomodasi' ? 'Akomodasi' : post.tipe === 'newsedu' ? 'Tips & Trip' : post.tipe === 'event' ? 'Event' : 'Beranda';
         const currentUrl = `https://jelajahindonesia.com/artikel/${post.id}`;
         
         setMeta({ title: `${post.judul} — Jelajah Indonesia`, description: post.ringkasan, image: post.gambar, url: currentUrl });
@@ -482,7 +515,6 @@
 
           <div class="max-w-6xl mx-auto px-6 py-10 grid grid-cols-1 lg:grid-cols-12 gap-10">
             
-            <!-- KOLOM ARTIKEL UTAMA -->
             <article class="lg:col-span-8">
               <nav class="flex items-center gap-2 text-sm text-warm-400 mb-8 flex-wrap">
                 <a href="/" data-link class="hover:text-green-600">Beranda</a> <span>/</span>
@@ -490,26 +522,30 @@
                 <span class="text-warm-600 font-medium truncate max-w-[200px]">${escapeHtml(post.judul)}</span>
               </nav>
               
-              <span class="inline-block px-3 py-1.5 bg-green-50 text-green-700 text-xs font-semibold rounded-full mb-4 border-l-4 border-red-500">${escapeHtml(post.kategori)}</span>
-              <h1 class="font-heading text-3xl md:text-5xl font-extrabold mb-4">${escapeHtml(post.judul)}</h1>
+              <!-- Perbaikan 8: Kategori dihapus -->
+              <h1 class="font-heading text-3xl md:text-5xl font-extrabold mb-4 leading-tight">${escapeHtml(post.judul)}</h1>
               <div class="flex items-center gap-3 text-sm text-warm-400 mb-8 flex-wrap">
-                <span>${formatDate(post.tanggal)}</span> • <span>${getReadingTime(post)}</span> • <span>${escapeHtml(post.penulis)}</span>
+                <span>${formatDate(post.tanggal)}</span> • <span>${getReadingTime(post)}</span> • <span class="font-semibold text-warm-600">${escapeHtml(post.penulis)}</span>
               </div>
-              <img src="${escapeHtml(post.gambar)}" alt="${escapeHtml(post.judul)}" class="w-full h-96 object-cover rounded-2xl mb-8" />
               
+              <div class="mb-8">
+                <img src="${escapeHtml(post.gambar)}" alt="${escapeHtml(post.judul)}" class="w-full h-auto max-h-[500px] object-cover rounded-2xl mb-2" referrerpolicy="no-referrer" />
+                <!-- Perbaikan 1: Keterangan Gambar -->
+                <p class="text-xs text-warm-400 text-center italic mt-2">Foto: ${escapeHtml(post.judul)} (Dok. Jelajah Indonesia)</p>
+              </div>
+              
+              <!-- Perbaikan 2: Icon Share Menggunakan SVG Logo -->
               <div class="flex items-center gap-3 mb-10 pb-6 border-b border-warm-200">
                 <span class="text-sm text-warm-500 font-medium">Bagikan:</span>
-                <button onclick="shareTo('whatsapp','${escapeHtml(post.judul)}','${currentUrl}')" class="w-9 h-9 flex items-center justify-center bg-green-500 text-white rounded-full">WA</button>
-                <button onclick="shareTo('facebook','${escapeHtml(post.judul)}','${currentUrl}')" class="w-9 h-9 flex items-center justify-center bg-blue-600 text-white rounded-full">FB</button>
-                <button onclick="shareTo('copy','','${currentUrl}')" class="w-9 h-9 flex items-center justify-center bg-warm-500 text-white rounded-full">🔗</button>
+                <button onclick="shareTo('whatsapp','${escapeHtml(post.judul)}','${currentUrl}')" class="w-10 h-10 flex items-center justify-center bg-[#25D366] text-white rounded-full hover:scale-110 transition-transform shadow-sm"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.1-1.7-.8-1.9-.9-.3-.1-.5-.1-.7.1-.2.3-.8.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.4-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.4.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4 0 1.4 1 2.7 1.2 2.9.1.2 2 3 4.8 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3-.1-.1-.3-.2-.5-.2z"/></svg></button>
+                <button onclick="shareTo('facebook','${escapeHtml(post.judul)}','${currentUrl}')" class="w-10 h-10 flex items-center justify-center bg-[#1877F2] text-white rounded-full hover:scale-110 transition-transform shadow-sm"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></button>
+                <button onclick="shareTo('copy','','${currentUrl}')" class="w-10 h-10 flex items-center justify-center bg-warm-500 text-white rounded-full hover:scale-110 transition-transform shadow-sm"><svg class="w-4 h-4 fill-none stroke-white" stroke-width="2.5" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+                <button onclick="alert('Fitur Instagram segera hadir!')" class="w-10 h-10 flex items-center justify-center bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] text-white rounded-full hover:scale-110 transition-transform shadow-sm"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></button>
               </div>
               
               <div class="prose prose-lg max-w-none font-light leading-relaxed">${post.isi}</div>
               
-              <!-- MOBILE AD ZONE: Muncul HANYA di Mobile, di bawah artikel -->
-              <div class="block lg:hidden mt-10 border-t border-warm-200 pt-6 space-y-4" id="mobileBottomAds">
-                <!-- Iklan Sidebar, Grid, dan Video akan dipindah ke sini oleh JS -->
-              </div>
+              <div class="block lg:hidden mt-10 border-t border-warm-200 pt-6 space-y-4" id="mobileBottomAds"></div>
 
               ${related.length > 0 ? `
                 <section class="mt-12 pt-8 border-t border-warm-200">
@@ -519,7 +555,6 @@
               ` : ''}
             </article>
 
-            <!-- KOLOM SIDEBAR (DESKTOP) -->
             <aside class="hidden lg:block lg:col-span-4" id="desktopSidebarAds">
               <div class="sticky top-24">
                 <div id="sidebarSingleContainer"></div>
@@ -527,7 +562,6 @@
                 <div id="sidebarGridContainer"></div>
               </div>
             </aside>
-
           </div>
         `;
       },
@@ -539,54 +573,28 @@
         const videoInArticleAds = await AdsService.getByPosition('video-in-article');
         const videoSidebarAds = await AdsService.getByPosition('video-sidebar');
         
-        // 1. Header Iklan
         if (headerAds.length > 0) document.getElementById('headerAdContainer').innerHTML = `<div class="max-w-5xl mx-auto px-6 mt-6">${AdComponent(headerAds[0])}</div>`;
         
-        // 2. Render Sidebar & Video (Tampil di Desktop)
         if (sidebarAds.length > 0) document.getElementById('sidebarSingleContainer').innerHTML = `<div class="sticky top-24">${sidebarAds.slice(0, 1).map(ad => AdComponent(ad, 'portrait')).join('')}</div>`;
         if (videoSidebarAds.length > 0) document.getElementById('sidebarVideoContainer').innerHTML = VideoAdComponent(videoSidebarAds[0], 'vertical');
         if (gridAds.length > 0) document.getElementById('sidebarGridContainer').innerHTML = AdGridComponent(gridAds.slice(0, 4));
 
-        // 3. Pindahkan Sidebar, Video, & Grid ke Bawah Artikel (Khusus Mobile)
         const mobileBottomAds = document.getElementById('mobileBottomAds');
-        if (mobileBottomAds && window.innerWidth < 1024) {
-           if (sidebarAds.length > 0) {
-             const sbDiv = document.createElement('div');
-             sbDiv.innerHTML = sidebarAds.slice(0, 1).map(ad => AdComponent(ad, 'portrait')).join('');
-             mobileBottomAds.appendChild(sbDiv);
-           }
-           if (videoSidebarAds.length > 0) {
-             const vidDiv = document.createElement('div');
-             vidDiv.innerHTML = VideoAdComponent(videoSidebarAds[0], 'horizontal'); // Tampil lebar di mobile
-             mobileBottomAds.appendChild(vidDiv);
-           }
-           if (gridAds.length > 0) {
-             const gridDiv = document.createElement('div');
-             gridDiv.innerHTML = AdGridComponent(gridAds.slice(0, 4));
-             mobileBottomAds.appendChild(gridDiv);
-           }
+        if (mobileBottomAds) {
+          mobileBottomAds.innerHTML = '';
+          if (sidebarAds.length > 0) { const sbDiv = document.createElement('div'); sbDiv.innerHTML = sidebarAds.slice(0, 1).map(ad => AdComponent(ad, 'portrait')).join(''); mobileBottomAds.appendChild(sbDiv); }
+          if (videoSidebarAds.length > 0) { const vidDiv = document.createElement('div'); vidDiv.innerHTML = VideoAdComponent(videoSidebarAds[0], 'horizontal'); mobileBottomAds.appendChild(vidDiv); }
+          if (gridAds.length > 0) { const gridDiv = document.createElement('div'); gridDiv.innerHTML = AdGridComponent(gridAds.slice(0, 4)); mobileBottomAds.appendChild(gridDiv); }
+          if (sidebarAds.length === 0 && videoSidebarAds.length === 0 && gridAds.length === 0) mobileBottomAds.style.display = 'none';
         }
 
-        // 4. In-Article (Gambar & Video)
         const prose = document.querySelector('.prose');
         if (prose) {
           const children = Array.from(prose.children);
           const targetIndex = Math.min(2, children.length - 1);
-          
           if (children[targetIndex]) {
-            // Sisipkan Video In-Article
-            if (videoInArticleAds.length > 0) {
-              const vidDiv = document.createElement('div');
-              vidDiv.innerHTML = VideoAdComponent(videoInArticleAds[0], 'horizontal');
-              children[targetIndex].insertAdjacentElement('afterend', vidDiv);
-            }
-            
-            // Sisipkan Gambar In-Article
-            if (inArticleAds.length > 0) {
-              const adDiv = document.createElement('div');
-              adDiv.innerHTML = AdComponent(inArticleAds[0]);
-              children[targetIndex].insertAdjacentElement('afterend', adDiv);
-            }
+            if (videoInArticleAds.length > 0) { const vidDiv = document.createElement('div'); vidDiv.innerHTML = VideoAdComponent(videoInArticleAds[0], 'horizontal'); children[targetIndex].insertAdjacentElement('afterend', vidDiv); }
+            if (inArticleAds.length > 0) { const adDiv = document.createElement('div'); adDiv.innerHTML = AdComponent(inArticleAds[0]); children[targetIndex].insertAdjacentElement('afterend', adDiv); }
           }
         }
       }
@@ -604,7 +612,12 @@
        ============================================================ */
     const Router = {
       routes: {
-        '/': HomeView, '/cerita': CeritaView, '/gaya-hidup': GayaHidupView, '/akomodasi': AkomodasiView, '/newsedu': NewseduView, '/event': EventView,
+        '/': HomeView, 
+        '/cerita': CeritaView, 
+        '/gaya-hidup': GayaHidupView, 
+        '/akomodasi': AkomodasiView, 
+        '/tips-trip': TipsTripView, // Perbaikan 7
+        '/event': EventView,
       },
       async navigate(path) {
         const app = document.getElementById('app');
@@ -626,25 +639,25 @@
           window.scrollTo({ top: 0, behavior: 'instant' });
           this.updateActiveNav(path);
           
-          if (typeof View.afterRender === 'function') {
-            await View.afterRender();
-          }
-          
+          if (typeof View.afterRender === 'function') await View.afterRender();
           await renderStickyAd();
         } catch (err) {
           app.innerHTML = `<div class="text-center py-20"><h2>Terjadi Kesalahan</h2><p>${escapeHtml(err.message)}</p></div>`;
         }
       },
-      updateActiveNav(path) { /* ... */ }
+      updateActiveNav(path) {
+        document.querySelectorAll('[data-link]').forEach(a => {
+          const href = a.getAttribute('href');
+          if (a.classList.contains('nav-item') || a.classList.contains('mobile-nav-item')) {
+            a.classList.toggle('text-green-700', href === path);
+          }
+        });
+      }
     };
 
-    /* ============================================================
-       GLOBAL MOBILE STICKY AD
-       ============================================================ */
     async function renderStickyAd() {
       const oldSticky = document.getElementById('global-mobile-sticky');
       if (oldSticky) oldSticky.remove();
-
       if (window.innerWidth >= 1024) return;
 
       const stickyAds = await AdsService.getByPosition('mobile-sticky');
@@ -684,6 +697,10 @@
         document.getElementById('menuToggle').classList.toggle('open');
         document.getElementById('mobileMenu').classList.toggle('open');
       });
+      
+      const backToTopBtn = document.getElementById('backToTop');
+      window.addEventListener('scroll', () => { backToTopBtn.classList.toggle('show', window.scrollY > 400); });
+      backToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
     });
 
     function closeMobileMenu() {
