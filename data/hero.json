@@ -1,0 +1,16 @@
+[
+  {
+    "id": "hero-1",
+    "gambar": "https://images.pexels.com/photos/2166553/pexels-photo-2166553.jpeg?auto=compress&cs=tinysrgb&w=1920",
+    "judul": "Pemandangan Sawah Bali",
+    "urutan": 1,
+    "status": "aktif"
+  },
+  {
+    "id": "hero-2",
+    "gambar": "https://images.pexels.com/photos/2474689/pexels-photo-2474689.jpeg?auto=compress&cs=tinysrgb&w=1920",
+    "judul": "Pura di Tepi Danau",
+    "urutan": 2,
+    "status": "aktif"
+  }
+]
