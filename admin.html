@@ -11,6 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
+  
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -26,26 +27,24 @@
       }
     }
   </script>
+  
   <style>
     body { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; }
     h1, h2, h3, h4 { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-weight: 700; }
     ::-webkit-scrollbar { width: 8px; }
     ::-webkit-scrollbar-track { background: #f7f5f2; }
     ::-webkit-scrollbar-thumb { background: #16a34a; border-radius: 5px; }
-    .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    
     .ql-toolbar.ql-snow { border: 1px solid #ebe7e1; border-top-left-radius: 12px; border-top-right-radius: 12px; background: #fefdfb; padding: 10px 12px; font-family: 'Plus Jakarta Sans', sans-serif; position: sticky; top: 0; z-index: 5; }
     .ql-container.ql-snow { border: 1px solid #ebe7e1; border-top: none; border-bottom-left-radius: 12px; border-bottom-right-radius: 12px; background: #ffffff; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1rem; }
     .ql-editor { min-height: 300px; padding: 20px; line-height: 1.7; color: #44403c; }
     .ql-editor.ql-blank::before { color: #a8a29e; font-style: normal; left: 20px; right: 20px; }
     
-    /* Sidebar Active State */
     .nav-link { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 12px; font-weight: 600; color: #78716c; transition: all 0.2s; cursor: pointer; }
     .nav-link:hover { background: #f7f5f2; color: #16a34a; }
     .nav-link.active { background: #dcfce7; color: #15803d; }
     
-    /* Mobile Sidebar Transition */
     #sidebar { transition: transform 0.3s ease-in-out; }
-    #sidebar.open { transform: translateX(0); }
   </style>
 </head>
 
@@ -55,7 +54,7 @@
   <aside id="sidebar" class="w-64 bg-white border-r border-warm-200 fixed inset-y-0 left-0 z-50 flex flex-col -translate-x-full md:translate-x-0 transition-transform">
     <div class="p-6 border-b border-warm-200 flex items-center justify-between">
       <img src="/assets/logo-navbar.png" alt="Logo" class="h-8 w-auto" />
-      <button id="closeSidebar" class="md:hidden text-warm-400 hover:text-red-500">✕</button>
+      <button id="closeSidebar" class="md:hidden text-warm-400 hover:text-red-500 text-xl font-bold">✕</button>
     </div>
     
     <nav class="flex-1 p-4 space-y-2 overflow-y-auto">
@@ -80,18 +79,15 @@
     </div>
   </aside>
 
-  <!-- OVERLAY (Mobile) -->
+  <!-- OVERLAY MOBILE -->
   <div id="sidebarOverlay" class="fixed inset-0 bg-black/50 z-40 hidden md:hidden"></div>
 
   <!-- MAIN CONTENT -->
   <main class="flex-1 flex flex-col h-screen overflow-hidden md:ml-64 relative">
-    <!-- Header Mobile -->
     <header class="md:hidden bg-white border-b border-warm-200 p-4 flex items-center justify-between">
       <button id="openSidebar" class="text-warm-700 text-2xl">☰</button>
       <img src="/assets/logo-navbar.png" alt="Logo" class="h-8" />
     </header>
-
-    <!-- Dynamic Content -->
     <div id="app" class="flex-1 overflow-y-auto p-4 md:p-8"></div>
   </main>
 
@@ -99,7 +95,7 @@
   <div id="postModal" class="hidden fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm flex items-start justify-center p-4 overflow-y-auto">
     <div class="bg-white rounded-2xl shadow-2xl max-w-3xl w-full my-8 border border-warm-200">
       <div class="flex items-center justify-between p-6 border-b border-warm-200">
-        <h2 id="modalTitle" class="font-heading text-2xl font-bold">Tambah Artikel</h2>
+        <h2 class="font-heading text-2xl font-bold">Tambah / Edit Artikel</h2>
         <button id="modalClose" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-warm-100 transition-colors text-xl">×</button>
       </div>
       <form id="postForm" class="p-6 space-y-4 max-h-[75vh] overflow-y-auto">
@@ -112,7 +108,6 @@
               <option value="cerita">Cerita Perjalanan</option><option value="gaya-hidup">Gaya Hidup</option><option value="akomodasi">Akomodasi</option><option value="newsedu">Tips & Trip</option><option value="event">Event</option>
             </select>
           </div>
-          <!-- Kategori dihilangkan -->
           <div><label class="block text-sm font-medium mb-2">Tanggal *</label><input type="date" id="postTanggal" required class="w-full px-4 py-2.5 bg-warm-50 border border-warm-200 rounded-xl outline-none focus:border-green-500" /></div>
           <div><label class="block text-sm font-medium mb-2">Status *</label>
             <select id="postStatus" required class="w-full px-4 py-2.5 bg-warm-50 border border-warm-200 rounded-xl outline-none focus:border-green-500">
@@ -137,7 +132,7 @@
         <div id="formError" class="hidden p-3 bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl"></div>
         <div class="flex gap-3 justify-end pt-4 border-t border-warm-200">
           <button type="button" id="previewBtn" class="px-5 py-2.5 bg-warm-100 text-warm-700 text-sm font-semibold rounded-xl hover:bg-warm-200 transition-all">👁 Preview</button>
-          <button type="submit" id="saveBtn" class="px-6 py-2.5 bg-gradient-to-br from-green-600 to-green-700 text-white text-sm font-semibold rounded-xl shadow-glow-green hover:-translate-y-0.5 transition-all disabled:opacity-50">Simpan</button>
+          <button type="submit" id="saveBtn" class="px-6 py-2.5 bg-green-600 text-white text-sm font-semibold rounded-xl hover:bg-green-700 transition-all disabled:opacity-50">Simpan</button>
         </div>
       </form>
     </div>
@@ -147,12 +142,12 @@
   <div id="adModal" class="hidden fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm flex items-start justify-center p-4 overflow-y-auto">
     <div class="bg-white rounded-2xl shadow-2xl max-w-xl w-full my-8 border border-warm-200">
       <div class="flex items-center justify-between p-6 border-b border-warm-200">
-        <h2 id="adModalTitle" class="font-heading text-2xl font-bold">Tambah Iklan</h2>
+        <h2 class="font-heading text-2xl font-bold">Tambah / Edit Iklan</h2>
         <button id="adModalClose" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-warm-100 transition-colors text-xl">×</button>
       </div>
       <form id="adForm" class="p-6 space-y-4 max-h-[75vh] overflow-y-auto">
         <input type="hidden" id="adId" />
-        <div><label class="block text-sm font-medium mb-2">Judul Iklan (Internal) *</label><input type="text" id="adJudul" required placeholder="cth: Promo Bali" class="w-full px-4 py-2.5 bg-warm-50 border border-warm-200 rounded-xl outline-none focus:border-green-500" /></div>
+        <div><label class="block text-sm font-medium mb-2">Judul Iklan (Internal) *</label><input type="text" id="adJudul" required class="w-full px-4 py-2.5 bg-warm-50 border border-warm-200 rounded-xl outline-none focus:border-green-500" /></div>
         <div>
           <label class="block text-sm font-medium mb-2">Tipe Iklan *</label>
           <select id="adTipe" required class="w-full px-4 py-2.5 bg-warm-50 border border-warm-200 rounded-xl outline-none focus:border-green-500">
@@ -162,22 +157,22 @@
         <div>
           <label class="block text-sm font-medium mb-2" id="adMediaLabel">URL Gambar Banner *</label>
           <input type="text" id="adGambar" required placeholder="https://..." class="w-full px-4 py-2.5 bg-warm-50 border border-warm-200 rounded-xl outline-none focus:border-green-500" />
-          <p class="text-xs text-warm-400 mt-1" id="adMediaHint">Gunakan ukuran horizontal (728x90) untuk Header/Feed, dan kotak (300x250) untuk Sidebar/Grid.</p>
+          <p class="text-xs text-warm-400 mt-1" id="adMediaHint">Gunakan ukuran horizontal (728x90) atau kotak (300x250).</p>
         </div>
         <div><label class="block text-sm font-medium mb-2">URL Tujuan (Link) *</label><input type="url" id="adLink" required placeholder="https://..." class="w-full px-4 py-2.5 bg-warm-50 border border-warm-200 rounded-xl outline-none focus:border-green-500" /></div>
         <div>
           <label class="block text-sm font-medium mb-2">Posisi Iklan *</label>
           <select id="adPosisi" required class="w-full px-4 py-2.5 bg-warm-50 border border-warm-200 rounded-xl outline-none focus:border-green-500">
-            <option value="header">Header Billboard (Bawah Navbar - Semua Halaman)</option>
+            <option value="header">Header Billboard (Bawah Navbar)</option>
             <option value="hero">Hero Banner (Bawah Hero Beranda)</option>
             <option value="feed-1">Feed 1 (Sela Artikel Atas)</option>
             <option value="feed-2">Feed 2 (Sela Artikel Bawah)</option>
-            <option value="sidebar">Sidebar Single (Banner Besar Artikel)</option>
-            <option value="sidebar-grid">Sidebar Grid (Multipleks 2x2 di Artikel)</option>
-            <option value="in-article">In-Article Gambar (Tengah Teks Artikel)</option>
-            <option value="video-in-article">In-Article Video (Tengah Teks Artikel)</option>
-            <option value="video-sidebar">Sidebar Video (Kanan Artikel)</option>
-            <option value="mobile-sticky">Mobile Sticky (Nempel Bawah Layar HP)</option>
+            <option value="sidebar">Sidebar Single (Banner Besar)</option>
+            <option value="sidebar-grid">Sidebar Grid (Multipleks 2x2)</option>
+            <option value="in-article">In-Article Gambar</option>
+            <option value="video-in-article">In-Article Video</option>
+            <option value="video-sidebar">Sidebar Video</option>
+            <option value="mobile-sticky">Mobile Sticky (Bawah Layar HP)</option>
           </select>
           <div id="adPosisiInfo" class="mt-2 p-3 bg-green-50 border border-green-200 rounded-xl text-xs text-green-800 hidden"></div>
         </div>
@@ -190,7 +185,7 @@
         <div id="adFormError" class="hidden p-3 bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl"></div>
         <div class="flex gap-3 justify-end pt-4 border-t border-warm-200">
           <button type="button" id="adPreviewBtn" class="px-5 py-2.5 bg-warm-100 text-warm-700 text-sm font-semibold rounded-xl hover:bg-warm-200 transition-all">👁 Preview</button>
-          <button type="submit" id="adSaveBtn" class="px-6 py-2.5 bg-gradient-to-br from-green-600 to-green-700 text-white text-sm font-semibold rounded-xl shadow-glow-green hover:-translate-y-0.5 transition-all disabled:opacity-50">Simpan Iklan</button>
+          <button type="submit" id="adSaveBtn" class="px-6 py-2.5 bg-green-600 text-white text-sm font-semibold rounded-xl hover:bg-green-700 transition-all disabled:opacity-50">Simpan Iklan</button>
         </div>
       </form>
     </div>
@@ -200,31 +195,24 @@
   <div id="heroModal" class="hidden fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm flex items-start justify-center p-4 overflow-y-auto">
     <div class="bg-white rounded-2xl shadow-2xl max-w-xl w-full my-8 border border-warm-200">
       <div class="flex items-center justify-between p-6 border-b border-warm-200">
-        <h2 id="heroModalTitle" class="font-heading text-2xl font-bold">Tambah Hero Slide</h2>
+        <h2 class="font-heading text-2xl font-bold">Tambah / Edit Hero Slide</h2>
         <button id="heroModalClose" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-warm-100 transition-colors text-xl">×</button>
       </div>
       <form id="heroForm" class="p-6 space-y-4">
         <input type="hidden" id="heroId" />
-        <div>
-          <label class="block text-sm font-medium mb-2">Judul / Keterangan Slide *</label>
-          <input type="text" id="heroJudul" required placeholder="cth: Pemandangan Bali" class="w-full px-4 py-2.5 bg-warm-50 border border-warm-200 rounded-xl outline-none focus:border-green-500" />
-        </div>
+        <div><label class="block text-sm font-medium mb-2">Judul / Keterangan Slide *</label><input type="text" id="heroJudul" required class="w-full px-4 py-2.5 bg-warm-50 border border-warm-200 rounded-xl outline-none focus:border-green-500" /></div>
         <div>
           <label class="block text-sm font-medium mb-2">URL Gambar *</label>
           <div class="flex gap-2">
-            <input type="text" id="heroGambar" required placeholder="https://... atau upload" class="w-full px-4 py-2.5 bg-warm-50 border border-warm-200 rounded-xl outline-none focus:border-green-500" />
+            <input type="text" id="heroGambar" required placeholder="https://..." class="w-full px-4 py-2.5 bg-warm-50 border border-warm-200 rounded-xl outline-none focus:border-green-500" />
             <input type="file" id="uploadHero" accept="image/*" class="hidden" onchange="handleImageUpload(this, 'heroGambar')" />
             <button type="button" onclick="document.getElementById('uploadHero').click()" class="px-4 py-2.5 bg-green-100 text-green-700 font-semibold rounded-xl hover:bg-green-200 transition-all whitespace-nowrap">📁 Upload</button>
           </div>
           <p class="text-xs text-warm-400 mt-1">📏 Rekomendasi ukuran: 1920x1080 px (Landscape). Maksimal file 2MB.</p>
         </div>
         <div class="grid grid-cols-2 gap-4">
-          <div>
-            <label class="block text-sm font-medium mb-2">Urutan Tampil *</label>
-            <input type="number" id="heroUrutan" required min="1" value="1" class="w-full px-4 py-2.5 bg-warm-50 border border-warm-200 rounded-xl outline-none focus:border-green-500" />
-          </div>
-          <div>
-            <label class="block text-sm font-medium mb-2">Status *</label>
+          <div><label class="block text-sm font-medium mb-2">Urutan Tampil *</label><input type="number" id="heroUrutan" required min="1" value="1" class="w-full px-4 py-2.5 bg-warm-50 border border-warm-200 rounded-xl outline-none focus:border-green-500" /></div>
+          <div><label class="block text-sm font-medium mb-2">Status *</label>
             <select id="heroStatus" required class="w-full px-4 py-2.5 bg-warm-50 border border-warm-200 rounded-xl outline-none focus:border-green-500">
               <option value="aktif">Aktif</option><option value="nonaktif">Nonaktif</option>
             </select>
@@ -232,13 +220,13 @@
         </div>
         <div id="heroFormError" class="hidden p-3 bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl"></div>
         <div class="flex gap-3 justify-end pt-4 border-t border-warm-200">
-          <button type="submit" id="heroSaveBtn" class="px-6 py-2.5 bg-gradient-to-br from-green-600 to-green-700 text-white text-sm font-semibold rounded-xl shadow-glow-green hover:-translate-y-0.5 transition-all disabled:opacity-50">Simpan Slide</button>
+          <button type="submit" id="heroSaveBtn" class="px-6 py-2.5 bg-green-600 text-white text-sm font-semibold rounded-xl hover:bg-green-700 transition-all disabled:opacity-50">Simpan Slide</button>
         </div>
       </form>
     </div>
   </div>
 
-  <!-- Modal Preview Artikel -->
+  <!-- MODAL PREVIEWS -->
   <div id="previewModal" class="hidden fixed inset-0 z-[70] bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
     <div class="bg-white rounded-2xl shadow-2xl max-w-3xl w-full my-8 border border-warm-200 max-h-[90vh] overflow-y-auto">
       <div class="sticky top-0 flex items-center justify-between p-4 border-b border-warm-200 bg-white z-10">
@@ -249,11 +237,10 @@
     </div>
   </div>
 
-  <!-- Modal Preview Iklan -->
   <div id="adPreviewModal" class="hidden fixed inset-0 z-[70] bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
     <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full my-8 border border-warm-200 max-h-[90vh] overflow-y-auto">
       <div class="sticky top-0 flex items-center justify-between p-4 border-b border-warm-200 bg-white z-10">
-        <h2 id="adPreviewTitle" class="font-heading text-xl font-bold">👁 Preview Iklan</h2>
+        <h2 class="font-heading text-xl font-bold">👁 Preview Iklan</h2>
         <button id="adPreviewClose" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-warm-100 transition-colors text-xl">×</button>
       </div>
       <div id="adPreviewContent" class="p-6"></div>
@@ -287,17 +274,14 @@
         if (!res.ok) throw new Error(data.error || 'Login gagal');
         return data;
       },
-      // CRUD Artikel
       getPosts() { return this.request('/posts'); },
       createPost(p) { return this.request('/posts', { method: 'POST', body: JSON.stringify({ post: p }) }); },
       updatePost(id, p) { return this.request(`/posts/${id}`, { method: 'PUT', body: JSON.stringify({ post: p }) }); },
       deletePost(id) { return this.request(`/posts/${id}`, { method: 'DELETE' }); },
-      // CRUD Iklan
       getAds() { return this.request('/ads'); },
       createAd(a) { return this.request('/ads', { method: 'POST', body: JSON.stringify({ ad: a }) }); },
       updateAd(id, a) { return this.request(`/ads/${id}`, { method: 'PUT', body: JSON.stringify({ ad: a }) }); },
       deleteAd(id) { return this.request(`/ads/${id}`, { method: 'DELETE' }); },
-      // CRUD Hero
       getHero() { return this.request('/hero'); },
       createHero(h) { return this.request('/hero', { method: 'POST', body: JSON.stringify({ hero: h }) }); },
       updateHero(id, h) { return this.request(`/hero/${id}`, { method: 'PUT', body: JSON.stringify({ hero: h }) }); },
@@ -312,11 +296,9 @@
     };
     const escapeHtml = (str = '') => String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 
-    // State
     let currentTab = 'posts';
     let allPosts = [], allAds = [], allHero = [];
 
-    // ============ INIT ============
     document.addEventListener('DOMContentLoaded', () => {
       initSidebar();
       const token = api.getToken(), user = api.getUser();
@@ -324,9 +306,9 @@
         document.getElementById('userName').textContent = user.name || user.username;
         document.getElementById('userInitial').textContent = (user.name || user.username).charAt(0).toUpperCase();
         document.getElementById('userRole').textContent = user.role;
-        initDashboard();
+        renderTabContent();
+        attachGlobalListeners();
       } else {
-        // Tampilkan form login di tengah layar
         document.getElementById('app').innerHTML = `
           <div class="min-h-[80vh] flex items-center justify-center">
             <div class="w-full max-w-md bg-white p-8 rounded-2xl shadow-lg border border-warm-200">
@@ -351,24 +333,18 @@
             const res = await api.login(document.getElementById('loginUsername').value.trim(), document.getElementById('loginPassword').value);
             api.setToken(res.token); api.setUser(res.user);
             window.location.reload();
-          } catch (e) {
-            err.textContent = e.message; err.classList.remove('hidden'); btn.disabled = false; btn.textContent = 'Masuk';
-          }
+          } catch (e) { err.textContent = e.message; err.classList.remove('hidden'); btn.disabled = false; btn.textContent = 'Masuk'; }
         });
       }
     });
 
-    // ============ SIDEBAR LOGIC ============
     function initSidebar() {
       const sidebar = document.getElementById('sidebar');
       const overlay = document.getElementById('sidebarOverlay');
       const openBtn = document.getElementById('openSidebar');
       const closeBtn = document.getElementById('closeSidebar');
 
-      const toggle = () => {
-        sidebar.classList.toggle('-translate-x-full');
-        overlay.classList.toggle('hidden');
-      };
+      const toggle = () => { sidebar.classList.toggle('-translate-x-full'); overlay.classList.toggle('hidden'); };
       openBtn.addEventListener('click', toggle);
       closeBtn.addEventListener('click', toggle);
       overlay.addEventListener('click', toggle);
@@ -379,7 +355,7 @@
           currentTab = link.dataset.tab;
           document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
           link.classList.add('active');
-          if(window.innerWidth < 768) toggle(); // Tutup sidebar di mobile
+          if(window.innerWidth < 768) toggle();
           renderTabContent();
         });
       });
@@ -387,12 +363,6 @@
       document.getElementById('logoutBtn').addEventListener('click', () => {
         if(confirm('Logout?')) { api.clearToken(); window.location.reload(); }
       });
-    }
-
-    // ============ RENDER DASHBOARD ============
-    function initDashboard() {
-      renderTabContent();
-      attachGlobalListeners();
     }
 
     function renderTabContent() {
@@ -433,110 +403,56 @@
       }
     }
 
-    // ============ LOAD DATA ============
     async function loadPosts() {
-      const container = document.getElementById('tableContainer');
-      try {
-        const res = await api.getPosts();
-        allPosts = res.posts || [];
-        renderPostsTable();
-      } catch (e) { container.innerHTML = `<div class="p-8 text-red-500 text-center">Error: ${escapeHtml(e.message)}</div>`; }
+      try { const res = await api.getPosts(); allPosts = res.posts || []; renderPostsTable(); } 
+      catch (e) { document.getElementById('tableContainer').innerHTML = `<div class="p-8 text-red-500 text-center">Error: ${escapeHtml(e.message)}</div>`; }
     }
     async function loadAds() {
-      const container = document.getElementById('tableContainer');
-      try {
-        const res = await api.getAds();
-        allAds = res.ads || [];
-        renderAdsTable();
-      } catch (e) { container.innerHTML = `<div class="p-8 text-red-500 text-center">Error: ${escapeHtml(e.message)}</div>`; }
+      try { const res = await api.getAds(); allAds = res.ads || []; renderAdsTable(); } 
+      catch (e) { document.getElementById('tableContainer').innerHTML = `<div class="p-8 text-red-500 text-center">Error: ${escapeHtml(e.message)}</div>`; }
     }
     async function loadHero() {
-      const container = document.getElementById('tableContainer');
-      try {
-        const res = await api.getHero();
-        allHero = res.hero || [];
-        renderHeroTable();
-      } catch (e) { container.innerHTML = `<div class="p-8 text-red-500 text-center">Error: ${escapeHtml(e.message)}</div>`; }
+      try { const res = await api.getHero(); allHero = res.hero || []; renderHeroTable(); } 
+      catch (e) { document.getElementById('tableContainer').innerHTML = `<div class="p-8 text-red-500 text-center">Error: ${escapeHtml(e.message)}</div>`; }
     }
 
-    // ============ RENDER TABLES ============
     function renderPostsTable() {
       const c = document.getElementById('tableContainer');
       if (allPosts.length === 0) return c.innerHTML = '<div class="p-8 text-center text-warm-400">Belum ada artikel.</div>';
-      c.innerHTML = `
-        <table class="w-full text-sm text-left">
-          <thead class="bg-warm-50 border-b border-warm-200 text-warm-500">
-            <tr><th class="p-4">Judul</th><th class="p-4">Tipe</th><th class="p-4">Status</th><th class="p-4 text-right">Aksi</th></tr>
-          </thead>
-          <tbody>
-            ${allPosts.map(p => `
-              <tr class="border-b border-warm-100 hover:bg-warm-50">
-                <td class="p-4 font-medium">${escapeHtml(p.judul)}</td>
-                <td class="p-4"><span class="px-2 py-1 bg-green-100 text-green-700 rounded-md text-xs">${p.tipe}</span></td>
-                <td class="p-4">${p.status === 'published' ? '<span class="text-green-600 font-bold text-xs">● Published</span>' : '<span class="text-warm-400 font-bold text-xs">○ Draft</span>'}</td>
-                <td class="p-4 text-right">
-                  <button onclick="editPost('${p.id}')" class="text-blue-600 hover:underline mr-2 text-xs font-semibold">Edit</button>
-                  <button onclick="deleteItem('post', '${p.id}')" class="text-red-600 hover:underline text-xs font-semibold">Hapus</button>
-                </td>
-              </tr>
-            `).join('')}
-          </tbody>
-        </table>
-      `;
+      c.innerHTML = `<table class="w-full text-sm text-left"><thead class="bg-warm-50 border-b border-warm-200 text-warm-500"><tr><th class="p-4">Judul</th><th class="p-4">Tipe</th><th class="p-4">Status</th><th class="p-4 text-right">Aksi</th></tr></thead><tbody>
+        ${allPosts.map(p => `<tr class="border-b border-warm-100 hover:bg-warm-50">
+          <td class="p-4 font-medium">${escapeHtml(p.judul)}</td>
+          <td class="p-4"><span class="px-2 py-1 bg-green-100 text-green-700 rounded-md text-xs">${p.tipe}</span></td>
+          <td class="p-4">${p.status === 'published' ? '<span class="text-green-600 font-bold text-xs">● Published</span>' : '<span class="text-warm-400 font-bold text-xs">○ Draft</span>'}</td>
+          <td class="p-4 text-right"><button onclick="editPost('${p.id}')" class="text-blue-600 hover:underline mr-2 text-xs font-semibold">Edit</button><button onclick="deleteItem('post', '${p.id}')" class="text-red-600 hover:underline text-xs font-semibold">Hapus</button></td>
+        </tr>`).join('')}</tbody></table>`;
     }
 
     function renderAdsTable() {
       const c = document.getElementById('tableContainer');
       if (allAds.length === 0) return c.innerHTML = '<div class="p-8 text-center text-warm-400">Belum ada iklan.</div>';
-      c.innerHTML = `
-        <table class="w-full text-sm text-left">
-          <thead class="bg-warm-50 border-b border-warm-200 text-warm-500">
-            <tr><th class="p-4">Judul</th><th class="p-4">Posisi</th><th class="p-4">Status</th><th class="p-4 text-right">Aksi</th></tr>
-          </thead>
-          <tbody>
-            ${allAds.map(a => `
-              <tr class="border-b border-warm-100 hover:bg-warm-50">
-                <td class="p-4 font-medium">${escapeHtml(a.judul)} <br><span class="text-xs text-blue-500">${a.tipe === 'video' ? 'Video' : 'Gambar'}</span></td>
-                <td class="p-4"><span class="px-2 py-1 bg-blue-100 text-blue-700 rounded-md text-xs uppercase">${a.posisi}</span></td>
-                <td class="p-4">${a.status === 'aktif' ? '<span class="text-green-600 font-bold text-xs">● Aktif</span>' : '<span class="text-warm-400 font-bold text-xs">○ Nonaktif</span>'}</td>
-                <td class="p-4 text-right">
-                  <button onclick="editAd('${a.id}')" class="text-blue-600 hover:underline mr-2 text-xs font-semibold">Edit</button>
-                  <button onclick="deleteItem('ad', '${a.id}')" class="text-red-600 hover:underline text-xs font-semibold">Hapus</button>
-                </td>
-              </tr>
-            `).join('')}
-          </tbody>
-        </table>
-      `;
+      c.innerHTML = `<table class="w-full text-sm text-left"><thead class="bg-warm-50 border-b border-warm-200 text-warm-500"><tr><th class="p-4">Judul</th><th class="p-4">Posisi</th><th class="p-4">Status</th><th class="p-4 text-right">Aksi</th></tr></thead><tbody>
+        ${allAds.map(a => `<tr class="border-b border-warm-100 hover:bg-warm-50">
+          <td class="p-4 font-medium">${escapeHtml(a.judul)} <br><span class="text-xs text-blue-500">${a.tipe === 'video' ? 'Video' : 'Gambar'}</span></td>
+          <td class="p-4"><span class="px-2 py-1 bg-blue-100 text-blue-700 rounded-md text-xs uppercase">${a.posisi}</span></td>
+          <td class="p-4">${a.status === 'aktif' ? '<span class="text-green-600 font-bold text-xs">● Aktif</span>' : '<span class="text-warm-400 font-bold text-xs">○ Nonaktif</span>'}</td>
+          <td class="p-4 text-right"><button onclick="editAd('${a.id}')" class="text-blue-600 hover:underline mr-2 text-xs font-semibold">Edit</button><button onclick="deleteItem('ad', '${a.id}')" class="text-red-600 hover:underline text-xs font-semibold">Hapus</button></td>
+        </tr>`).join('')}</tbody></table>`;
     }
 
     function renderHeroTable() {
       const c = document.getElementById('tableContainer');
       if (allHero.length === 0) return c.innerHTML = '<div class="p-8 text-center text-warm-400">Belum ada Hero Slider.</div>';
-      c.innerHTML = `
-        <table class="w-full text-sm text-left">
-          <thead class="bg-warm-50 border-b border-warm-200 text-warm-500">
-            <tr><th class="p-4">Gambar</th><th class="p-4">Judul</th><th class="p-4">Urutan</th><th class="p-4">Status</th><th class="p-4 text-right">Aksi</th></tr>
-          </thead>
-          <tbody>
-            ${allHero.map(h => `
-              <tr class="border-b border-warm-100 hover:bg-warm-50">
-                <td class="p-4"><img src="${escapeHtml(h.gambar)}" class="w-24 h-12 object-cover rounded-md border border-warm-200"></td>
-                <td class="p-4 font-medium">${escapeHtml(h.judul)}</td>
-                <td class="p-4 text-center font-bold">${h.urutan}</td>
-                <td class="p-4">${h.status === 'aktif' ? '<span class="text-green-600 font-bold text-xs">● Aktif</span>' : '<span class="text-warm-400 font-bold text-xs">○ Nonaktif</span>'}</td>
-                <td class="p-4 text-right">
-                  <button onclick="editHero('${h.id}')" class="text-blue-600 hover:underline mr-2 text-xs font-semibold">Edit</button>
-                  <button onclick="deleteItem('hero', '${h.id}')" class="text-red-600 hover:underline text-xs font-semibold">Hapus</button>
-                </td>
-              </tr>
-            `).join('')}
-          </tbody>
-        </table>
-      `;
+      c.innerHTML = `<table class="w-full text-sm text-left"><thead class="bg-warm-50 border-b border-warm-200 text-warm-500"><tr><th class="p-4">Gambar</th><th class="p-4">Judul</th><th class="p-4">Urutan</th><th class="p-4">Status</th><th class="p-4 text-right">Aksi</th></tr></thead><tbody>
+        ${allHero.map(h => `<tr class="border-b border-warm-100 hover:bg-warm-50">
+          <td class="p-4"><img src="${escapeHtml(h.gambar)}" class="w-24 h-12 object-cover rounded-md border border-warm-200"></td>
+          <td class="p-4 font-medium">${escapeHtml(h.judul)}</td>
+          <td class="p-4 text-center font-bold">${h.urutan}</td>
+          <td class="p-4">${h.status === 'aktif' ? '<span class="text-green-600 font-bold text-xs">● Aktif</span>' : '<span class="text-warm-400 font-bold text-xs">○ Nonaktif</span>'}</td>
+          <td class="p-4 text-right"><button onclick="editHero('${h.id}')" class="text-blue-600 hover:underline mr-2 text-xs font-semibold">Edit</button><button onclick="deleteItem('hero', '${h.id}')" class="text-red-600 hover:underline text-xs font-semibold">Hapus</button></td>
+        </tr>`).join('')}</tbody></table>`;
     }
 
-    // ============ MODAL LOGIC ============
     function openModal(type) {
       if(type === 'post') { document.getElementById('postForm').reset(); document.getElementById('postId').value=''; initQuill(); quill.root.innerHTML=''; document.getElementById('postModal').classList.remove('hidden'); }
       if(type === 'ad') { document.getElementById('adForm').reset(); document.getElementById('adId').value=''; document.getElementById('adPosisiInfo').classList.add('hidden'); updateAdMediaFields(); document.getElementById('adModal').classList.remove('hidden'); }
@@ -548,40 +464,28 @@
       if(type === 'hero') document.getElementById('heroModal').classList.add('hidden');
     }
 
-    // ============ EDIT & DELETE ============
     function editPost(id) {
       const p = allPosts.find(x => x.id === id); if(!p) return;
-      document.getElementById('postId').value = p.id;
-      document.getElementById('postJudul').value = p.judul;
-      document.getElementById('postPenulis').value = p.penulis;
-      document.getElementById('postTipe').value = p.tipe;
-      document.getElementById('postTanggal').value = p.tanggal;
-      document.getElementById('postStatus').value = p.status;
-      document.getElementById('postGambar').value = p.gambar;
-      document.getElementById('postRingkasan').value = p.ringkasan;
+      document.getElementById('postId').value = p.id; document.getElementById('postJudul').value = p.judul;
+      document.getElementById('postPenulis').value = p.penulis; document.getElementById('postTipe').value = p.tipe;
+      document.getElementById('postTanggal').value = p.tanggal; document.getElementById('postStatus').value = p.status;
+      document.getElementById('postGambar').value = p.gambar; document.getElementById('postRingkasan').value = p.ringkasan;
       initQuill(); quill.root.innerHTML = p.isi || ''; 
       document.getElementById('postModal').classList.remove('hidden');
     }
     function editAd(id) {
       const a = allAds.find(x => x.id === id); if(!a) return;
-      document.getElementById('adId').value = a.id;
-      document.getElementById('adJudul').value = a.judul;
-      document.getElementById('adTipe').value = a.tipe;
-      document.getElementById('adGambar').value = a.gambar;
-      document.getElementById('adLink').value = a.link;
-      document.getElementById('adPosisi').value = a.posisi;
-      document.getElementById('adStatus').value = a.status;
-      updateAdMediaFields(); updateAdInfo(a.posisi);
+      document.getElementById('adId').value = a.id; document.getElementById('adJudul').value = a.judul;
+      document.getElementById('adTipe').value = a.tipe; document.getElementById('adGambar').value = a.gambar;
+      document.getElementById('adLink').value = a.link; document.getElementById('adPosisi').value = a.posisi;
+      document.getElementById('adStatus').value = a.status; updateAdMediaFields(); updateAdInfo(a.posisi);
       document.getElementById('adModal').classList.remove('hidden');
     }
     function editHero(id) {
       const h = allHero.find(x => x.id === id); if(!h) return;
-      document.getElementById('heroId').value = h.id;
-      document.getElementById('heroJudul').value = h.judul;
-      document.getElementById('heroGambar').value = h.gambar;
-      document.getElementById('heroUrutan').value = h.urutan;
-      document.getElementById('heroStatus').value = h.status;
-      document.getElementById('heroModal').classList.remove('hidden');
+      document.getElementById('heroId').value = h.id; document.getElementById('heroJudul').value = h.judul;
+      document.getElementById('heroGambar').value = h.gambar; document.getElementById('heroUrutan').value = h.urutan;
+      document.getElementById('heroStatus').value = h.status; document.getElementById('heroModal').classList.remove('hidden');
     }
 
     async function deleteItem(type, id) {
@@ -591,36 +495,28 @@
         if(type === 'ad') await api.deleteAd(id);
         if(type === 'hero') await api.deleteHero(id);
         showToast('Berhasil dihapus');
-        if(type === 'post') loadPosts();
-        if(type === 'ad') loadAds();
-        if(type === 'hero') loadHero();
+        if(type === 'post') loadPosts(); if(type === 'ad') loadAds(); if(type === 'hero') loadHero();
       } catch(e) { showToast(e.message, 'error'); }
     }
 
-    // ============ ATTACH GLOBAL LISTENERS ============
     function attachGlobalListeners() {
-      // Close modal buttons
       document.getElementById('modalClose').onclick = () => closeModal('post');
       document.getElementById('adModalClose').onclick = () => closeModal('ad');
       document.getElementById('heroModalClose').onclick = () => closeModal('hero');
       document.getElementById('previewClose').onclick = () => document.getElementById('previewModal').classList.add('hidden');
       document.getElementById('adPreviewClose').onclick = () => document.getElementById('adPreviewModal').classList.add('hidden');
 
-      // Form Submits
       document.getElementById('postForm').onsubmit = handlePostSubmit;
       document.getElementById('adForm').onsubmit = handleAdSubmit;
       document.getElementById('heroForm').onsubmit = handleHeroSubmit;
 
-      // Preview
       document.getElementById('previewBtn').onclick = handlePostPreview;
       document.getElementById('adPreviewBtn').onclick = handleAdPreview;
 
-      // Ad info dropdown
       document.getElementById('adPosisi').onchange = (e) => updateAdInfo(e.target.value);
       document.getElementById('adTipe').onchange = updateAdMediaFields;
     }
 
-    // ============ SUBMIT HANDLERS ============
     async function handlePostSubmit(e) {
       e.preventDefault();
       const id = document.getElementById('postId').value;
@@ -630,8 +526,7 @@
         status: document.getElementById('postStatus').value, gambar: document.getElementById('postGambar').value.trim(), 
         ringkasan: document.getElementById('postRingkasan').value.trim(), isi: quill.root.innerHTML,
       };
-      const btn = document.getElementById('saveBtn');
-      btn.disabled = true; btn.textContent = 'Menyimpan...';
+      const btn = document.getElementById('saveBtn'); btn.disabled = true; btn.textContent = 'Menyimpan...';
       try {
         if(id) await api.updatePost(id, data); else await api.createPost(data);
         closeModal('post'); showToast('Artikel disimpan'); loadPosts();
@@ -646,8 +541,7 @@
         gambar: document.getElementById('adGambar').value.trim(), link: document.getElementById('adLink').value.trim(),
         posisi: document.getElementById('adPosisi').value, status: document.getElementById('adStatus').value,
       };
-      const btn = document.getElementById('adSaveBtn');
-      btn.disabled = true; btn.textContent = 'Menyimpan...';
+      const btn = document.getElementById('adSaveBtn'); btn.disabled = true; btn.textContent = 'Menyimpan...';
       try {
         if(id) await api.updateAd(id, data); else await api.createAd(data);
         closeModal('ad'); showToast('Iklan disimpan'); loadAds();
@@ -661,15 +555,13 @@
         judul: document.getElementById('heroJudul').value.trim(), gambar: document.getElementById('heroGambar').value.trim(),
         urutan: parseInt(document.getElementById('heroUrutan').value), status: document.getElementById('heroStatus').value,
       };
-      const btn = document.getElementById('heroSaveBtn');
-      btn.disabled = true; btn.textContent = 'Menyimpan...';
+      const btn = document.getElementById('heroSaveBtn'); btn.disabled = true; btn.textContent = 'Menyimpan...';
       try {
         if(id) await api.updateHero(id, data); else await api.createHero(data);
         closeModal('hero'); showToast('Slider disimpan'); loadHero();
       } catch(e) { showToast(e.message, 'error'); } finally { btn.disabled = false; btn.textContent = 'Simpan Slide'; }
     }
 
-    // ============ UTILS ============
     function showToast(msg, type = 'success') {
       const t = document.getElementById('toast');
       t.textContent = msg;
@@ -677,14 +569,12 @@
       t.classList.remove('hidden'); setTimeout(() => t.classList.add('hidden'), 3000);
     }
 
-    // ... (Fungsi updateAdInfo, updateAdMediaFields, initQuill, handlePreview, uploadToGithub dll sama seperti sebelumnya)
-    // Agar tidak terlalu panjang, saya ringkas di bawah ini. Anda tetap bisa copy-paste seluruhnya.
-
     function updateAdMediaFields() {
       const tipe = document.getElementById('adTipe').value;
       document.getElementById('adMediaLabel').textContent = tipe === 'video' ? 'URL Video (Embed/MP4) *' : 'URL Gambar Banner *';
       document.getElementById('adMediaHint').innerHTML = tipe === 'video' ? 'Gunakan link Embed YouTube.' : 'Gunakan ukuran horizontal (728x90) atau kotak (300x250).';
     }
+    
     const adSizes = {
       'header': '📏 <b>Ukuran: 970x90 px</b>', 'hero': '📏 <b>Ukuran: 728x90 px</b>',
       'feed-1': '📏 <b>Ukuran: 728x90 px</b>', 'feed-2': '📏 <b>Ukuran: 728x90 px</b>',
