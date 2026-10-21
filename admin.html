@@ -6,92 +6,97 @@
   <title>Admin Panel — Jelajah Indonesia</title>
   <meta name="robots" content="noindex, nofollow" />
   <meta name="theme-color" content="#16a34a" />
-
   <link rel="icon" type="image/png" href="/assets/favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
-          fontFamily: {
-            heading: ['"Playfair Display"', 'Georgia', 'serif'],
-            body: ['Poppins', 'system-ui', 'sans-serif'],
-          },
+          fontFamily: { heading: ['"Plus Jakarta Sans"', 'sans-serif'], body: ['"Plus Jakarta Sans"', 'sans-serif'] },
           colors: {
             green: { 50:'#f0fdf4',100:'#dcfce7',200:'#bbf7d0',300:'#86efac',400:'#4ade80',500:'#22c55e',600:'#16a34a',700:'#15803d',800:'#166534',900:'#14532d' },
-            red: { 50:'#fef2f2',100:'#fee2e2',200:'#fecaca',300:'#fca5a5',400:'#f87171',500:'#ef4444',600:'#dc2626',700:'#b91c1c',800:'#991b1b',900:'#7f1d1d' },
-            gold: { 400:'#fbbf24',500:'#f59e0b',600:'#d97706' },
             warm: { 50:'#fefdfb',100:'#f7f5f2',200:'#ebe7e1',300:'#d6d0c7',400:'#a8a29e',500:'#78716c',600:'#57534e',700:'#44403c',800:'#292524',900:'#1c1917' }
           },
-          boxShadow: {
-            'glow-green': '0 10px 30px rgba(22, 163, 74, 0.35)',
-            'glow-red': '0 10px 30px rgba(220, 38, 38, 0.35)',
-          },
+          boxShadow: { 'glow-green': '0 10px 30px rgba(22, 163, 74, 0.35)' },
         }
       }
     }
   </script>
-
   <style>
-    body { font-family: 'Poppins', system-ui, sans-serif; }
-    h1, h2, h3, h4 { font-family: 'Playfair Display', Georgia, serif; }
-    ::-webkit-scrollbar { width: 10px; }
+    body { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; }
+    h1, h2, h3, h4 { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-weight: 700; }
+    ::-webkit-scrollbar { width: 8px; }
     ::-webkit-scrollbar-track { background: #f7f5f2; }
     ::-webkit-scrollbar-thumb { background: #16a34a; border-radius: 5px; }
-    a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
-      outline: 3px solid #22c55e; outline-offset: 3px; border-radius: 4px;
-    }
     .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-
-    .ql-toolbar.ql-snow { border: 1px solid #ebe7e1; border-top-left-radius: 12px; border-top-right-radius: 12px; background: #fefdfb; padding: 10px 12px; font-family: 'Poppins', sans-serif; position: sticky; top: 0; z-index: 5; }
-    .ql-container.ql-snow { border: 1px solid #ebe7e1; border-top: none; border-bottom-left-radius: 12px; border-bottom-right-radius: 12px; background: #ffffff; font-family: 'Poppins', sans-serif; font-size: 1rem; }
+    .ql-toolbar.ql-snow { border: 1px solid #ebe7e1; border-top-left-radius: 12px; border-top-right-radius: 12px; background: #fefdfb; padding: 10px 12px; font-family: 'Plus Jakarta Sans', sans-serif; position: sticky; top: 0; z-index: 5; }
+    .ql-container.ql-snow { border: 1px solid #ebe7e1; border-top: none; border-bottom-left-radius: 12px; border-bottom-right-radius: 12px; background: #ffffff; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1rem; }
     .ql-editor { min-height: 300px; padding: 20px; line-height: 1.7; color: #44403c; }
     .ql-editor.ql-blank::before { color: #a8a29e; font-style: normal; left: 20px; right: 20px; }
-    .ql-editor h1 { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 800; margin: 1rem 0 .5rem; }
-    .ql-editor h2 { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; margin: 1rem 0 .5rem; }
-    .ql-editor blockquote { border-left: 4px solid #dc2626; padding-left: 1rem; font-style: italic; color: #57534e; background: #fef2f2; border-radius: 0 8px 8px 0; padding: 1rem 1rem 1rem 1.25rem; margin: 1rem 0; }
-    .ql-snow .ql-toolbar button:hover .ql-stroke, .ql-snow .ql-toolbar button.ql-active .ql-stroke { stroke: #16a34a !important; }
-    .ql-snow .ql-toolbar button:hover .ql-fill, .ql-snow .ql-toolbar button.ql-active .ql-fill { fill: #16a34a !important; }
+    
+    /* Sidebar Active State */
+    .nav-link { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 12px; font-weight: 600; color: #78716c; transition: all 0.2s; cursor: pointer; }
+    .nav-link:hover { background: #f7f5f2; color: #16a34a; }
+    .nav-link.active { background: #dcfce7; color: #15803d; }
+    
+    /* Mobile Sidebar Transition */
+    #sidebar { transition: transform 0.3s ease-in-out; }
+    #sidebar.open { transform: translateX(0); }
   </style>
 </head>
 
-<body class="bg-warm-50 text-warm-700 min-h-screen flex flex-col">
+<body class="bg-warm-50 text-warm-700 min-h-screen flex overflow-hidden">
 
-  <!-- Navbar Minimalis -->
-  <nav class="sticky top-0 z-50 py-3 bg-white/95 backdrop-blur-xl border-b border-warm-200/60">
-    <div class="max-w-7xl mx-auto px-6 flex items-center justify-between gap-4">
-      <a href="admin.html" class="flex items-center gap-2.5 whitespace-nowrap">
-        <img src="/assets/logo-navbar.png" alt="Jelajah Indonesia" class="h-10 w-auto" />
-        <span class="hidden sm:inline-block ml-1 px-2 py-0.5 bg-green-100 text-green-700 text-[10px] uppercase tracking-widest font-bold rounded">Admin</span>
-      </a>
-      <div class="flex items-center gap-2 md:gap-3">
-        <a href="/" target="_blank" rel="noopener" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 bg-warm-100 hover:bg-green-100 text-warm-700 hover:text-green-700 text-xs md:text-sm font-semibold rounded-full transition-all">
-          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-          <span class="hidden md:inline">Kunjungi Website</span>
-        </a>
-        <div id="userSection" class="hidden items-center gap-2">
-          <div class="hidden md:flex flex-col items-end leading-tight mr-1">
-            <span id="userName" class="text-xs font-semibold text-warm-700">-</span>
-            <span id="userRole" class="text-[10px] uppercase tracking-wider text-warm-400 font-medium">-</span>
-          </div>
-          <button id="logoutBtn" class="inline-flex items-center gap-1.5 px-3 py-2 bg-warm-100 hover:bg-red-500 hover:text-white text-warm-700 text-xs font-semibold rounded-full transition-all">
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-            <span class="hidden sm:inline">Logout</span>
-          </button>
+  <!-- SIDEBAR -->
+  <aside id="sidebar" class="w-64 bg-white border-r border-warm-200 fixed inset-y-0 left-0 z-50 flex flex-col -translate-x-full md:translate-x-0 transition-transform">
+    <div class="p-6 border-b border-warm-200 flex items-center justify-between">
+      <img src="/assets/logo-navbar.png" alt="Logo" class="h-8 w-auto" />
+      <button id="closeSidebar" class="md:hidden text-warm-400 hover:text-red-500">✕</button>
+    </div>
+    
+    <nav class="flex-1 p-4 space-y-2 overflow-y-auto">
+      <div class="text-xs font-bold text-warm-400 uppercase tracking-wider mb-3 px-4 mt-2">Menu Utama</div>
+      <a href="#" data-tab="posts" class="nav-link active"><span>📝</span> Artikel</a>
+      <a href="#" data-tab="ads" class="nav-link"><span>📢</span> Iklan</a>
+      <a href="#" data-tab="hero" class="nav-link"><span>🖼️</span> Hero Slider</a>
+      
+      <div class="text-xs font-bold text-warm-400 uppercase tracking-wider mb-3 px-4 mt-6">Lainnya</div>
+      <a href="/" target="_blank" class="nav-link"><span>🌐</span> Kunjungi Web</a>
+    </nav>
+
+    <div class="p-4 border-t border-warm-200">
+      <div class="flex items-center gap-3 px-4 py-2 mb-2 bg-warm-50 rounded-xl">
+        <div class="w-8 h-8 bg-green-100 text-green-700 rounded-full flex items-center justify-center font-bold" id="userInitial">A</div>
+        <div class="overflow-hidden">
+          <div class="text-sm font-semibold text-warm-800 truncate" id="userName">Admin</div>
+          <div class="text-xs text-warm-500 uppercase" id="userRole">Superadmin</div>
         </div>
       </div>
+      <button id="logoutBtn" class="w-full py-2.5 bg-warm-100 hover:bg-red-500 hover:text-white text-warm-700 font-semibold rounded-xl transition-colors">Logout</button>
     </div>
-  </nav>
+  </aside>
 
-  <main id="app" class="flex-1"></main>
+  <!-- OVERLAY (Mobile) -->
+  <div id="sidebarOverlay" class="fixed inset-0 bg-black/50 z-40 hidden md:hidden"></div>
+
+  <!-- MAIN CONTENT -->
+  <main class="flex-1 flex flex-col h-screen overflow-hidden md:ml-64 relative">
+    <!-- Header Mobile -->
+    <header class="md:hidden bg-white border-b border-warm-200 p-4 flex items-center justify-between">
+      <button id="openSidebar" class="text-warm-700 text-2xl">☰</button>
+      <img src="/assets/logo-navbar.png" alt="Logo" class="h-8" />
+    </header>
+
+    <!-- Dynamic Content -->
+    <div id="app" class="flex-1 overflow-y-auto p-4 md:p-8"></div>
+  </main>
 
   <!-- ================== MODAL ARTIKEL ================== -->
-  <div id="postModal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-start justify-center p-4 overflow-y-auto">
+  <div id="postModal" class="hidden fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm flex items-start justify-center p-4 overflow-y-auto">
     <div class="bg-white rounded-2xl shadow-2xl max-w-3xl w-full my-8 border border-warm-200">
       <div class="flex items-center justify-between p-6 border-b border-warm-200">
         <h2 id="modalTitle" class="font-heading text-2xl font-bold">Tambah Artikel</h2>
@@ -104,10 +109,10 @@
           <div><label class="block text-sm font-medium mb-2">Penulis *</label><input type="text" id="postPenulis" required class="w-full px-4 py-2.5 bg-warm-50 border border-warm-200 rounded-xl outline-none focus:border-green-500" /></div>
           <div><label class="block text-sm font-medium mb-2">Tipe *</label>
             <select id="postTipe" required class="w-full px-4 py-2.5 bg-warm-50 border border-warm-200 rounded-xl outline-none focus:border-green-500">
-              <option value="cerita">Cerita Perjalanan</option><option value="gaya-hidup">Gaya Hidup</option><option value="akomodasi">Akomodasi</option><option value="newsedu">Newsedu</option><option value="event">Event</option>
+              <option value="cerita">Cerita Perjalanan</option><option value="gaya-hidup">Gaya Hidup</option><option value="akomodasi">Akomodasi</option><option value="newsedu">Tips & Trip</option><option value="event">Event</option>
             </select>
           </div>
-          <div><label class="block text-sm font-medium mb-2">Kategori *</label><input type="text" id="postKategori" required placeholder="cth: Gunung, Kuliner" class="w-full px-4 py-2.5 bg-warm-50 border border-warm-200 rounded-xl outline-none focus:border-green-500" /></div>
+          <!-- Kategori dihilangkan -->
           <div><label class="block text-sm font-medium mb-2">Tanggal *</label><input type="date" id="postTanggal" required class="w-full px-4 py-2.5 bg-warm-50 border border-warm-200 rounded-xl outline-none focus:border-green-500" /></div>
           <div><label class="block text-sm font-medium mb-2">Status *</label>
             <select id="postStatus" required class="w-full px-4 py-2.5 bg-warm-50 border border-warm-200 rounded-xl outline-none focus:border-green-500">
@@ -115,26 +120,20 @@
             </select>
           </div>
         </div>
-        
-        <!-- UPLOAD GAMBAR UTAMA -->
         <div>
           <label class="block text-sm font-medium mb-2">URL Gambar Utama *</label>
-          <div class="flex flex-col sm:flex-row gap-2">
-            <input type="text" id="postGambar" required placeholder="https://... atau gunakan tombol upload" class="flex-1 px-4 py-2.5 bg-warm-50 border border-warm-200 rounded-xl outline-none focus:border-green-500" />
+          <div class="flex gap-2">
+            <input type="text" id="postGambar" required placeholder="https://... atau upload gambar" class="w-full px-4 py-2.5 bg-warm-50 border border-warm-200 rounded-xl outline-none focus:border-green-500" />
             <input type="file" id="uploadCover" accept="image/*" class="hidden" onchange="handleImageUpload(this, 'postGambar')" />
-            <button type="button" onclick="document.getElementById('uploadCover').click()" class="px-5 py-2.5 bg-green-100 text-green-700 font-semibold rounded-xl hover:bg-green-200 transition-all whitespace-nowrap">
-              📁 Upload Gambar
-            </button>
+            <button type="button" onclick="document.getElementById('uploadCover').click()" class="px-4 py-2.5 bg-green-100 text-green-700 font-semibold rounded-xl hover:bg-green-200 transition-all whitespace-nowrap">📁 Upload</button>
           </div>
-          <p class="text-xs text-red-500 mt-1 font-semibold">*Maksimal ukuran gambar 2MB. Sistem akan menolak gambar yang lebih besar.</p>
         </div>
-
         <div><label class="block text-sm font-medium mb-2">Ringkasan *</label><textarea id="postRingkasan" required rows="2" class="w-full px-4 py-2.5 bg-warm-50 border border-warm-200 rounded-xl outline-none focus:border-green-500 resize-none"></textarea></div>
         <div>
-  <label class="block text-sm font-medium mb-2">Isi Artikel *</label>
-  <div id="editorContainer" class="bg-white rounded-xl"><div id="editor"></div></div>
-  <p class="text-xs text-warm-400 mt-1">💡 Klik ikon 🖼️ di toolbar untuk mengunggah gambar dari perangkat. (Maksimal 3 gambar sisipan).</p>
-</div>
+          <label class="block text-sm font-medium mb-2">Isi Artikel *</label>
+          <div id="editorContainer" class="bg-white rounded-xl"><div id="editor"></div></div>
+          <p class="text-xs text-warm-400 mt-1">💡 Klik ikon 🖼️ di toolbar untuk mengunggah gambar (Maksimal 3 gambar sisipan).</p>
+        </div>
         <div id="formError" class="hidden p-3 bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl"></div>
         <div class="flex gap-3 justify-end pt-4 border-t border-warm-200">
           <button type="button" id="previewBtn" class="px-5 py-2.5 bg-warm-100 text-warm-700 text-sm font-semibold rounded-xl hover:bg-warm-200 transition-all">👁 Preview</button>
@@ -145,7 +144,7 @@
   </div>
 
   <!-- ================== MODAL IKLAN ================== -->
-  <div id="adModal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-start justify-center p-4 overflow-y-auto">
+  <div id="adModal" class="hidden fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm flex items-start justify-center p-4 overflow-y-auto">
     <div class="bg-white rounded-2xl shadow-2xl max-w-xl w-full my-8 border border-warm-200">
       <div class="flex items-center justify-between p-6 border-b border-warm-200">
         <h2 id="adModalTitle" class="font-heading text-2xl font-bold">Tambah Iklan</h2>
@@ -153,32 +152,19 @@
       </div>
       <form id="adForm" class="p-6 space-y-4 max-h-[75vh] overflow-y-auto">
         <input type="hidden" id="adId" />
-        <div>
-          <label class="block text-sm font-medium mb-2">Judul Iklan (Internal) *</label>
-          <input type="text" id="adJudul" required placeholder="cth: Promo Bali" class="w-full px-4 py-2.5 bg-warm-50 border border-warm-200 rounded-xl outline-none focus:border-green-500" />
-        </div>
+        <div><label class="block text-sm font-medium mb-2">Judul Iklan (Internal) *</label><input type="text" id="adJudul" required placeholder="cth: Promo Bali" class="w-full px-4 py-2.5 bg-warm-50 border border-warm-200 rounded-xl outline-none focus:border-green-500" /></div>
         <div>
           <label class="block text-sm font-medium mb-2">Tipe Iklan *</label>
           <select id="adTipe" required class="w-full px-4 py-2.5 bg-warm-50 border border-warm-200 rounded-xl outline-none focus:border-green-500">
-            <option value="gambar">Gambar / Banner</option>
-            <option value="video">Video (YouTube/Vimeo/MP4)</option>
+            <option value="gambar">Gambar / Banner</option><option value="video">Video (YouTube/Vimeo/MP4)</option>
           </select>
         </div>
         <div>
           <label class="block text-sm font-medium mb-2" id="adMediaLabel">URL Gambar Banner *</label>
-          <div class="flex flex-col sm:flex-row gap-2">
-            <input type="text" id="adGambar" required placeholder="https://..." class="flex-1 px-4 py-2.5 bg-warm-50 border border-warm-200 rounded-xl outline-none focus:border-green-500" />
-            <input type="file" id="uploadAd" accept="image/*" class="hidden" onchange="handleImageUpload(this, 'adGambar')" />
-            <button type="button" id="btnUploadAd" onclick="document.getElementById('uploadAd').click()" class="px-5 py-2.5 bg-green-100 text-green-700 font-semibold rounded-xl hover:bg-green-200 transition-all whitespace-nowrap">
-              📁 Upload
-            </button>
-          </div>
+          <input type="text" id="adGambar" required placeholder="https://..." class="w-full px-4 py-2.5 bg-warm-50 border border-warm-200 rounded-xl outline-none focus:border-green-500" />
           <p class="text-xs text-warm-400 mt-1" id="adMediaHint">Gunakan ukuran horizontal (728x90) untuk Header/Feed, dan kotak (300x250) untuk Sidebar/Grid.</p>
         </div>
-        <div>
-          <label class="block text-sm font-medium mb-2">URL Tujuan (Link) *</label>
-          <input type="url" id="adLink" required placeholder="https://..." class="w-full px-4 py-2.5 bg-warm-50 border border-warm-200 rounded-xl outline-none focus:border-green-500" />
-        </div>
+        <div><label class="block text-sm font-medium mb-2">URL Tujuan (Link) *</label><input type="url" id="adLink" required placeholder="https://..." class="w-full px-4 py-2.5 bg-warm-50 border border-warm-200 rounded-xl outline-none focus:border-green-500" /></div>
         <div>
           <label class="block text-sm font-medium mb-2">Posisi Iklan *</label>
           <select id="adPosisi" required class="w-full px-4 py-2.5 bg-warm-50 border border-warm-200 rounded-xl outline-none focus:border-green-500">
@@ -193,26 +179,67 @@
             <option value="video-sidebar">Sidebar Video (Kanan Artikel)</option>
             <option value="mobile-sticky">Mobile Sticky (Nempel Bawah Layar HP)</option>
           </select>
-          
           <div id="adPosisiInfo" class="mt-2 p-3 bg-green-50 border border-green-200 rounded-xl text-xs text-green-800 hidden"></div>
         </div>
         <div>
           <label class="block text-sm font-medium mb-2">Status *</label>
           <select id="adStatus" required class="w-full px-4 py-2.5 bg-warm-50 border border-warm-200 rounded-xl outline-none focus:border-green-500">
-            <option value="aktif">Aktif</option>
-            <option value="nonaktif">Nonaktif</option>
+            <option value="aktif">Aktif</option><option value="nonaktif">Nonaktif</option>
           </select>
         </div>
         <div id="adFormError" class="hidden p-3 bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl"></div>
         <div class="flex gap-3 justify-end pt-4 border-t border-warm-200">
+          <button type="button" id="adPreviewBtn" class="px-5 py-2.5 bg-warm-100 text-warm-700 text-sm font-semibold rounded-xl hover:bg-warm-200 transition-all">👁 Preview</button>
           <button type="submit" id="adSaveBtn" class="px-6 py-2.5 bg-gradient-to-br from-green-600 to-green-700 text-white text-sm font-semibold rounded-xl shadow-glow-green hover:-translate-y-0.5 transition-all disabled:opacity-50">Simpan Iklan</button>
         </div>
       </form>
     </div>
   </div>
 
+  <!-- ================== MODAL HERO SLIDER ================== -->
+  <div id="heroModal" class="hidden fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm flex items-start justify-center p-4 overflow-y-auto">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-xl w-full my-8 border border-warm-200">
+      <div class="flex items-center justify-between p-6 border-b border-warm-200">
+        <h2 id="heroModalTitle" class="font-heading text-2xl font-bold">Tambah Hero Slide</h2>
+        <button id="heroModalClose" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-warm-100 transition-colors text-xl">×</button>
+      </div>
+      <form id="heroForm" class="p-6 space-y-4">
+        <input type="hidden" id="heroId" />
+        <div>
+          <label class="block text-sm font-medium mb-2">Judul / Keterangan Slide *</label>
+          <input type="text" id="heroJudul" required placeholder="cth: Pemandangan Bali" class="w-full px-4 py-2.5 bg-warm-50 border border-warm-200 rounded-xl outline-none focus:border-green-500" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-2">URL Gambar *</label>
+          <div class="flex gap-2">
+            <input type="text" id="heroGambar" required placeholder="https://... atau upload" class="w-full px-4 py-2.5 bg-warm-50 border border-warm-200 rounded-xl outline-none focus:border-green-500" />
+            <input type="file" id="uploadHero" accept="image/*" class="hidden" onchange="handleImageUpload(this, 'heroGambar')" />
+            <button type="button" onclick="document.getElementById('uploadHero').click()" class="px-4 py-2.5 bg-green-100 text-green-700 font-semibold rounded-xl hover:bg-green-200 transition-all whitespace-nowrap">📁 Upload</button>
+          </div>
+          <p class="text-xs text-warm-400 mt-1">📏 Rekomendasi ukuran: 1920x1080 px (Landscape). Maksimal file 2MB.</p>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium mb-2">Urutan Tampil *</label>
+            <input type="number" id="heroUrutan" required min="1" value="1" class="w-full px-4 py-2.5 bg-warm-50 border border-warm-200 rounded-xl outline-none focus:border-green-500" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-2">Status *</label>
+            <select id="heroStatus" required class="w-full px-4 py-2.5 bg-warm-50 border border-warm-200 rounded-xl outline-none focus:border-green-500">
+              <option value="aktif">Aktif</option><option value="nonaktif">Nonaktif</option>
+            </select>
+          </div>
+        </div>
+        <div id="heroFormError" class="hidden p-3 bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl"></div>
+        <div class="flex gap-3 justify-end pt-4 border-t border-warm-200">
+          <button type="submit" id="heroSaveBtn" class="px-6 py-2.5 bg-gradient-to-br from-green-600 to-green-700 text-white text-sm font-semibold rounded-xl shadow-glow-green hover:-translate-y-0.5 transition-all disabled:opacity-50">Simpan Slide</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <!-- Modal Preview Artikel -->
-  <div id="previewModal" class="hidden fixed inset-0 z-[60] bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+  <div id="previewModal" class="hidden fixed inset-0 z-[70] bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
     <div class="bg-white rounded-2xl shadow-2xl max-w-3xl w-full my-8 border border-warm-200 max-h-[90vh] overflow-y-auto">
       <div class="sticky top-0 flex items-center justify-between p-4 border-b border-warm-200 bg-white z-10">
         <h2 class="font-heading text-xl font-bold">👁 Preview Artikel</h2>
@@ -222,7 +249,18 @@
     </div>
   </div>
 
-  <div id="toast" class="hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-[70] px-6 py-3 rounded-full text-white font-medium shadow-lg"></div>
+  <!-- Modal Preview Iklan -->
+  <div id="adPreviewModal" class="hidden fixed inset-0 z-[70] bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full my-8 border border-warm-200 max-h-[90vh] overflow-y-auto">
+      <div class="sticky top-0 flex items-center justify-between p-4 border-b border-warm-200 bg-white z-10">
+        <h2 id="adPreviewTitle" class="font-heading text-xl font-bold">👁 Preview Iklan</h2>
+        <button id="adPreviewClose" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-warm-100 transition-colors text-xl">×</button>
+      </div>
+      <div id="adPreviewContent" class="p-6"></div>
+    </div>
+  </div>
+
+  <div id="toast" class="hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-[80] px-6 py-3 rounded-full text-white font-medium shadow-lg"></div>
 
   <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
   <script>
@@ -249,14 +287,21 @@
         if (!res.ok) throw new Error(data.error || 'Login gagal');
         return data;
       },
+      // CRUD Artikel
       getPosts() { return this.request('/posts'); },
       createPost(p) { return this.request('/posts', { method: 'POST', body: JSON.stringify({ post: p }) }); },
       updatePost(id, p) { return this.request(`/posts/${id}`, { method: 'PUT', body: JSON.stringify({ post: p }) }); },
       deletePost(id) { return this.request(`/posts/${id}`, { method: 'DELETE' }); },
+      // CRUD Iklan
       getAds() { return this.request('/ads'); },
       createAd(a) { return this.request('/ads', { method: 'POST', body: JSON.stringify({ ad: a }) }); },
       updateAd(id, a) { return this.request(`/ads/${id}`, { method: 'PUT', body: JSON.stringify({ ad: a }) }); },
       deleteAd(id) { return this.request(`/ads/${id}`, { method: 'DELETE' }); },
+      // CRUD Hero
+      getHero() { return this.request('/hero'); },
+      createHero(h) { return this.request('/hero', { method: 'POST', body: JSON.stringify({ hero: h }) }); },
+      updateHero(id, h) { return this.request(`/hero/${id}`, { method: 'PUT', body: JSON.stringify({ hero: h }) }); },
+      deleteHero(id) { return this.request(`/hero/${id}`, { method: 'DELETE' }); },
     };
 
     const formatDate = (iso) => {
@@ -267,468 +312,421 @@
     };
     const escapeHtml = (str = '') => String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 
-    // ==========================================
-    // FUNGSI UPLOAD GAMBAR & VALIDASI 2MB
-    // ==========================================
-    async function handleImageUpload(input, targetId) {
-      if (!input.files || !input.files[0]) return;
-      const file = input.files[0];
-      const btn = input.nextElementSibling;
-      const originalText = btn.innerHTML;
-
-      // VALIDASI UKURAN (MAKS 2MB)
-      if (file.size > 2 * 1024 * 1024) {
-        showToast('Gagal: Ukuran gambar melebihi 2MB!', 'error');
-        input.value = ''; // Reset
-        return;
-      }
-
-      btn.innerHTML = '⏳ Uploading...';
-      btn.disabled = true;
-      
-      try {
-        const url = await uploadToGithub(file);
-        if (url) {
-          document.getElementById(targetId).value = url;
-          showToast('Gambar berhasil diupload');
-        }
-      } catch (e) {
-        showToast('Gagal upload: ' + e.message, 'error');
-      } finally {
-        btn.innerHTML = originalText;
-        btn.disabled = false;
-        input.value = ''; // Reset
-      }
-    }
-
-    async function uploadToGithub(file) {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = async (e) => {
-          const base64Full = e.target.result;
-          const base64Content = base64Full.split(',')[1];
-          const ext = file.name.split('.').pop() || 'jpg';
-          const filename = `img-${Date.now()}.${ext}`;
-          
-          try {
-            const res = await api.request('/upload', {
-              method: 'POST',
-              body: JSON.stringify({
-                filename: filename,
-                content: base64Content,
-                path: 'assets/uploads'
-              })
-            });
-            resolve(res.path);
-          } catch (err) {
-            reject(err);
-          }
-        };
-        reader.onerror = () => reject(new Error('Gagal membaca file'));
-        reader.readAsDataURL(file);
-      });
-    }
-
-    let quill = null;
-    function initQuill() {
-      if (quill) return quill;
-      quill = new Quill('#editor', {
-        theme: 'snow', placeholder: 'Mulai tulis artikel di sini...',
-        modules: { toolbar: [[{ 'header': [1, 2, 3, false] }], ['bold', 'italic', 'underline', 'strike'], [{ 'list': 'ordered' }, { 'list': 'bullet' }], ['blockquote', 'link', 'image'], [{ 'align': [] }], ['clean']] }
-      });
-      const toolbar = quill.getModule('toolbar');
-      
-        toolbar.addHandler('image', () => {
-        // 1. Cek jumlah gambar yang sudah ada di editor
-        const currentImages = quill.root.querySelectorAll('img').length;
-        if (currentImages >= 3) {
-          showToast('Maksimal 3 gambar sisipan per artikel.', 'error');
-          return; // Hentikan proses jika sudah 3
-        }
-
-        // 2. Jika belum 3, buka jendela pilih file
-        const input = document.createElement('input');
-        input.type = 'file';
-        input.accept = 'image/*';
-        input.onchange = async () => {
-          if (input.files && input.files[0]) {
-            // (Opsional) Tampilkan notifikasi sedang mengunggah
-            showToast('Mengunggah gambar...', 'success'); 
-            
-            try {
-              // Panggil fungsi upload ke GitHub yang sudah kita buat sebelumnya
-              const url = await uploadToGithub(input.files[0]);
-              if (url) {
-                const range = quill.getSelection(true);
-                quill.insertEmbed(range.index, 'image', url);
-                quill.setSelection(range.index + 1);
-                showToast('Gambar berhasil disisipkan');
-              }
-            } catch (e) {
-              showToast('Gagal upload: ' + e.message, 'error');
-            }
-          }
-        };
-        input.click();
-      });
-      
-      toolbar.addHandler('link', () => { const url = prompt('Masukkan URL link:'); if (url) { const range = quill.getSelection(true); if (range.length > 0) quill.formatText(range.index, range.length, 'link', url, 'user'); else quill.insertText(range.index, url, 'link', url); } });
-      return quill;
-    }
-
-    function showToast(msg, type = 'success') {
-      const toast = document.getElementById('toast');
-      toast.textContent = msg;
-      toast.className = `fixed bottom-6 left-1/2 -translate-x-1/2 z-[70] px-6 py-3 rounded-full text-white font-medium shadow-lg ${type === 'success' ? 'bg-green-600' : 'bg-red-600'}`;
-      toast.classList.remove('hidden');
-      setTimeout(() => toast.classList.add('hidden'), 3500);
-    }
-
-    const app = document.getElementById('app');
-    const userSection = document.getElementById('userSection');
-    
-    let allPosts = [], filteredPosts = [];
-    let allAds = [], filteredAds = [];
+    // State
     let currentTab = 'posts';
+    let allPosts = [], allAds = [], allHero = [];
 
-    // ============ INFO UKURAN IKLAN ============
-    const adSizes = {
-      'header': '📏 <b>Ukuran: 970x90 px</b> (Billboard) atau 728x90 px.',
-      'hero': '📏 <b>Ukuran: 728x90 px</b> (Leaderboard).',
-      'feed-1': '📏 <b>Ukuran: 728x90 px</b> (Leaderboard).',
-      'feed-2': '📏 <b>Ukuran: 728x90 px</b> (Leaderboard).',
-      'sidebar': '📏 <b>Ukuran: 300x600 px</b> (Half Page) atau 300x250 px.',
-      'sidebar-grid': '📏 <b>Ukuran: 300x250 px</b> (Medium Rectangle). Masukkan maks 4 iklan.',
-      'in-article': '📏 <b>Ukuran: 336x280 px</b> (Large Rectangle) atau 728x90 px.',
-      'video-in-article': '📏 <b>Rasio 16:9</b>. Masukkan link YouTube (Embed) atau link MP4.',
-      'video-sidebar': '📏 <b>Rasio 9:16 atau 1:1</b>. Masukkan link YouTube (Embed) atau link MP4.',
-      'mobile-sticky': '📏 <b>Ukuran: 320x50 px</b> (Mobile Banner).'
-    };
-
-    function updateAdInfo(posisi) {
-      const infoBox = document.getElementById('adPosisiInfo');
-      if (posisi && adSizes[posisi]) {
-        infoBox.innerHTML = adSizes[posisi];
-        infoBox.classList.remove('hidden');
+    // ============ INIT ============
+    document.addEventListener('DOMContentLoaded', () => {
+      initSidebar();
+      const token = api.getToken(), user = api.getUser();
+      if (token && user) {
+        document.getElementById('userName').textContent = user.name || user.username;
+        document.getElementById('userInitial').textContent = (user.name || user.username).charAt(0).toUpperCase();
+        document.getElementById('userRole').textContent = user.role;
+        initDashboard();
       } else {
-        infoBox.classList.add('hidden');
+        // Tampilkan form login di tengah layar
+        document.getElementById('app').innerHTML = `
+          <div class="min-h-[80vh] flex items-center justify-center">
+            <div class="w-full max-w-md bg-white p-8 rounded-2xl shadow-lg border border-warm-200">
+              <div class="text-center mb-6">
+                <div class="w-16 h-16 mx-auto flex items-center justify-center bg-green-100 text-green-600 rounded-2xl text-3xl mb-3">🔐</div>
+                <h1 class="text-2xl font-bold text-warm-800">Login Admin</h1>
+              </div>
+              <form id="loginForm">
+                <div class="mb-4"><label class="block text-sm font-medium mb-1">Username</label><input type="text" id="loginUsername" required class="w-full px-4 py-2 border border-warm-200 rounded-lg outline-none focus:border-green-500" /></div>
+                <div class="mb-6"><label class="block text-sm font-medium mb-1">Password</label><input type="password" id="loginPassword" required class="w-full px-4 py-2 border border-warm-200 rounded-lg outline-none focus:border-green-500" /></div>
+                <div id="loginError" class="hidden mb-4 p-3 bg-red-50 text-red-600 text-sm rounded-lg"></div>
+                <button type="submit" id="loginBtn" class="w-full py-3 bg-green-600 hover:bg-green-700 text-white font-bold rounded-lg transition-colors">Masuk</button>
+              </form>
+            </div>
+          </div>
+        `;
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const btn = document.getElementById('loginBtn'), err = document.getElementById('loginError');
+          btn.disabled = true; btn.textContent = 'Memproses...'; err.classList.add('hidden');
+          try {
+            const res = await api.login(document.getElementById('loginUsername').value.trim(), document.getElementById('loginPassword').value);
+            api.setToken(res.token); api.setUser(res.user);
+            window.location.reload();
+          } catch (e) {
+            err.textContent = e.message; err.classList.remove('hidden'); btn.disabled = false; btn.textContent = 'Masuk';
+          }
+        });
       }
-    }
-
-    function updateAdMediaFields() {
-      const tipe = document.getElementById('adTipe').value;
-      const label = document.getElementById('adMediaLabel');
-      const input = document.getElementById('adGambar');
-      const hint = document.getElementById('adMediaHint');
-      const btnUpload = document.getElementById('btnUploadAd');
-      
-      if (tipe === 'video') {
-        label.textContent = 'URL Video (Embed/MP4) *';
-        input.placeholder = 'https://www.youtube.com/embed/... atau https://.../video.mp4';
-        hint.innerHTML = 'Gunakan link Embed YouTube (bukan link tonton biasa), atau direct link MP4.';
-        btnUpload.style.display = 'none'; // Sembunyikan tombol upload jika video
-      } else {
-        label.textContent = 'URL Gambar Banner *';
-        input.placeholder = 'https://...';
-        hint.innerHTML = 'Gunakan ukuran horizontal (728x90) untuk Header/Feed, dan kotak (300x250) untuk Sidebar/Grid. (Maks 2MB)';
-        btnUpload.style.display = 'block';
-      }
-    }
-
-    document.addEventListener('change', (e) => {
-      if (e.target && e.target.id === 'adPosisi') updateAdInfo(e.target.value);
-      if (e.target && e.target.id === 'adTipe') updateAdMediaFields();
     });
 
-    // ============ LOGIN VIEW ============
-    function renderLogin() {
-      userSection.classList.add('hidden'); userSection.classList.remove('flex');
-      document.title = 'Login — Admin Jelajah Indonesia';
-      app.innerHTML = `
-        <section class="min-h-[80vh] flex items-center justify-center px-6 py-20 bg-warm-50">
-          <div class="w-full max-w-md">
-            <div class="text-center mb-8">
-              <div class="w-16 h-16 mx-auto flex items-center justify-center bg-gradient-to-br from-green-500 to-green-700 rounded-2xl text-white text-3xl shadow-glow-green mb-4">🔐</div>
-              <h1 class="font-heading text-3xl font-extrabold mb-2">Admin Panel</h1>
-              <p class="text-warm-500 text-sm">Masuk untuk mengelola konten</p>
-            </div>
-            <form id="loginForm" class="bg-white rounded-2xl shadow-lg p-8 border border-warm-200">
-              <div class="mb-5"><label class="block text-sm font-medium mb-2">Username</label><input type="text" id="loginUsername" required class="w-full px-4 py-3 bg-warm-50 border border-warm-200 rounded-xl outline-none focus:border-green-500" /></div>
-              <div class="mb-6"><label class="block text-sm font-medium mb-2">Password</label><input type="password" id="loginPassword" required class="w-full px-4 py-3 bg-warm-50 border border-warm-200 rounded-xl outline-none focus:border-green-500" /></div>
-              <div id="loginError" class="hidden mb-4 p-3 bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl"></div>
-              <button type="submit" id="loginBtn" class="w-full py-3.5 bg-gradient-to-br from-green-600 to-green-700 text-white font-semibold rounded-xl shadow-glow-green hover:-translate-y-0.5 transition-all disabled:opacity-50">Masuk</button>
-            </form>
-          </div>
-        </section>
-      `;
-      document.getElementById('loginForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const btn = document.getElementById('loginBtn'), err = document.getElementById('loginError');
-        btn.disabled = true; btn.textContent = 'Memproses...'; err.classList.add('hidden');
-        try {
-          const res = await api.login(document.getElementById('loginUsername').value.trim(), document.getElementById('loginPassword').value);
-          api.setToken(res.token); api.setUser(res.user); renderDashboard();
-        } catch (e) {
-          err.textContent = e.message; err.classList.remove('hidden'); btn.disabled = false; btn.textContent = 'Masuk';
-        }
-      });
-    }
+    // ============ SIDEBAR LOGIC ============
+    function initSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('sidebarOverlay');
+      const openBtn = document.getElementById('openSidebar');
+      const closeBtn = document.getElementById('closeSidebar');
 
-    // ============ DASHBOARD VIEW ============
-    function renderDashboard() {
-      const user = api.getUser();
-      if (!user) return renderLogin();
-      userSection.classList.remove('hidden'); userSection.classList.add('flex');
-      document.getElementById('userName').textContent = user.name || user.username;
-      document.getElementById('userRole').textContent = user.role || 'admin';
+      const toggle = () => {
+        sidebar.classList.toggle('-translate-x-full');
+        overlay.classList.toggle('hidden');
+      };
+      openBtn.addEventListener('click', toggle);
+      closeBtn.addEventListener('click', toggle);
+      overlay.addEventListener('click', toggle);
 
-      app.innerHTML = `
-        <section class="py-8 px-6">
-          <div class="max-w-7xl mx-auto">
-            <div class="flex items-center justify-between mb-6 flex-wrap gap-4">
-              <div>
-                <h1 class="font-heading text-3xl font-extrabold mb-1">Dashboard</h1>
-                <p class="text-sm text-warm-500">Kelola konten dan iklan website</p>
-              </div>
-              <button id="addBtn" class="px-5 py-2.5 bg-gradient-to-br from-green-600 to-green-700 text-white text-sm font-semibold rounded-full shadow-glow-green hover:-translate-y-0.5 transition-all">
-                + Tambah <span id="addBtnText">Artikel</span>
-              </button>
-            </div>
-
-            <div class="flex border-b border-warm-200 mb-6">
-              <button data-tab="posts" class="tab-btn px-6 py-3 font-semibold text-green-700 border-b-2 border-green-600 transition-all">📝 Artikel</button>
-              <button data-tab="ads" class="tab-btn px-6 py-3 font-semibold text-warm-500 border-b-2 border-transparent hover:text-green-600 transition-all">📢 Iklan</button>
-            </div>
-
-            <div id="statsGrid" class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6"></div>
-
-            <div class="bg-white rounded-2xl p-4 mb-6 border border-warm-200 flex flex-wrap gap-3 items-center">
-              <input type="text" id="searchInput" placeholder="Cari..." class="flex-1 min-w-[200px] px-4 py-2.5 bg-warm-50 border border-warm-200 rounded-xl text-sm outline-none focus:border-green-500" />
-              <select id="filterStatus" class="px-4 py-2.5 bg-warm-50 border border-warm-200 rounded-xl text-sm outline-none focus:border-green-500">
-                <option value="all">Semua Status</option>
-                <option value="published">Published / Aktif</option>
-                <option value="draft">Draft / Nonaktif</option>
-              </select>
-              <button id="refreshBtn" class="px-4 py-2.5 bg-warm-100 hover:bg-green-100 text-warm-700 hover:text-green-700 text-sm font-semibold rounded-xl transition-all">🔄</button>
-            </div>
-
-            <div id="dataTable" class="bg-white rounded-2xl border border-warm-200 overflow-hidden">
-              <div class="p-8 text-center text-warm-400"><div class="w-12 h-12 mx-auto border-4 border-green-500 border-t-transparent rounded-full animate-spin"></div><p class="mt-3 text-sm">Memuat data...</p></div>
-            </div>
-          </div>
-        </section>
-      `;
-
-      document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          currentTab = btn.dataset.tab;
-          document.querySelectorAll('.tab-btn').forEach(b => {
-            b.classList.toggle('text-green-700', b.dataset.tab === currentTab);
-            b.classList.toggle('border-green-600', b.dataset.tab === currentTab);
-            b.classList.toggle('text-warm-500', b.dataset.tab !== currentTab);
-            b.classList.toggle('border-transparent', b.dataset.tab !== currentTab);
-          });
-          document.getElementById('addBtnText').textContent = currentTab === 'posts' ? 'Artikel' : 'Iklan';
-          document.getElementById('searchInput').value = '';
-          loadData();
+      document.querySelectorAll('.nav-link[data-tab]').forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          currentTab = link.dataset.tab;
+          document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+          link.classList.add('active');
+          if(window.innerWidth < 768) toggle(); // Tutup sidebar di mobile
+          renderTabContent();
         });
       });
 
-      document.getElementById('addBtn').addEventListener('click', () => {
-        if (currentTab === 'posts') openAddPostModal();
-        else openAddAdModal();
+      document.getElementById('logoutBtn').addEventListener('click', () => {
+        if(confirm('Logout?')) { api.clearToken(); window.location.reload(); }
       });
-      document.getElementById('refreshBtn').addEventListener('click', () => { loadData(); showToast('Data di-refresh'); });
-      document.getElementById('searchInput').addEventListener('input', applyFilters);
-      document.getElementById('filterStatus').addEventListener('change', applyFilters);
-
-      document.getElementById('modalClose').addEventListener('click', () => document.getElementById('postModal').classList.add('hidden'));
-      document.getElementById('adModalClose').addEventListener('click', () => document.getElementById('adModal').classList.add('hidden'));
-      document.getElementById('previewClose').addEventListener('click', () => document.getElementById('previewModal').classList.add('hidden'));
-      
-      document.getElementById('postForm').addEventListener('submit', handlePostSubmit);
-      document.getElementById('previewBtn').addEventListener('click', handlePreview);
-      document.getElementById('adForm').addEventListener('submit', handleAdSubmit);
-
-      document.getElementById('statsGrid').innerHTML = '';
-      loadData();
     }
 
-    async function loadData() {
-      const table = document.getElementById('dataTable');
-      table.innerHTML = `<div class="p-8 text-center text-warm-400"><div class="w-12 h-12 mx-auto border-4 border-green-500 border-t-transparent rounded-full animate-spin"></div></div>`;
+    // ============ RENDER DASHBOARD ============
+    function initDashboard() {
+      renderTabContent();
+      attachGlobalListeners();
+    }
+
+    function renderTabContent() {
+      const app = document.getElementById('app');
+      if (currentTab === 'posts') {
+        app.innerHTML = `
+          <div class="flex justify-between items-center mb-6">
+            <h1 class="text-2xl font-bold">Daftar Artikel</h1>
+            <button onclick="openModal('post')" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-semibold shadow-md">+ Tambah Artikel</button>
+          </div>
+          <div class="bg-white rounded-xl shadow-sm border border-warm-200 overflow-hidden" id="tableContainer">
+             <div class="p-8 text-center text-warm-400">Memuat data...</div>
+          </div>
+        `;
+        loadPosts();
+      } else if (currentTab === 'ads') {
+        app.innerHTML = `
+          <div class="flex justify-between items-center mb-6">
+            <h1 class="text-2xl font-bold">Daftar Iklan</h1>
+            <button onclick="openModal('ad')" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-semibold shadow-md">+ Tambah Iklan</button>
+          </div>
+          <div class="bg-white rounded-xl shadow-sm border border-warm-200 overflow-hidden" id="tableContainer">
+             <div class="p-8 text-center text-warm-400">Memuat data...</div>
+          </div>
+        `;
+        loadAds();
+      } else if (currentTab === 'hero') {
+        app.innerHTML = `
+          <div class="flex justify-between items-center mb-6">
+            <h1 class="text-2xl font-bold">Hero Slider (Max 5)</h1>
+            <button onclick="openModal('hero')" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-semibold shadow-md">+ Tambah Slide</button>
+          </div>
+          <div class="bg-white rounded-xl shadow-sm border border-warm-200 overflow-hidden" id="tableContainer">
+             <div class="p-8 text-center text-warm-400">Memuat data...</div>
+          </div>
+        `;
+        loadHero();
+      }
+    }
+
+    // ============ LOAD DATA ============
+    async function loadPosts() {
+      const container = document.getElementById('tableContainer');
       try {
-        if (currentTab === 'posts') {
-          const res = await api.getPosts();
-          allPosts = res.posts || [];
-          renderStats();
-          applyFilters();
-        } else {
-          const res = await api.getAds();
-          allAds = res.ads || [];
-          renderStats();
-          applyFilters();
-        }
-      } catch (e) {
-        table.innerHTML = `<div class="p-8 text-center text-red-500">Error: ${escapeHtml(e.message)}</div>`;
-      }
+        const res = await api.getPosts();
+        allPosts = res.posts || [];
+        renderPostsTable();
+      } catch (e) { container.innerHTML = `<div class="p-8 text-red-500 text-center">Error: ${escapeHtml(e.message)}</div>`; }
+    }
+    async function loadAds() {
+      const container = document.getElementById('tableContainer');
+      try {
+        const res = await api.getAds();
+        allAds = res.ads || [];
+        renderAdsTable();
+      } catch (e) { container.innerHTML = `<div class="p-8 text-red-500 text-center">Error: ${escapeHtml(e.message)}</div>`; }
+    }
+    async function loadHero() {
+      const container = document.getElementById('tableContainer');
+      try {
+        const res = await api.getHero();
+        allHero = res.hero || [];
+        renderHeroTable();
+      } catch (e) { container.innerHTML = `<div class="p-8 text-red-500 text-center">Error: ${escapeHtml(e.message)}</div>`; }
     }
 
-    function renderStats() {
-      const statsEl = document.getElementById('statsGrid');
-      if (currentTab === 'posts') {
-        statsEl.innerHTML = `
-          <div class="bg-white rounded-xl p-4 border border-warm-200"><div class="text-xs text-warm-500 uppercase mb-1">Total Artikel</div><div class="font-heading text-2xl font-extrabold text-green-700">${allPosts.length}</div></div>
-          <div class="bg-white rounded-xl p-4 border border-warm-200"><div class="text-xs text-warm-500 uppercase mb-1">Published</div><div class="font-heading text-2xl font-extrabold text-green-600">${allPosts.filter(p=>p.status==='published').length}</div></div>
-          <div class="bg-white rounded-xl p-4 border border-warm-200"><div class="text-xs text-warm-500 uppercase mb-1">Draft</div><div class="font-heading text-2xl font-extrabold text-gold-500">${allPosts.filter(p=>p.status==='draft').length}</div></div>
-          <div class="bg-white rounded-xl p-4 border border-warm-200"><div class="text-xs text-warm-500 uppercase mb-1">Kategori</div><div class="font-heading text-2xl font-extrabold text-red-600">${new Set(allPosts.map(p => p.kategori)).size}</div></div>
-        `;
-      } else {
-        statsEl.innerHTML = `
-          <div class="bg-white rounded-xl p-4 border border-warm-200"><div class="text-xs text-warm-500 uppercase mb-1">Total Iklan</div><div class="font-heading text-2xl font-extrabold text-green-700">${allAds.length}</div></div>
-          <div class="bg-white rounded-xl p-4 border border-warm-200"><div class="text-xs text-warm-500 uppercase mb-1">Aktif</div><div class="font-heading text-2xl font-extrabold text-green-600">${allAds.filter(a=>a.status==='aktif').length}</div></div>
-          <div class="bg-white rounded-xl p-4 border border-warm-200"><div class="text-xs text-warm-500 uppercase mb-1">Nonaktif</div><div class="font-heading text-2xl font-extrabold text-gold-500">${allAds.filter(a=>a.status==='nonaktif').length}</div></div>
-        `;
-      }
-    }
-
-    function applyFilters() {
-      const q = document.getElementById('searchInput').value.toLowerCase().trim();
-      const status = document.getElementById('filterStatus').value;
-      if (currentTab === 'posts') {
-        filteredPosts = allPosts.filter(p => {
-          if (status === 'published' && p.status !== 'published') return false;
-          if (status === 'draft' && p.status !== 'draft') return false;
-          return !q || p.judul.toLowerCase().includes(q) || p.penulis.toLowerCase().includes(q);
-        });
-        renderPostTable();
-      } else {
-        filteredAds = allAds.filter(a => {
-          if (status === 'published' && a.status !== 'aktif') return false;
-          if (status === 'draft' && a.status !== 'nonaktif') return false;
-          return !q || a.judul.toLowerCase().includes(q);
-        });
-        renderAdTable();
-      }
-    }
-
-    function renderPostTable() {
-      const table = document.getElementById('dataTable');
-      if (filteredPosts.length === 0) { table.innerHTML = `<div class="p-12 text-center text-warm-400"><div class="text-5xl mb-3">📭</div><p>Tidak ada artikel.</p></div>`; return; }
-      table.innerHTML = `
-        <div class="overflow-x-auto"><table class="w-full text-sm">
-          <thead class="bg-warm-100 text-warm-600"><tr><th class="text-left p-4">Judul</th><th class="text-left p-4 hidden md:table-cell">Tipe</th><th class="text-left p-4">Status</th><th class="text-right p-4">Aksi</th></tr></thead>
+    // ============ RENDER TABLES ============
+    function renderPostsTable() {
+      const c = document.getElementById('tableContainer');
+      if (allPosts.length === 0) return c.innerHTML = '<div class="p-8 text-center text-warm-400">Belum ada artikel.</div>';
+      c.innerHTML = `
+        <table class="w-full text-sm text-left">
+          <thead class="bg-warm-50 border-b border-warm-200 text-warm-500">
+            <tr><th class="p-4">Judul</th><th class="p-4">Tipe</th><th class="p-4">Status</th><th class="p-4 text-right">Aksi</th></tr>
+          </thead>
           <tbody>
-            ${filteredPosts.map(p => `
-              <tr class="border-t border-warm-200 hover:bg-warm-50">
-                <td class="p-4"><div class="font-medium line-clamp-2 max-w-md">${escapeHtml(p.judul)}</div><div class="text-xs text-warm-400 mt-1">${formatDate(p.tanggal)}</div></td>
-                <td class="p-4 hidden md:table-cell"><span class="px-2 py-1 bg-green-50 text-green-700 text-xs rounded-full">${p.tipe}</span></td>
-                <td class="p-4">${p.status === 'published' ? '<span class="text-green-600 text-xs font-semibold">✓ Published</span>' : '<span class="text-gold-500 text-xs font-semibold">◐ Draft</span>'}</td>
+            ${allPosts.map(p => `
+              <tr class="border-b border-warm-100 hover:bg-warm-50">
+                <td class="p-4 font-medium">${escapeHtml(p.judul)}</td>
+                <td class="p-4"><span class="px-2 py-1 bg-green-100 text-green-700 rounded-md text-xs">${p.tipe}</span></td>
+                <td class="p-4">${p.status === 'published' ? '<span class="text-green-600 font-bold text-xs">● Published</span>' : '<span class="text-warm-400 font-bold text-xs">○ Draft</span>'}</td>
                 <td class="p-4 text-right">
-                  <div class="flex gap-1 justify-end">
-                    <button onclick="window.open('/artikel/${p.id}', '_blank')" class="w-8 h-8 rounded-full hover:bg-warm-200" title="Lihat">🔗</button>
-                    <button data-edit-post="${p.id}" class="w-8 h-8 rounded-full hover:bg-green-100 text-green-700" title="Edit">✏️</button>
-                    <button data-del-post="${p.id}" class="w-8 h-8 rounded-full hover:bg-red-100 text-red-600" title="Hapus">🗑️</button>
-                  </div>
+                  <button onclick="editPost('${p.id}')" class="text-blue-600 hover:underline mr-2 text-xs font-semibold">Edit</button>
+                  <button onclick="deleteItem('post', '${p.id}')" class="text-red-600 hover:underline text-xs font-semibold">Hapus</button>
                 </td>
               </tr>
             `).join('')}
           </tbody>
-        </table></div>
+        </table>
       `;
-      table.querySelectorAll('[data-edit-post]').forEach(b => b.addEventListener('click', () => openEditPostModal(b.dataset.editPost)));
-      table.querySelectorAll('[data-del-post]').forEach(b => b.addEventListener('click', () => confirmDelete('post', b.dataset.delPost)));
     }
 
-    function renderAdTable() {
-      const table = document.getElementById('dataTable');
-      if (filteredAds.length === 0) { table.innerHTML = `<div class="p-12 text-center text-warm-400"><div class="text-5xl mb-3">📭</div><p>Tidak ada iklan.</p></div>`; return; }
-      table.innerHTML = `
-        <div class="overflow-x-auto"><table class="w-full text-sm">
-          <thead class="bg-warm-100 text-warm-600"><tr><th class="text-left p-4">Judul</th><th class="text-left p-4 hidden md:table-cell">Posisi</th><th class="text-left p-4">Status</th><th class="text-right p-4">Aksi</th></tr></thead>
+    function renderAdsTable() {
+      const c = document.getElementById('tableContainer');
+      if (allAds.length === 0) return c.innerHTML = '<div class="p-8 text-center text-warm-400">Belum ada iklan.</div>';
+      c.innerHTML = `
+        <table class="w-full text-sm text-left">
+          <thead class="bg-warm-50 border-b border-warm-200 text-warm-500">
+            <tr><th class="p-4">Judul</th><th class="p-4">Posisi</th><th class="p-4">Status</th><th class="p-4 text-right">Aksi</th></tr>
+          </thead>
           <tbody>
-            ${filteredAds.map(a => `
-              <tr class="border-t border-warm-200 hover:bg-warm-50">
-                <td class="p-4">
-                  <div class="font-medium line-clamp-2 max-w-md">${escapeHtml(a.judul)}</div>
-                  <div class="text-[10px] text-blue-600 font-semibold mt-1 uppercase">${a.tipe === 'video' ? '🎬 Video' : '🖼️ Gambar'}</div>
-                </td>
-                <td class="p-4 hidden md:table-cell"><span class="px-2 py-1 bg-blue-50 text-blue-700 text-xs font-semibold rounded-full uppercase">${a.posisi}</span></td>
-                <td class="p-4">${a.status === 'aktif' ? '<span class="text-green-600 text-xs font-semibold">✓ Aktif</span>' : '<span class="text-warm-400 text-xs font-semibold">◐ Nonaktif</span>'}</td>
+            ${allAds.map(a => `
+              <tr class="border-b border-warm-100 hover:bg-warm-50">
+                <td class="p-4 font-medium">${escapeHtml(a.judul)} <br><span class="text-xs text-blue-500">${a.tipe === 'video' ? 'Video' : 'Gambar'}</span></td>
+                <td class="p-4"><span class="px-2 py-1 bg-blue-100 text-blue-700 rounded-md text-xs uppercase">${a.posisi}</span></td>
+                <td class="p-4">${a.status === 'aktif' ? '<span class="text-green-600 font-bold text-xs">● Aktif</span>' : '<span class="text-warm-400 font-bold text-xs">○ Nonaktif</span>'}</td>
                 <td class="p-4 text-right">
-                  <div class="flex gap-1 justify-end">
-                    <button data-edit-ad="${a.id}" class="w-8 h-8 rounded-full hover:bg-green-100 text-green-700" title="Edit">✏️</button>
-                    <button data-del-ad="${a.id}" class="w-8 h-8 rounded-full hover:bg-red-100 text-red-600" title="Hapus">🗑️</button>
-                  </div>
+                  <button onclick="editAd('${a.id}')" class="text-blue-600 hover:underline mr-2 text-xs font-semibold">Edit</button>
+                  <button onclick="deleteItem('ad', '${a.id}')" class="text-red-600 hover:underline text-xs font-semibold">Hapus</button>
                 </td>
               </tr>
             `).join('')}
           </tbody>
-        </table></div>
+        </table>
       `;
-      table.querySelectorAll('[data-edit-ad]').forEach(b => b.addEventListener('click', () => openEditAdModal(b.dataset.editAd)));
-      table.querySelectorAll('[data-del-ad]').forEach(b => b.addEventListener('click', () => confirmDelete('ad', b.dataset.delAd)));
     }
 
-    function openAddPostModal() {
-      document.getElementById('postForm').reset(); document.getElementById('postId').value = '';
-      document.getElementById('postTanggal').value = new Date().toISOString().split('T')[0];
-      document.getElementById('modalTitle').textContent = 'Tambah Artikel';
-      document.getElementById('formError').classList.add('hidden');
-      initQuill(); quill.root.innerHTML = ''; quill.history.clear();
-      document.getElementById('postModal').classList.remove('hidden');
-      setTimeout(() => quill.focus(), 200);
+    function renderHeroTable() {
+      const c = document.getElementById('tableContainer');
+      if (allHero.length === 0) return c.innerHTML = '<div class="p-8 text-center text-warm-400">Belum ada Hero Slider.</div>';
+      c.innerHTML = `
+        <table class="w-full text-sm text-left">
+          <thead class="bg-warm-50 border-b border-warm-200 text-warm-500">
+            <tr><th class="p-4">Gambar</th><th class="p-4">Judul</th><th class="p-4">Urutan</th><th class="p-4">Status</th><th class="p-4 text-right">Aksi</th></tr>
+          </thead>
+          <tbody>
+            ${allHero.map(h => `
+              <tr class="border-b border-warm-100 hover:bg-warm-50">
+                <td class="p-4"><img src="${escapeHtml(h.gambar)}" class="w-24 h-12 object-cover rounded-md border border-warm-200"></td>
+                <td class="p-4 font-medium">${escapeHtml(h.judul)}</td>
+                <td class="p-4 text-center font-bold">${h.urutan}</td>
+                <td class="p-4">${h.status === 'aktif' ? '<span class="text-green-600 font-bold text-xs">● Aktif</span>' : '<span class="text-warm-400 font-bold text-xs">○ Nonaktif</span>'}</td>
+                <td class="p-4 text-right">
+                  <button onclick="editHero('${h.id}')" class="text-blue-600 hover:underline mr-2 text-xs font-semibold">Edit</button>
+                  <button onclick="deleteItem('hero', '${h.id}')" class="text-red-600 hover:underline text-xs font-semibold">Hapus</button>
+                </td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      `;
     }
 
-    function openEditPostModal(id) {
-      const p = allPosts.find(x => x.id === id); if (!p) return;
-      document.getElementById('postForm').reset();
+    // ============ MODAL LOGIC ============
+    function openModal(type) {
+      if(type === 'post') { document.getElementById('postForm').reset(); document.getElementById('postId').value=''; initQuill(); quill.root.innerHTML=''; document.getElementById('postModal').classList.remove('hidden'); }
+      if(type === 'ad') { document.getElementById('adForm').reset(); document.getElementById('adId').value=''; document.getElementById('adPosisiInfo').classList.add('hidden'); updateAdMediaFields(); document.getElementById('adModal').classList.remove('hidden'); }
+      if(type === 'hero') { document.getElementById('heroForm').reset(); document.getElementById('heroId').value=''; document.getElementById('heroUrutan').value=allHero.length + 1; document.getElementById('heroModal').classList.remove('hidden'); }
+    }
+    function closeModal(type) {
+      if(type === 'post') document.getElementById('postModal').classList.add('hidden');
+      if(type === 'ad') document.getElementById('adModal').classList.add('hidden');
+      if(type === 'hero') document.getElementById('heroModal').classList.add('hidden');
+    }
+
+    // ============ EDIT & DELETE ============
+    function editPost(id) {
+      const p = allPosts.find(x => x.id === id); if(!p) return;
       document.getElementById('postId').value = p.id;
       document.getElementById('postJudul').value = p.judul;
       document.getElementById('postPenulis').value = p.penulis;
       document.getElementById('postTipe').value = p.tipe;
-      document.getElementById('postKategori').value = p.kategori;
       document.getElementById('postTanggal').value = p.tanggal;
-      document.getElementById('postStatus').value = p.status || 'draft';
+      document.getElementById('postStatus').value = p.status;
       document.getElementById('postGambar').value = p.gambar;
       document.getElementById('postRingkasan').value = p.ringkasan;
-      document.getElementById('modalTitle').textContent = 'Edit Artikel';
-      document.getElementById('formError').classList.add('hidden');
-      initQuill(); quill.root.innerHTML = p.isi || ''; quill.history.clear();
+      initQuill(); quill.root.innerHTML = p.isi || ''; 
       document.getElementById('postModal').classList.remove('hidden');
     }
+    function editAd(id) {
+      const a = allAds.find(x => x.id === id); if(!a) return;
+      document.getElementById('adId').value = a.id;
+      document.getElementById('adJudul').value = a.judul;
+      document.getElementById('adTipe').value = a.tipe;
+      document.getElementById('adGambar').value = a.gambar;
+      document.getElementById('adLink').value = a.link;
+      document.getElementById('adPosisi').value = a.posisi;
+      document.getElementById('adStatus').value = a.status;
+      updateAdMediaFields(); updateAdInfo(a.posisi);
+      document.getElementById('adModal').classList.remove('hidden');
+    }
+    function editHero(id) {
+      const h = allHero.find(x => x.id === id); if(!h) return;
+      document.getElementById('heroId').value = h.id;
+      document.getElementById('heroJudul').value = h.judul;
+      document.getElementById('heroGambar').value = h.gambar;
+      document.getElementById('heroUrutan').value = h.urutan;
+      document.getElementById('heroStatus').value = h.status;
+      document.getElementById('heroModal').classList.remove('hidden');
+    }
 
+    async function deleteItem(type, id) {
+      if(!confirm('Yakin ingin menghapus data ini?')) return;
+      try {
+        if(type === 'post') await api.deletePost(id);
+        if(type === 'ad') await api.deleteAd(id);
+        if(type === 'hero') await api.deleteHero(id);
+        showToast('Berhasil dihapus');
+        if(type === 'post') loadPosts();
+        if(type === 'ad') loadAds();
+        if(type === 'hero') loadHero();
+      } catch(e) { showToast(e.message, 'error'); }
+    }
+
+    // ============ ATTACH GLOBAL LISTENERS ============
+    function attachGlobalListeners() {
+      // Close modal buttons
+      document.getElementById('modalClose').onclick = () => closeModal('post');
+      document.getElementById('adModalClose').onclick = () => closeModal('ad');
+      document.getElementById('heroModalClose').onclick = () => closeModal('hero');
+      document.getElementById('previewClose').onclick = () => document.getElementById('previewModal').classList.add('hidden');
+      document.getElementById('adPreviewClose').onclick = () => document.getElementById('adPreviewModal').classList.add('hidden');
+
+      // Form Submits
+      document.getElementById('postForm').onsubmit = handlePostSubmit;
+      document.getElementById('adForm').onsubmit = handleAdSubmit;
+      document.getElementById('heroForm').onsubmit = handleHeroSubmit;
+
+      // Preview
+      document.getElementById('previewBtn').onclick = handlePostPreview;
+      document.getElementById('adPreviewBtn').onclick = handleAdPreview;
+
+      // Ad info dropdown
+      document.getElementById('adPosisi').onchange = (e) => updateAdInfo(e.target.value);
+      document.getElementById('adTipe').onchange = updateAdMediaFields;
+    }
+
+    // ============ SUBMIT HANDLERS ============
     async function handlePostSubmit(e) {
       e.preventDefault();
       const id = document.getElementById('postId').value;
       const data = {
         judul: document.getElementById('postJudul').value.trim(), penulis: document.getElementById('postPenulis').value.trim(),
-        tipe: document.getElementById('postTipe').value, kategori: document.getElementById('postKategori').value.trim(),
-        tanggal: document.getElementById('postTanggal').value, status: document.getElementById('postStatus').value,
-        gambar: document.getElementById('postGambar').value.trim(), ringkasan: document.getElementById('postRingkasan').value.trim(),
-        isi: quill.root.innerHTML,
+        tipe: document.getElementById('postTipe').value, tanggal: document.getElementById('postTanggal').value, 
+        status: document.getElementById('postStatus').value, gambar: document.getElementById('postGambar').value.trim(), 
+        ringkasan: document.getElementById('postRingkasan').value.trim(), isi: quill.root.innerHTML,
       };
-      const btn = document.getElementById('saveBtn'), err = document.getElementById('formError');
-      btn.disabled = true; btn.textContent = 'Menyimpan...'; err.classList.add('hidden');
+      const btn = document.getElementById('saveBtn');
+      btn.disabled = true; btn.textContent = 'Menyimpan...';
       try {
-        if (id) { await api.updatePost(id, { ...data, updatedAt: new Date().toISOString() }); showToast('Artikel diupdate'); }
-        else { await api.createPost({ ...data, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() }); showToast('Artikel ditambahkan'); }
-        document.getElementById('postModal').classList.add('hidden'); loadData();
-      } catch (e) { err.textContent = e.message; err.classList.remove('hidden'); }
-      finally { btn.disabled = false; btn.textContent = 'Simpan'; }
+        if(id) await api.updatePost(id, data); else await api.createPost(data);
+        closeModal('post'); showToast('Artikel disimpan'); loadPosts();
+      } catch(e) { showToast(e.message, 'error'); } finally { btn.disabled = false; btn.textContent = 'Simpan'; }
     }
 
-    function handlePreview() {
+    async function handleAdSubmit(e) {
+      e.preventDefault();
+      const id = document.getElementById('adId').value;
+      const data = {
+        judul: document.getElementById('adJudul').value.trim(), tipe: document.getElementById('adTipe').value,
+        gambar: document.getElementById('adGambar').value.trim(), link: document.getElementById('adLink').value.trim(),
+        posisi: document.getElementById('adPosisi').value, status: document.getElementById('adStatus').value,
+      };
+      const btn = document.getElementById('adSaveBtn');
+      btn.disabled = true; btn.textContent = 'Menyimpan...';
+      try {
+        if(id) await api.updateAd(id, data); else await api.createAd(data);
+        closeModal('ad'); showToast('Iklan disimpan'); loadAds();
+      } catch(e) { showToast(e.message, 'error'); } finally { btn.disabled = false; btn.textContent = 'Simpan Iklan'; }
+    }
+
+    async function handleHeroSubmit(e) {
+      e.preventDefault();
+      const id = document.getElementById('heroId').value;
+      const data = {
+        judul: document.getElementById('heroJudul').value.trim(), gambar: document.getElementById('heroGambar').value.trim(),
+        urutan: parseInt(document.getElementById('heroUrutan').value), status: document.getElementById('heroStatus').value,
+      };
+      const btn = document.getElementById('heroSaveBtn');
+      btn.disabled = true; btn.textContent = 'Menyimpan...';
+      try {
+        if(id) await api.updateHero(id, data); else await api.createHero(data);
+        closeModal('hero'); showToast('Slider disimpan'); loadHero();
+      } catch(e) { showToast(e.message, 'error'); } finally { btn.disabled = false; btn.textContent = 'Simpan Slide'; }
+    }
+
+    // ============ UTILS ============
+    function showToast(msg, type = 'success') {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.className = `fixed bottom-6 left-1/2 -translate-x-1/2 z-[80] px-6 py-3 rounded-full text-white font-medium shadow-lg ${type === 'success' ? 'bg-green-600' : 'bg-red-600'}`;
+      t.classList.remove('hidden'); setTimeout(() => t.classList.add('hidden'), 3000);
+    }
+
+    // ... (Fungsi updateAdInfo, updateAdMediaFields, initQuill, handlePreview, uploadToGithub dll sama seperti sebelumnya)
+    // Agar tidak terlalu panjang, saya ringkas di bawah ini. Anda tetap bisa copy-paste seluruhnya.
+
+    function updateAdMediaFields() {
+      const tipe = document.getElementById('adTipe').value;
+      document.getElementById('adMediaLabel').textContent = tipe === 'video' ? 'URL Video (Embed/MP4) *' : 'URL Gambar Banner *';
+      document.getElementById('adMediaHint').innerHTML = tipe === 'video' ? 'Gunakan link Embed YouTube.' : 'Gunakan ukuran horizontal (728x90) atau kotak (300x250).';
+    }
+    const adSizes = {
+      'header': '📏 <b>Ukuran: 970x90 px</b>', 'hero': '📏 <b>Ukuran: 728x90 px</b>',
+      'feed-1': '📏 <b>Ukuran: 728x90 px</b>', 'feed-2': '📏 <b>Ukuran: 728x90 px</b>',
+      'sidebar': '📏 <b>Ukuran: 300x600 px</b>', 'sidebar-grid': '📏 <b>Ukuran: 300x250 px</b> (Max 4)',
+      'in-article': '📏 <b>Ukuran: 336x280 px</b>', 'video-in-article': '📏 <b>Rasio 16:9</b>',
+      'video-sidebar': '📏 <b>Rasio 9:16</b>', 'mobile-sticky': '📏 <b>Ukuran: 320x50 px</b>'
+    };
+    function updateAdInfo(pos) {
+      const el = document.getElementById('adPosisiInfo');
+      if(adSizes[pos]) { el.innerHTML = adSizes[pos]; el.classList.remove('hidden'); } else el.classList.add('hidden');
+    }
+
+    let quill = null;
+    function initQuill() {
+      if (quill) return;
+      quill = new Quill('#editor', {
+        theme: 'snow', placeholder: 'Mulai tulis artikel di sini...',
+        modules: { toolbar: [[{ 'header': [1, 2, 3, false] }], ['bold', 'italic', 'underline', 'strike'], [{ 'list': 'ordered' }, { 'list': 'bullet' }], ['blockquote', 'link', 'image'], ['clean']] }
+      });
+      const toolbar = quill.getModule('toolbar');
+      toolbar.addHandler('image', () => {
+        if (quill.root.querySelectorAll('img').length >= 3) return showToast('Maksimal 3 gambar.', 'error');
+        const input = document.createElement('input'); input.type = 'file'; input.accept = 'image/*';
+        input.onchange = async () => {
+          if (input.files && input.files[0]) {
+            const url = await uploadToGithub(input.files[0]);
+            if (url) { const range = quill.getSelection(true); quill.insertEmbed(range.index, 'image', url); quill.setSelection(range.index + 1); }
+          }
+        };
+        input.click();
+      });
+    }
+
+    function handlePostPreview() {
       const data = {
         judul: document.getElementById('postJudul').value, penulis: document.getElementById('postPenulis').value,
-        kategori: document.getElementById('postKategori').value, tanggal: document.getElementById('postTanggal').value,
-        status: document.getElementById('postStatus').value, gambar: document.getElementById('postGambar').value,
+        tanggal: document.getElementById('postTanggal').value, gambar: document.getElementById('postGambar').value,
         ringkasan: document.getElementById('postRingkasan').value, isi: quill.root.innerHTML,
       };
       document.getElementById('previewContent').innerHTML = `
-        <span class="inline-block px-3 py-1 bg-green-50 text-green-700 text-xs font-semibold rounded-full mb-4 border-l-4 border-red-500">${escapeHtml(data.kategori)}</span>
         <h1 class="font-heading text-3xl font-extrabold mb-3">${escapeHtml(data.judul)}</h1>
-        <div class="flex items-center gap-3 text-sm text-warm-400 mb-6"><span>${formatDate(data.tanggal)}</span><span>•</span><span>${escapeHtml(data.penulis)}</span></div>
+        <div class="text-sm text-warm-400 mb-6">${formatDate(data.tanggal)} • ${escapeHtml(data.penulis)}</div>
         ${data.gambar ? `<img src="${escapeHtml(data.gambar)}" class="w-full h-64 object-cover rounded-xl mb-6" />` : ''}
         <p class="text-warm-500 italic mb-6">${escapeHtml(data.ringkasan)}</p>
         <div class="prose max-w-none font-light">${data.isi}</div>
@@ -736,71 +734,49 @@
       document.getElementById('previewModal').classList.remove('hidden');
     }
 
-    function openAddAdModal() {
-      document.getElementById('adForm').reset(); document.getElementById('adId').value = '';
-      document.getElementById('adModalTitle').textContent = 'Tambah Iklan';
-      document.getElementById('adFormError').classList.add('hidden');
-      document.getElementById('adPosisiInfo').classList.add('hidden');
-      updateAdMediaFields();
-      document.getElementById('adModal').classList.remove('hidden');
+    function handleAdPreview() {
+      const tipe = document.getElementById('adTipe').value;
+      const mediaUrl = document.getElementById('adGambar').value;
+      if(!mediaUrl) return showToast('Masukkan URL media', 'error');
+      let mediaHtml = tipe === 'video' 
+        ? `<div class="aspect-video bg-black rounded-xl overflow-hidden"><iframe src="${escapeHtml(mediaUrl)}" class="w-full h-full"></iframe></div>`
+        : `<img src="${escapeHtml(mediaUrl)}" class="max-w-full h-auto rounded-xl mx-auto" />`;
+      
+      document.getElementById('adPreviewContent').innerHTML = `
+        <div class="bg-warm-50 p-6 rounded-xl border border-warm-200 text-center">
+          ${mediaHtml}
+          <div class="mt-4 text-sm font-bold">Preview Iklan</div>
+        </div>
+      `;
+      document.getElementById('adPreviewModal').classList.remove('hidden');
     }
 
-    function openEditAdModal(id) {
-      const a = allAds.find(x => x.id === id); if (!a) return;
-      document.getElementById('adForm').reset();
-      document.getElementById('adId').value = a.id;
-      document.getElementById('adJudul').value = a.judul;
-      document.getElementById('adTipe').value = a.tipe || 'gambar';
-      document.getElementById('adGambar').value = a.gambar;
-      document.getElementById('adLink').value = a.link;
-      document.getElementById('adPosisi').value = a.posisi;
-      document.getElementById('adStatus').value = a.status;
-      document.getElementById('adModalTitle').textContent = 'Edit Iklan';
-      document.getElementById('adFormError').classList.add('hidden');
-      updateAdInfo(a.posisi);
-      updateAdMediaFields();
-      document.getElementById('adModal').classList.remove('hidden');
-    }
-
-    async function handleAdSubmit(e) {
-      e.preventDefault();
-      const id = document.getElementById('adId').value;
-      const data = {
-        judul: document.getElementById('adJudul').value.trim(), 
-        tipe: document.getElementById('adTipe').value, 
-        gambar: document.getElementById('adGambar').value.trim(),
-        link: document.getElementById('adLink').value.trim(), 
-        posisi: document.getElementById('adPosisi').value,
-        status: document.getElementById('adStatus').value,
-      };
-      const btn = document.getElementById('adSaveBtn'), err = document.getElementById('adFormError');
-      btn.disabled = true; btn.textContent = 'Menyimpan...'; err.classList.add('hidden');
+    async function handleImageUpload(input, targetId) {
+      if (!input.files || !input.files[0]) return;
+      const btn = input.nextElementSibling; const old = btn.innerHTML;
+      btn.innerHTML = '⏳...'; btn.disabled = true;
       try {
-        if (id) { await api.updateAd(id, data); showToast('Iklan diupdate'); }
-        else { await api.createAd({ ...data, createdAt: new Date().toISOString() }); showToast('Iklan ditambahkan'); }
-        document.getElementById('adModal').classList.add('hidden'); loadData();
-      } catch (e) { err.textContent = e.message; err.classList.remove('hidden'); }
-      finally { btn.disabled = false; btn.textContent = 'Simpan Iklan'; }
+        const url = await uploadToGithub(input.files[0]);
+        if (url) { document.getElementById(targetId).value = url; showToast('Upload berhasil'); }
+      } catch(e) { showToast(e.message, 'error'); } finally { btn.innerHTML = old; btn.disabled = false; input.value = ''; }
     }
 
-    async function confirmDelete(type, id) {
-      const isPost = type === 'post';
-      const item = isPost ? allPosts.find(p => p.id === id) : allAds.find(a => a.id === id);
-      if (!item) return;
-      if (!confirm(`Hapus ${isPost ? 'artikel' : 'iklan'} "${item.judul}"?`)) return;
-      try {
-        if (isPost) await api.deletePost(id); else await api.deleteAd(id);
-        showToast(`${isPost ? 'Artikel' : 'Iklan'} dihapus`); loadData();
-      } catch (e) { showToast('Gagal hapus: ' + e.message, 'error'); }
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-      document.getElementById('logoutBtn').addEventListener('click', () => {
-        if (confirm('Logout?')) { api.clearToken(); renderLogin(); }
+    async function uploadToGithub(file) {
+      if (file.size > 2 * 1024 * 1024) throw new Error('Maks 2MB');
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = async (e) => {
+          const base64Content = e.target.result.split(',')[1];
+          const filename = `img-${Date.now()}.${file.name.split('.').pop() || 'jpg'}`;
+          try {
+            const res = await api.request('/upload', { method: 'POST', body: JSON.stringify({ filename, content: base64Content, path: 'assets/uploads' }) });
+            resolve(res.path);
+          } catch (err) { reject(err); }
+        };
+        reader.onerror = () => reject(new Error('Gagal baca file'));
+        reader.readAsDataURL(file);
       });
-      const token = api.getToken(), user = api.getUser();
-      if (token && user) renderDashboard(); else renderLogin();
-    });
+    }
   </script>
 </body>
 </html>
