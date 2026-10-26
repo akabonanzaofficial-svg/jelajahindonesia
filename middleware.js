@@ -8,36 +8,32 @@ export default async function middleware(request) {
   // Deteksi bot Social Media & WhatsApp
   const isBot = /WhatsApp|facebookexternalhit|Twitterbot|TelegramBot|LinkedInBot|Discordbot|Slackbot/i.test(userAgent);
 
-  // Jika bukan bot, lanjutkan seperti biasa (arahkan ke index.html)
+  // JIKA BUKAN BOT (Manusia): Langsung sajikan index.html
+  // Ini akan mencegah error 404 saat halaman di-refresh
   if (!isBot) {
-    return new Response(null, {
-      headers: {
-        'x-middleware-next': '1',
-      },
-    });
+    const url = new URL('/index.html', request.url);
+    return fetch(url);
   }
 
-  // Jika bot, kita ambil ID artikel dari URL
+  // JIKA BOT: Ambil ID artikel dari URL
   const url = new URL(request.url);
   const pathParts = url.pathname.split('/');
   const postId = pathParts[pathParts.length - 1];
 
   try {
-    // Ambil data artikel dari Worker (Gunakan URL asli tanpa ?t= agar aman)
+    // Ambil data artikel dari Worker
     const res = await fetch('https://jelajah-api.akabonanza-official.workers.dev/posts', {
-      headers: { 'User-Agent': 'Vercel-Bot-Scraper' } // Menghindari blokir
+      headers: { 'User-Agent': 'Vercel-Bot-Scraper' }
     });
     
     if (!res.ok) throw new Error('Gagal mengambil data dari Worker');
     
     const json = await res.json();
     const posts = json.data || [];
-    
-    // Cari artikel yang ID-nya cocok dengan URL
     const post = posts.find(p => p.id === postId);
 
     if (post) {
-      // Sajikan HTML khusus untuk bot
+      // Sajikan HTML khusus untuk bot dengan meta tag dinamis
       const html = `
         <!DOCTYPE html>
         <html lang="id">
@@ -63,21 +59,14 @@ export default async function middleware(request) {
       `;
 
       return new Response(html, {
-        headers: { 
-          'Content-Type': 'text/html; charset=utf-8',
-          'Cache-Control': 's-maxage=60, stale-while-revalidate' // Cache 60 detik
-        },
+        headers: { 'Content-Type': 'text/html; charset=utf-8' },
       });
     }
   } catch (error) {
-    // Jika error (misal Worker down), lanjutkan ke index.html
     console.error('Middleware Error:', error);
   }
 
-  // Jika artikel tidak ditemukan atau error, lanjutkan ke SPA
-  return new Response(null, {
-    headers: {
-      'x-middleware-next': '1',
-    },
-  });
+  // Jika artikel tidak ditemukan, kembalikan ke index.html
+  const fallbackUrl = new URL('/index.html', request.url);
+  return fetch(fallbackUrl);
 }
