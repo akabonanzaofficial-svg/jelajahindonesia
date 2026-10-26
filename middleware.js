@@ -8,11 +8,13 @@ export default async function middleware(request) {
   // Deteksi bot Social Media & WhatsApp
   const isBot = /WhatsApp|facebookexternalhit|Twitterbot|TelegramBot|LinkedInBot|Discordbot|Slackbot/i.test(userAgent);
 
-  // JIKA BUKAN BOT (Manusia): Langsung sajikan index.html
-  // Ini akan mencegah error 404 saat halaman di-refresh
+  // JIKA MANUSIA: Alihkan (rewrite) secara internal ke index.html
   if (!isBot) {
-    const url = new URL('/index.html', request.url);
-    return fetch(url);
+    return new Response(null, {
+      headers: {
+        'x-middleware-rewrite': new URL('/index.html', request.url).toString(),
+      },
+    });
   }
 
   // JIKA BOT: Ambil ID artikel dari URL
@@ -21,19 +23,19 @@ export default async function middleware(request) {
   const postId = pathParts[pathParts.length - 1];
 
   try {
-    // Ambil data artikel dari Worker
+    // Ambil data artikel dari Cloudflare Worker
     const res = await fetch('https://jelajah-api.akabonanza-official.workers.dev/posts', {
       headers: { 'User-Agent': 'Vercel-Bot-Scraper' }
     });
     
-    if (!res.ok) throw new Error('Gagal mengambil data dari Worker');
+    if (!res.ok) throw new Error('Gagal mengambil data');
     
     const json = await res.json();
     const posts = json.data || [];
     const post = posts.find(p => p.id === postId);
 
     if (post) {
-      // Sajikan HTML khusus untuk bot dengan meta tag dinamis
+      // Sajikan HTML dengan meta tag untuk bot
       const html = `
         <!DOCTYPE html>
         <html lang="id">
@@ -57,7 +59,6 @@ export default async function middleware(request) {
         </body>
         </html>
       `;
-
       return new Response(html, {
         headers: { 'Content-Type': 'text/html; charset=utf-8' },
       });
@@ -66,7 +67,10 @@ export default async function middleware(request) {
     console.error('Middleware Error:', error);
   }
 
-  // Jika artikel tidak ditemukan, kembalikan ke index.html
-  const fallbackUrl = new URL('/index.html', request.url);
-  return fetch(fallbackUrl);
+  // Jika artikel tidak ditemukan, alihkan ke index.html
+  return new Response(null, {
+    headers: {
+      'x-middleware-rewrite': new URL('/index.html', request.url).toString(),
+    },
+  });
 }
