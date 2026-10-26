@@ -324,32 +324,47 @@
     }
 
     // === UPLOAD IMAGE ===
-    async function handleImageUpload(input, targetId) {
+        async function handleImageUpload(input, targetId) {
       if (!input.files || !input.files[0]) return;
       const file = input.files[0];
       const btn = input.nextElementSibling;
       const originalText = btn.innerHTML;
-      btn.innerHTML = '⏳...'; btn.disabled = true;
+      btn.innerHTML = '⏳ Kompres...'; btn.disabled = true;
+      
       try {
-        if (file.size > 2 * 1024 * 1024) throw new Error('Maksimal 2MB');
+        // --- PROSES KOMPRESI OTOMATIS ---
+        const options = {
+          maxSizeMB: 0.3,          // Maksimal 300 KB
+          maxWidthOrHeight: 1200,  // Resolusi maksimal 1200px
+          useWebWorker: true,      // Agar tidak membuat browser nge-hang
+          fileType: 'image/jpeg'   // Konversi otomatis ke JPG
+        };
+        
+        const compressedFile = await imageCompression(file, options);
+        
+        btn.innerHTML = '⏳ Upload...';
+
         const url = await new Promise((resolve, reject) => {
           const reader = new FileReader();
           reader.onload = async (e) => {
             const base64Content = e.target.result.split(',')[1];
-            const ext = file.name.split('.').pop() || 'jpg';
-            const filename = `img-${Date.now()}.${ext}`;
+            const filename = `img-${Date.now()}.jpg`;
             try {
               const res = await api.request('/upload', { method: 'POST', body: JSON.stringify({ filename, content: base64Content, path: 'assets/uploads' }) });
               resolve(res.path);
             } catch (err) { reject(err); }
           };
           reader.onerror = () => reject(new Error('Gagal baca file'));
-          reader.readAsDataURL(file);
+          reader.readAsDataURL(compressedFile); // Gunakan file yang sudah dikompres
         });
+        
         document.getElementById(targetId).value = url;
-        showToast('Gambar terupload');
-      } catch (e) { showToast('Gagal: ' + e.message, 'error'); } 
-      finally { btn.innerHTML = originalText; btn.disabled = false; input.value = ''; }
+        showToast('Gambar berhasil dikompres & diupload');
+      } catch (e) { 
+        showToast('Gagal: ' + e.message, 'error'); 
+      } finally { 
+        btn.innerHTML = originalText; btn.disabled = false; input.value = ''; 
+      }
     }
 
     const app = document.getElementById('app');
