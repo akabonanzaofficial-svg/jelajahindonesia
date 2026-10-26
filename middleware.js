@@ -35,6 +35,13 @@ export default async function middleware(request) {
     const post = posts.find(p => p.id === postId);
 
     if (post) {
+      // PERBAIKAN: Ubah URL gambar menjadi Absolut (harus diawali https://)
+      // Jika gambar dari CMS (dimulai dengan /), tambahkan domain di depannya
+      const origin = url.origin; // Mengambil domain, contoh: https://jelajahindonesia.com
+      const absoluteImageUrl = post.gambar.startsWith('http') 
+                               ? post.gambar 
+                               : `${origin}${post.gambar}`;
+
       // Sajikan HTML dengan meta tag untuk bot
       const html = `
         <!DOCTYPE html>
@@ -44,18 +51,19 @@ export default async function middleware(request) {
           <title>${post.judul} — Jelajah Indonesia</title>
           <meta property="og:title" content="${post.judul}">
           <meta property="og:description" content="${post.ringkasan}">
-          <meta property="og:image" content="${post.gambar}">
+          <meta property="og:image" content="${absoluteImageUrl}">
+          <meta property="og:image:secure_url" content="${absoluteImageUrl}">
           <meta property="og:url" content="${url.href}">
           <meta property="og:type" content="article">
           <meta name="twitter:card" content="summary_large_image">
           <meta name="twitter:title" content="${post.judul}">
           <meta name="twitter:description" content="${post.ringkasan}">
-          <meta name="twitter:image" content="${post.gambar}">
+          <meta name="twitter:image" content="${absoluteImageUrl}">
         </head>
         <body>
           <h1>${post.judul}</h1>
           <p>${post.ringkasan}</p>
-          <img src="${post.gambar}" alt="${post.judul}">
+          <img src="${absoluteImageUrl}" alt="${post.judul}">
         </body>
         </html>
       `;
