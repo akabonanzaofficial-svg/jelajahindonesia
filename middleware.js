@@ -1,15 +1,17 @@
 export const config = {
+  // Hanya jalankan middleware di halaman detail artikel
   matcher: '/artikel/:path*',
 };
+
+// Daftar bot media sosial yang diperbarui (sesuai panduan)
+const SOCIAL_BOTS = /Twitterbot|facebookexternalhit|Facebot|LinkedInBot|Pinterest|Slackbot|vkShare|W3C_Validator|WhatsApp|TelegramBot|Discordbot/i;
 
 export default async function middleware(request) {
   const userAgent = request.headers.get('user-agent') || '';
   
-  // Deteksi bot Social Media & WhatsApp
-  const isBot = /WhatsApp|facebookexternalhit|Twitterbot|TelegramBot|LinkedInBot|Discordbot|Slackbot/i.test(userAgent);
-
-  // JIKA MANUSIA: Alihkan (rewrite) secara internal ke index.html
-  if (!isBot) {
+  // JIKA YANG DATANG ADALAH MANUSIA: 
+  // Alihkan (rewrite) secara internal ke index.html agar halaman tidak blank/404
+  if (!SOCIAL_BOTS.test(userAgent)) {
     return new Response(null, {
       headers: {
         'x-middleware-rewrite': new URL('/index.html', request.url).toString(),
@@ -17,68 +19,88 @@ export default async function middleware(request) {
     });
   }
 
-  // JIKA BOT: Ambil ID artikel dari URL
+  // JIKA YANG DATANG ADALAH BOT MEDIA SOSIAL:
   const url = new URL(request.url);
-  const pathParts = url.pathname.split('/');
+  const pathParts = url.pathname.split('/').filter(Boolean);
+  
+  // Ambil ID artikel dari URL terakhir (contoh: /artikel/post-123 -> post-123)
   const postId = pathParts[pathParts.length - 1];
 
   try {
-    // Ambil data artikel dari Cloudflare Worker
-    const res = await fetch('https://jelajah-api.akabonanza-official.workers.dev/posts', {
+    // Ambil data artikel terbaru langsung dari Cloudflare Worker
+    const apiRes = await fetch('https://jelajah-api.akabonanza-official.workers.dev/posts', {
       headers: { 'User-Agent': 'Vercel-Bot-Scraper' }
     });
     
-    if (!res.ok) throw new Error('Gagal mengambil data');
+    if (!apiRes.ok) throw new Error('Gagal mengambil data dari API');
     
-    const json = await res.json();
-    const posts = json.data || [];
-    const post = posts.find(p => p.id === postId);
+    const apiJson = await apiRes.json();
+    const allData = apiJson.data || [];
+    
+    // Cari artikel yang ID-nya cocok
+    const post = allData.find(p => p.id === postId);
 
-    if (post) {
-      // PERBAIKAN: Ubah URL gambar menjadi Absolut (harus diawali https://)
-      // Jika gambar dari CMS (dimulai dengan /), tambahkan domain di depannya
-      const origin = url.origin; // Mengambil domain, contoh: https://jelajahindonesia.com
-      const absoluteImageUrl = post.gambar.startsWith('http') 
-                               ? post.gambar 
-                               : `${origin}${post.gambar}`;
+    if (!post) {
+      // Jika artikel tidak ada, kembalikan ke index.html
+      return new Response(null, {
+        headers: { 'x-middleware-rewrite': new URL('/index.html', request.url).toString() },
+      });
+    }
 
-      // Sajikan HTML dengan meta tag untuk bot
-      const html = `
-        <!DOCTYPE html>
-        <html lang="id">
+    // PERBAIKAN KRUSIAL: Pastikan URL Gambar Absolut (dimulai dengan https://)
+    const origin = url.origin; 
+    const absoluteImageUrl = post.gambar.startsWith('http') 
+                             ? post.gambar 
+                             : `${origin}${post.gambar}`;
+
+    // Siapkan Meta Tag Dinamis
+    const title = post.judul || 'Jelajah Indonesia';
+    const description = post.ringkasan || 'Media perjalanan dan gaya hidup Nusantara.';
+    const fullUrl = url.href;
+
+    // Kembalikan HTML minimal ke Bot
+    const html = `
+      <!DOCTYPE html>
+      <html lang="id">
         <head>
           <meta charset="UTF-8">
-          <title>${post.judul} — Jelajah Indonesia</title>
-          <meta property="og:title" content="${post.judul}">
-          <meta property="og:description" content="${post.ringkasan}">
+          <title>${title} — Jelajah Indonesia</title>
+          <meta name="description" content="${description}">
+          
+          <!-- Open Graph (Facebook, WhatsApp, LinkedIn) -->
+          <meta property="og:title" content="${title}">
+          <meta property="og:description" content="${description}">
           <meta property="og:image" content="${absoluteImageUrl}">
           <meta property="og:image:secure_url" content="${absoluteImageUrl}">
-          <meta property="og:url" content="${url.href}">
+          <meta property="og:url" content="${fullUrl}">
           <meta property="og:type" content="article">
+          
+          <!-- Twitter Card -->
           <meta name="twitter:card" content="summary_large_image">
-          <meta name="twitter:title" content="${post.judul}">
-          <meta name="twitter:description" content="${post.ringkasan}">
+          <meta name="twitter:title" content="${title}">
+          <meta name="twitter:description" content="${description}">
           <meta name="twitter:image" content="${absoluteImageUrl}">
         </head>
         <body>
-          <h1>${post.judul}</h1>
-          <p>${post.ringkasan}</p>
-          <img src="${absoluteImageUrl}" alt="${post.judul}">
+          <h1>${title}</h1>
+          <p>${description}</p>
+          <img src="${absoluteImageUrl}" alt="${title}">
         </body>
-        </html>
-      `;
-      return new Response(html, {
-        headers: { 'Content-Type': 'text/html; charset=utf-8' },
-      });
-    }
+      </html>
+    `;
+
+    return new Response(html, { 
+      headers: { 
+        'content-type': 'text/html; charset=utf-8',
+        'Cache-Control': 'public, max-age=0, s-maxage=60, stale-while-revalidate=60'
+      } 
+    });
+    
   } catch (error) {
     console.error('Middleware Error:', error);
+    // Jika error, biarkan halaman normal dimuat
+    return new Response(null, {
+      headers: { 'x-middleware-rewrite': new URL('/index.html', request.url).toString() },
+    });
   }
-
-  // Jika artikel tidak ditemukan, alihkan ke index.html
-  return new Response(null, {
-    headers: {
-      'x-middleware-rewrite': new URL('/index.html', request.url).toString(),
-    },
-  });
 }
