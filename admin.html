@@ -379,27 +379,32 @@
         modules: { toolbar: [[{ 'header': [1, 2, 3, false] }], ['bold', 'italic', 'underline', 'strike'], [{ 'list': 'ordered' }, { 'list': 'bullet' }], ['blockquote', 'link', 'image'], [{ 'align': [] }], ['clean']] }
       });
       const toolbar = quill.getModule('toolbar');
-      toolbar.addHandler('image', () => {
+            toolbar.addHandler('image', () => {
         const currentImages = quill.root.querySelectorAll('img').length;
         if (currentImages >= 3) return showToast('Maksimal 3 gambar sisipan per artikel.', 'error');
+        
         const input = document.createElement('input'); input.type = 'file'; input.accept = 'image/*';
         input.onchange = async () => {
           if (input.files && input.files[0]) {
-            showToast('Mengunggah gambar...', 'success');
+            showToast('Mengompres gambar...', 'success');
             try {
+              // --- PROSES KOMPRESI UNTUK EDITOR ---
+              const options = { maxSizeMB: 0.3, maxWidthOrHeight: 1200, useWebWorker: true, fileType: 'image/jpeg' };
+              const compressedFile = await imageCompression(input.files[0], options);
+              
               const url = await new Promise((resolve, reject) => {
                 const reader = new FileReader();
                 reader.onload = async (e) => {
                   const base64Content = e.target.result.split(',')[1];
-                  const ext = input.files[0].name.split('.').pop() || 'jpg';
-                  const filename = `img-${Date.now()}.${ext}`;
+                  const filename = `img-${Date.now()}.jpg`;
                   try {
                     const res = await api.request('/upload', { method: 'POST', body: JSON.stringify({ filename, content: base64Content, path: 'assets/uploads' }) });
                     resolve(res.path);
                   } catch (err) { reject(err); }
                 };
-                reader.readAsDataURL(input.files[0]);
+                reader.readAsDataURL(compressedFile); // Gunakan file yang sudah dikompres
               });
+              
               const range = quill.getSelection(true);
               quill.insertEmbed(range.index, 'image', url);
               quill.setSelection(range.index + 1);
