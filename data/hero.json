@@ -12,5 +12,12 @@
     "judul": "Pura di Tepi Danau",
     "urutan": 2,
     "status": "aktif"
+  },
+  {
+    "gambar": "/assets/uploads/img-1792982071496.jpg",
+    "judul": "Candi Borobudur",
+    "urutan": 1,
+    "status": "aktif",
+    "id": "slide-1792982089492"
   }
 ]
