@@ -1,3 +1,8 @@
+Baik, berikut adalah kode `admin.html` lengkap yang sudah mencakup semua fitur terbaru, termasuk opsi posisi **Footer Grid** beserta panduan ukurannya di dalam form iklan.
+
+Silakan salin seluruh kode di bawah ini, lalu ganti seluruh isi file `admin.html` di repositori GitHub Anda.
+
+```html
 <!DOCTYPE html>
 <html lang="id" class="scroll-smooth">
 <head>
@@ -12,10 +17,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
-  
-  <!-- Library Kompresi Gambar -->
   <script src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.2/dist/browser-image-compression.js"></script>
-  
   <script src="https://cdn.tailwindcss.com"></script>
   
   <script>
@@ -39,12 +41,10 @@
     body { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; }
     h1, h2, h3, h4 { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-weight: 700; }
     
-    /* Sidebar Active State */
     .nav-link { display: flex; items-center; gap: 12px; padding: 12px 16px; border-radius: 12px; color: #57534e; font-weight: 600; transition: all 0.2s; cursor: pointer; }
     .nav-link:hover { background-color: #f7f5f2; color: #16a34a; }
     .nav-link.active { background-color: #f0fdf4; color: #15803d; }
 
-    /* Quill Custom */
     .ql-toolbar.ql-snow { border: 1px solid #ebe7e1; border-top-left-radius: 12px; border-top-right-radius: 12px; background: #fefdfb; padding: 10px 12px; position: sticky; top: 0; z-index: 5; }
     .ql-container.ql-snow { border: 1px solid #ebe7e1; border-top: none; border-bottom-left-radius: 12px; border-bottom-right-radius: 12px; background: #ffffff; font-size: 1rem; }
     .ql-editor { min-height: 350px; padding: 20px; line-height: 1.7; color: #44403c; }
@@ -139,7 +139,7 @@
             <input type="file" id="uploadCover" accept="image/*" class="hidden" onchange="handleImageUpload(this, 'postGambar')" />
             <button type="button" onclick="document.getElementById('uploadCover').click()" class="px-4 py-2.5 bg-green-100 text-green-700 font-semibold rounded-xl hover:bg-green-200 transition-all whitespace-nowrap">📁 Upload</button>
           </div>
-          <p class="text-xs text-warm-400 mt-1">Maksimal ukuran gambar 2MB (otomatis dikompres).</p>
+          <p class="text-xs text-warm-400 mt-1">Maksimal ukuran gambar 2MB.</p>
         </div>
 
         <div>
@@ -194,7 +194,8 @@
             <option value="feed-1">Feed 1 (Sela Artikel Atas)</option>
             <option value="feed-2">Feed 2 (Sela Artikel Bawah)</option>
             <option value="sidebar">Sidebar Single (Banner Besar Artikel)</option>
-            <option value="sidebar-grid">Sidebar Grid (Multipleks 2x2)</option>
+            <option value="sidebar-grid">Sidebar Grid (Multipleks 2x2 di Artikel)</option>
+            <option value="footer-grid">Footer Grid (Barisan Iklan di Atas Footer)</option>
             <option value="in-article">In-Article Gambar (Tengah Teks)</option>
             <option value="video-in-article">In-Article Video (Tengah Teks)</option>
             <option value="video-sidebar">Sidebar Video (Kanan Artikel)</option>
@@ -325,7 +326,7 @@
       setTimeout(() => toast.classList.add('hidden'), 3000);
     }
 
-    // === UPLOAD IMAGE (DENGAN KOMPRESI OTOMATIS) ===
+    // === UPLOAD IMAGE (Dengan Kompresi Otomatis) ===
     async function handleImageUpload(input, targetId) {
       if (!input.files || !input.files[0]) return;
       const file = input.files[0];
@@ -334,14 +335,10 @@
       btn.innerHTML = '⏳ Kompres...'; btn.disabled = true;
       
       try {
-        const options = {
-          maxSizeMB: 0.3,
-          maxWidthOrHeight: 1200,
-          useWebWorker: true,
-          fileType: 'image/jpeg'
-        };
-        
+        // Kompresi ke maksimal 300KB dan lebar 1200px
+        const options = { maxSizeMB: 0.3, maxWidthOrHeight: 1200, useWebWorker: true, fileType: 'image/jpeg' };
         const compressedFile = await imageCompression(file, options);
+        
         btn.innerHTML = '⏳ Upload...';
 
         const url = await new Promise((resolve, reject) => {
@@ -355,7 +352,7 @@
             } catch (err) { reject(err); }
           };
           reader.onerror = () => reject(new Error('Gagal baca file'));
-          reader.readAsDataURL(compressedFile);
+          reader.readAsDataURL(compressedFile); 
         });
         
         document.getElementById(targetId).value = url;
@@ -366,6 +363,53 @@
         btn.innerHTML = originalText; btn.disabled = false; input.value = ''; 
       }
     }
+
+    // === INFO UKURAN IKLAN ===
+    const adSizes = {
+      'header': '📏 <b>Ukuran: 970x90 px</b> (Billboard) atau 728x90 px. <br>💡 Gambar memanjang horizontal. Tampil di semua halaman.',
+      'hero': '📏 <b>Ukuran: 728x90 px</b> (Leaderboard). <br>💡 Gambar horizontal. Tampil di bawah hero beranda.',
+      'feed-1': '📏 <b>Ukuran: 728x90 px</b> (Leaderboard). <br>💡 Gambar horizontal. Tampil di sela daftar artikel.',
+      'feed-2': '📏 <b>Ukuran: 728x90 px</b> (Leaderboard). <br>💡 Gambar horizontal. Tampil di sela daftar artikel bawah.',
+      'sidebar': '📏 <b>Ukuran: 300x600 px</b> (Half Page) atau 300x250 px. <br>💡 Gambar vertikal/kotak. Tampil di kanan artikel.',
+      'sidebar-grid': '📏 <b>Ukuran: 300x250 px</b> (Medium Rectangle). <br>💡 Gambar kotak. Akan disusun grid 2x2. Masukkan maks 4 iklan.',
+      'footer-grid': '📏 <b>Ukuran: 300x250 px</b> (Medium Rectangle). <br>💡 Gambar kotak. Akan disusun rapi 4 kolom di atas footer. Masukkan maks 4 iklan.',
+      'in-article': '📏 <b>Ukuran: 336x280 px</b> (Large Rectangle) atau 728x90 px. <br>💡 Gambar kotak/horizontal. Tampil di tengah paragraf.',
+      'video-in-article': '📏 <b>Rasio 16:9</b>. <br>💡 Masukkan link YouTube (Embed) atau link MP4. Video tidak akan autoplay.',
+      'video-sidebar': '📏 <b>Rasio 9:16 atau 1:1</b>. <br>💡 Masukkan link YouTube (Embed) atau link MP4. Tampil di kanan artikel.',
+      'mobile-sticky': '📏 <b>Ukuran: 320x50 px</b> (Mobile Banner). <br>💡 Sangat pendek & memanjang. Hanya muncul di layar HP (bawah).'
+    };
+
+    function updateAdInfo(posisi) {
+      const infoBox = document.getElementById('adPosisiInfo');
+      if (posisi && adSizes[posisi]) {
+        infoBox.innerHTML = adSizes[posisi];
+        infoBox.classList.remove('hidden');
+      } else {
+        infoBox.classList.add('hidden');
+      }
+    }
+
+    function updateAdMediaFields() {
+      const tipe = document.getElementById('adTipe').value;
+      const label = document.getElementById('adMediaLabel');
+      const input = document.getElementById('adGambar');
+      const hint = document.getElementById('adMediaHint');
+      
+      if (tipe === 'video') {
+        label.textContent = 'URL Video (Embed/MP4) *';
+        input.placeholder = 'https://www.youtube.com/embed/... atau https://.../video.mp4';
+        hint.innerHTML = 'Gunakan link Embed YouTube (bukan link tonton biasa), atau direct link MP4.';
+      } else {
+        label.textContent = 'URL Gambar Banner *';
+        input.placeholder = 'https://...';
+        hint.innerHTML = 'Gunakan ukuran horizontal (728x90) untuk Header/Feed, dan kotak (300x250) untuk Sidebar/Grid.';
+      }
+    }
+
+    document.addEventListener('change', (e) => {
+      if (e.target && e.target.id === 'adPosisi') updateAdInfo(e.target.value);
+      if (e.target && e.target.id === 'adTipe') updateAdMediaFields();
+    });
 
     const app = document.getElementById('app');
     let allPosts = [], allAds = [], allHero = [];
@@ -402,7 +446,6 @@
                 };
                 reader.readAsDataURL(compressedFile);
               });
-              
               const range = quill.getSelection(true);
               quill.insertEmbed(range.index, 'image', url);
               quill.setSelection(range.index + 1);
@@ -476,13 +519,12 @@
       }
     }
 
-    // === TABEL ARTIKEL (ANTI TERPOTONG) ===
+    // === TABEL ARTIKEL ===
     function renderPostTable() {
       const table = document.getElementById('dataTable');
       if (allPosts.length === 0) return table.innerHTML = `<div class="p-12 text-center text-warm-400">Belum ada artikel.</div>`;
       
       table.innerHTML = `
-        <!-- DESKTOP -->
         <div class="hidden lg:block overflow-x-auto">
           <table class="w-full text-sm">
             <thead class="bg-warm-50 text-warm-600 border-b border-warm-200">
@@ -507,7 +549,6 @@
           </table>
         </div>
 
-        <!-- MOBILE -->
         <div class="lg:hidden flex flex-col divide-y divide-warm-100">
           ${allPosts.map(p => `
             <div class="p-4 flex flex-col gap-3">
@@ -698,7 +739,6 @@
       document.getElementById('heroModal').classList.remove('hidden');
     }
     
-    // FUNGSI EDIT HERO YANG SUDAH DIPERBAIKI
     function openEditHeroModal(id) {
       const h = allHero.find(x => x.id === id); if (!h) return;
       document.getElementById('heroForm').reset();
@@ -768,9 +808,11 @@
       e.preventDefault();
       const id = document.getElementById('heroId').value;
       const data = {
-        gambar: document.getElementById('heroGambar').value.trim(), judul: document.getElementById('heroJudul').value.trim(),
-        keterangan: document.getElementById('heroKeterangan').value.trim(), // Pastikan ini ada
-        urutan: parseInt(document.getElementById('heroUrutan').value), status: document.getElementById('heroStatus').value,
+        gambar: document.getElementById('heroGambar').value.trim(), 
+        judul: document.getElementById('heroJudul').value.trim(),
+        keterangan: document.getElementById('heroKeterangan').value.trim(), 
+        urutan: parseInt(document.getElementById('heroUrutan').value), 
+        status: document.getElementById('heroStatus').value,
       };
       const btn = document.getElementById('heroSaveBtn'); btn.disabled = true; btn.textContent = 'Menyimpan...';
       try {
@@ -856,3 +898,4 @@
   </script>
 </body>
 </html>
+```
