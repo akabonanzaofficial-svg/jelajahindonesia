@@ -228,12 +228,13 @@
       <form id="heroForm" class="p-6 space-y-4">
         <input type="hidden" id="heroId" />
         <div>
-          <label class="block text-sm font-medium mb-2">URL Gambar Slide (Maks 5) *</label>
-          <div class="flex gap-2">
-            <input type="text" id="heroGambar" required placeholder="https://... atau upload" class="w-full px-4 py-2.5 bg-warm-50 border border-warm-200 rounded-xl outline-none focus:border-green-500" />
-            <input type="file" id="uploadHero" accept="image/*" class="hidden" onchange="handleImageUpload(this, 'heroGambar')" />
-            <button type="button" onclick="document.getElementById('uploadHero').click()" class="px-4 py-2.5 bg-green-100 text-green-700 font-semibold rounded-xl hover:bg-green-200 transition-all whitespace-nowrap">📁 Upload</button>
-          </div>
+          <label class="block text-sm font-medium mb-2">Judul Destinasi *</label>
+          <input type="text" id="heroJudul" required placeholder="cth: Pesona Matahari Terbit" class="w-full px-4 py-2.5 bg-warm-50 border border-warm-200 rounded-xl outline-none focus:border-green-500" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-2">Keterangan Daerah (1 Paragraf) *</label>
+          <textarea id="heroKeterangan" required rows="2" placeholder="cth: Nikmati indahnya fajar di atas awan, kawasan Bromo, Jawa Timur." class="w-full px-4 py-2.5 bg-warm-50 border border-warm-200 rounded-xl outline-none focus:border-green-500 resize-none"></textarea>
+        </div>
           <p class="text-xs text-warm-400 mt-1">Gunakan rasio landscape lebar (misal: 1920x1080) agar hasil maksimal.</p>
         </div>
         <div>
@@ -769,6 +770,7 @@
       const id = document.getElementById('heroId').value;
       const data = {
         gambar: document.getElementById('heroGambar').value.trim(), judul: document.getElementById('heroJudul').value.trim(),
+        keterangan: document.getElementById('heroKeterangan').value.trim(),
         urutan: parseInt(document.getElementById('heroUrutan').value), status: document.getElementById('heroStatus').value,
       };
       const btn = document.getElementById('heroSaveBtn'); btn.disabled = true; btn.textContent = 'Menyimpan...';
