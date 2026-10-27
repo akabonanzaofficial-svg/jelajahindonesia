@@ -88,5 +88,15 @@
     "status": "aktif",
     "createdAt": "2026-10-27T13:12:33.848Z",
     "id": "ad-1793106754089"
+  },
+  {
+    "judul": "Gathering Offroad",
+    "tipe": "gambar",
+    "gambar": "/assets/uploads/img-1793106863786.jpg",
+    "link": "https://wa.me/6282113018920",
+    "posisi": "sidebar",
+    "status": "aktif",
+    "createdAt": "2026-10-27T13:14:50.471Z",
+    "id": "ad-1793106890793"
   }
 ]
