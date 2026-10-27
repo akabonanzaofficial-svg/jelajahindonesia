@@ -98,5 +98,15 @@
     "status": "aktif",
     "createdAt": "2026-10-27T13:14:50.471Z",
     "id": "ad-1793106890793"
+  },
+  {
+    "judul": "Footer",
+    "tipe": "gambar",
+    "gambar": "/assets/uploads/img-1793112581024.jpg",
+    "link": "https://example.com",
+    "posisi": "footer-grid",
+    "status": "aktif",
+    "createdAt": "2026-10-27T14:50:12.442Z",
+    "id": "ad-1793112612817"
   }
 ]
