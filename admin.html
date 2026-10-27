@@ -12,6 +12,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
+  
+  <!-- Library Kompresi Gambar -->
+  <script src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.2/dist/browser-image-compression.js"></script>
+  
   <script src="https://cdn.tailwindcss.com"></script>
   
   <script>
@@ -47,17 +51,14 @@
     .ql-snow .ql-toolbar button:hover .ql-stroke, .ql-snow .ql-toolbar button.ql-active .ql-stroke { stroke: #16a34a !important; }
     .ql-snow .ql-toolbar button:hover .ql-fill, .ql-snow .ql-toolbar button.ql-active .ql-fill { fill: #16a34a !important; }
 
-    /* Sembunyikan Scrollbar Horizontal yang tidak perlu */
     body { overflow-x: hidden; }
   </style>
-    <!-- Library Kompresi Gambar -->
-  <script src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.2/dist/browser-image-compression.js"></script>
 </head>
+
 <body class="bg-warm-50 text-warm-700 min-h-screen flex">
 
   <!-- SIDEBAR -->
   <aside id="sidebar" class="w-64 bg-white border-r border-warm-200 flex flex-col h-screen fixed left-0 top-0 z-50 transition-transform -translate-x-full lg:translate-x-0 shadow-2xl lg:shadow-none">
-    <!-- Logo -->
     <div class="p-6 border-b border-warm-100 flex items-center justify-between">
       <a href="admin.html" class="flex flex-col items-center w-full">
         <img src="/assets/logo-navbar.png" alt="Jelajah Indonesia" class="h-12 w-auto mb-1" />
@@ -65,7 +66,6 @@
       </a>
     </div>
 
-    <!-- Menu -->
     <div id="sidebarMenu" class="flex-1 overflow-y-auto p-4 space-y-2 hidden">
       <div data-tab="posts" class="nav-link active">
         <span class="text-xl">📝</span> Artikel
@@ -78,7 +78,6 @@
       </div>
     </div>
 
-    <!-- Footer Sidebar -->
     <div id="sidebarFooter" class="p-4 border-t border-warm-100 space-y-2 hidden">
       <a href="/" target="_blank" class="flex items-center gap-3 px-4 py-2 text-sm font-semibold text-warm-600 hover:text-green-600 transition">
         <span class="text-lg">🌐</span> Kunjungi Website
@@ -94,7 +93,6 @@
 
   <!-- MAIN CONTENT -->
   <div class="flex-1 flex flex-col h-screen lg:ml-64 w-full relative">
-    <!-- Mobile Header -->
     <header class="lg:hidden bg-white border-b border-warm-200 p-4 flex items-center justify-between sticky top-0 z-40">
       <img src="/assets/logo-navbar.png" alt="Logo" class="h-8 w-auto" />
       <button id="openSidebar" class="p-2 bg-warm-100 rounded-lg text-xl">☰</button>
@@ -141,7 +139,7 @@
             <input type="file" id="uploadCover" accept="image/*" class="hidden" onchange="handleImageUpload(this, 'postGambar')" />
             <button type="button" onclick="document.getElementById('uploadCover').click()" class="px-4 py-2.5 bg-green-100 text-green-700 font-semibold rounded-xl hover:bg-green-200 transition-all whitespace-nowrap">📁 Upload</button>
           </div>
-          <p class="text-xs text-warm-400 mt-1">Maksimal ukuran gambar 2MB.</p>
+          <p class="text-xs text-warm-400 mt-1">Maksimal ukuran gambar 2MB (otomatis dikompres).</p>
         </div>
 
         <div>
@@ -228,18 +226,21 @@
       <form id="heroForm" class="p-6 space-y-4">
         <input type="hidden" id="heroId" />
         <div>
+          <label class="block text-sm font-medium mb-2">URL Gambar Slide (Maks 5) *</label>
+          <div class="flex gap-2">
+            <input type="text" id="heroGambar" required placeholder="https://... atau upload" class="w-full px-4 py-2.5 bg-warm-50 border border-warm-200 rounded-xl outline-none focus:border-green-500" />
+            <input type="file" id="uploadHero" accept="image/*" class="hidden" onchange="handleImageUpload(this, 'heroGambar')" />
+            <button type="button" onclick="document.getElementById('uploadHero').click()" class="px-4 py-2.5 bg-green-100 text-green-700 font-semibold rounded-xl hover:bg-green-200 transition-all whitespace-nowrap">📁 Upload</button>
+          </div>
+          <p class="text-xs text-warm-400 mt-1">Gunakan rasio landscape lebar (misal: 1920x1080) agar hasil maksimal.</p>
+        </div>
+        <div>
           <label class="block text-sm font-medium mb-2">Judul Destinasi *</label>
           <input type="text" id="heroJudul" required placeholder="cth: Pesona Matahari Terbit" class="w-full px-4 py-2.5 bg-warm-50 border border-warm-200 rounded-xl outline-none focus:border-green-500" />
         </div>
         <div>
           <label class="block text-sm font-medium mb-2">Keterangan Daerah (1 Paragraf) *</label>
           <textarea id="heroKeterangan" required rows="2" placeholder="cth: Nikmati indahnya fajar di atas awan, kawasan Bromo, Jawa Timur." class="w-full px-4 py-2.5 bg-warm-50 border border-warm-200 rounded-xl outline-none focus:border-green-500 resize-none"></textarea>
-        </div>
-          <p class="text-xs text-warm-400 mt-1">Gunakan rasio landscape lebar (misal: 1920x1080) agar hasil maksimal.</p>
-        </div>
-        <div>
-          <label class="block text-sm font-medium mb-2">Judul Singkat (Internal) *</label>
-          <input type="text" id="heroJudul" required placeholder="cth: Pantai Bali" class="w-full px-4 py-2.5 bg-warm-50 border border-warm-200 rounded-xl outline-none focus:border-green-500" />
         </div>
         <div class="grid grid-cols-2 gap-4">
           <div><label class="block text-sm font-medium mb-2">Urutan Tampil *</label><input type="number" id="heroUrutan" required value="1" min="1" max="5" class="w-full px-4 py-2.5 bg-warm-50 border border-warm-200 rounded-xl outline-none focus:border-green-500" /></div>
@@ -324,8 +325,8 @@
       setTimeout(() => toast.classList.add('hidden'), 3000);
     }
 
-    // === UPLOAD IMAGE ===
-        async function handleImageUpload(input, targetId) {
+    // === UPLOAD IMAGE (DENGAN KOMPRESI OTOMATIS) ===
+    async function handleImageUpload(input, targetId) {
       if (!input.files || !input.files[0]) return;
       const file = input.files[0];
       const btn = input.nextElementSibling;
@@ -333,16 +334,14 @@
       btn.innerHTML = '⏳ Kompres...'; btn.disabled = true;
       
       try {
-        // --- PROSES KOMPRESI OTOMATIS ---
         const options = {
-          maxSizeMB: 0.3,          // Maksimal 300 KB
-          maxWidthOrHeight: 1200,  // Resolusi maksimal 1200px
-          useWebWorker: true,      // Agar tidak membuat browser nge-hang
-          fileType: 'image/jpeg'   // Konversi otomatis ke JPG
+          maxSizeMB: 0.3,
+          maxWidthOrHeight: 1200,
+          useWebWorker: true,
+          fileType: 'image/jpeg'
         };
         
         const compressedFile = await imageCompression(file, options);
-        
         btn.innerHTML = '⏳ Upload...';
 
         const url = await new Promise((resolve, reject) => {
@@ -356,7 +355,7 @@
             } catch (err) { reject(err); }
           };
           reader.onerror = () => reject(new Error('Gagal baca file'));
-          reader.readAsDataURL(compressedFile); // Gunakan file yang sudah dikompres
+          reader.readAsDataURL(compressedFile);
         });
         
         document.getElementById(targetId).value = url;
@@ -380,16 +379,14 @@
         modules: { toolbar: [[{ 'header': [1, 2, 3, false] }], ['bold', 'italic', 'underline', 'strike'], [{ 'list': 'ordered' }, { 'list': 'bullet' }], ['blockquote', 'link', 'image'], [{ 'align': [] }], ['clean']] }
       });
       const toolbar = quill.getModule('toolbar');
-            toolbar.addHandler('image', () => {
+      toolbar.addHandler('image', () => {
         const currentImages = quill.root.querySelectorAll('img').length;
         if (currentImages >= 3) return showToast('Maksimal 3 gambar sisipan per artikel.', 'error');
-        
         const input = document.createElement('input'); input.type = 'file'; input.accept = 'image/*';
         input.onchange = async () => {
           if (input.files && input.files[0]) {
             showToast('Mengompres gambar...', 'success');
             try {
-              // --- PROSES KOMPRESI UNTUK EDITOR ---
               const options = { maxSizeMB: 0.3, maxWidthOrHeight: 1200, useWebWorker: true, fileType: 'image/jpeg' };
               const compressedFile = await imageCompression(input.files[0], options);
               
@@ -403,7 +400,7 @@
                     resolve(res.path);
                   } catch (err) { reject(err); }
                 };
-                reader.readAsDataURL(compressedFile); // Gunakan file yang sudah dikompres
+                reader.readAsDataURL(compressedFile);
               });
               
               const range = quill.getSelection(true);
@@ -485,7 +482,7 @@
       if (allPosts.length === 0) return table.innerHTML = `<div class="p-12 text-center text-warm-400">Belum ada artikel.</div>`;
       
       table.innerHTML = `
-        <!-- TAMPILAN DESKTOP (Tabel) -->
+        <!-- DESKTOP -->
         <div class="hidden lg:block overflow-x-auto">
           <table class="w-full text-sm">
             <thead class="bg-warm-50 text-warm-600 border-b border-warm-200">
@@ -510,7 +507,7 @@
           </table>
         </div>
 
-        <!-- TAMPILAN MOBILE (Card List) -->
+        <!-- MOBILE -->
         <div class="lg:hidden flex flex-col divide-y divide-warm-100">
           ${allPosts.map(p => `
             <div class="p-4 flex flex-col gap-3">
@@ -540,13 +537,12 @@
       table.querySelectorAll('[data-del]').forEach(b => b.addEventListener('click', () => confirmDelete('posts', b.dataset.del)));
     }
 
-    // === TABEL IKLAN (ANTI TERPOTONG) ===
+    // === TABEL IKLAN ===
     function renderAdTable() {
       const table = document.getElementById('dataTable');
       if (allAds.length === 0) return table.innerHTML = `<div class="p-12 text-center text-warm-400">Belum ada iklan.</div>`;
       
       table.innerHTML = `
-        <!-- DESKTOP -->
         <div class="hidden lg:block overflow-x-auto">
           <table class="w-full text-sm">
             <thead class="bg-warm-50 text-warm-600 border-b border-warm-200"><tr><th class="text-left p-4">Judul</th><th class="text-left p-4">Posisi</th><th class="text-left p-4">Status</th><th class="text-right p-4">Aksi</th></tr></thead>
@@ -567,7 +563,6 @@
             </tbody>
           </table>
         </div>
-        <!-- MOBILE -->
         <div class="lg:hidden flex flex-col divide-y divide-warm-100">
           ${allAds.map(a => `
             <div class="p-4 flex flex-col gap-3">
@@ -593,13 +588,12 @@
       table.querySelectorAll('[data-del]').forEach(b => b.addEventListener('click', () => confirmDelete('ads', b.dataset.del)));
     }
 
-    // === TABEL HERO (ANTI TERPOTONG) ===
+    // === TABEL HERO ===
     function renderHeroTable() {
       const table = document.getElementById('dataTable');
       if (allHero.length === 0) return table.innerHTML = `<div class="p-12 text-center text-warm-400">Belum ada slide hero.</div>`;
       
       table.innerHTML = `
-        <!-- DESKTOP -->
         <div class="hidden lg:block overflow-x-auto">
           <table class="w-full text-sm">
             <thead class="bg-warm-50 text-warm-600 border-b border-warm-200"><tr><th class="text-left p-4">Gambar / Judul</th><th class="text-left p-4">Urutan</th><th class="text-left p-4">Status</th><th class="text-right p-4">Aksi</th></tr></thead>
@@ -623,7 +617,6 @@
             </tbody>
           </table>
         </div>
-        <!-- MOBILE -->
         <div class="lg:hidden flex flex-col divide-y divide-warm-100">
           ${allHero.map(h => `
             <div class="p-4 flex flex-col gap-3">
@@ -704,12 +697,18 @@
       document.getElementById('heroFormError').classList.add('hidden');
       document.getElementById('heroModal').classList.remove('hidden');
     }
+    
+    // FUNGSI EDIT HERO YANG SUDAH DIPERBAIKI
     function openEditHeroModal(id) {
       const h = allHero.find(x => x.id === id); if (!h) return;
       document.getElementById('heroForm').reset();
       document.getElementById('heroId').value = h.id;
       document.getElementById('heroGambar').value = h.gambar;
       document.getElementById('heroJudul').value = h.judul;
+      
+      const ketEl = document.getElementById('heroKeterangan');
+      if(ketEl) ketEl.value = h.keterangan || '';
+      
       document.getElementById('heroUrutan').value = h.urutan;
       document.getElementById('heroStatus').value = h.status;
       document.getElementById('heroModalTitle').textContent = 'Edit Slide Hero';
@@ -770,7 +769,7 @@
       const id = document.getElementById('heroId').value;
       const data = {
         gambar: document.getElementById('heroGambar').value.trim(), judul: document.getElementById('heroJudul').value.trim(),
-        keterangan: document.getElementById('heroKeterangan').value.trim(),
+        keterangan: document.getElementById('heroKeterangan').value.trim(), // Pastikan ini ada
         urutan: parseInt(document.getElementById('heroUrutan').value), status: document.getElementById('heroStatus').value,
       };
       const btn = document.getElementById('heroSaveBtn'); btn.disabled = true; btn.textContent = 'Menyimpan...';
