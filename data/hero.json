@@ -2,9 +2,10 @@
   {
     "id": "hero-1",
     "gambar": "https://images.pexels.com/photos/2166553/pexels-photo-2166553.jpeg?auto=compress&cs=tinysrgb&w=1920",
-    "judul": "Pemandangan Sawah Bali",
+    "judul": "Keindahan Bali",
     "urutan": 2,
-    "status": "aktif"
+    "status": "aktif",
+    "keterangan": "Keindahan Bali selalu menjadi daya tarik yang tiada habisnya"
   },
   {
     "id": "hero-2",
