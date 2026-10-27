@@ -8,13 +8,6 @@
     "keterangan": "Keindahan Bali selalu menjadi daya tarik yang tiada habisnya"
   },
   {
-    "id": "hero-2",
-    "gambar": "https://images.pexels.com/photos/2474689/pexels-photo-2474689.jpeg?auto=compress&cs=tinysrgb&w=1920",
-    "judul": "Pura di Tepi Danau",
-    "urutan": 3,
-    "status": "aktif"
-  },
-  {
     "gambar": "/assets/uploads/img-1793110192412.jpg",
     "judul": "Candi Borobudur",
     "urutan": 1,
