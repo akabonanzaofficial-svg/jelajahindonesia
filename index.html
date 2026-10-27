@@ -1,3 +1,8 @@
+Berikut adalah kode `index.html` lengkap yang sudah mencakup semua pembaruan terbaru, termasuk **Barisan Iklan Footer (Sponsor & Mitra)** dan penyesuaian desain *Magazine Style* pada Hero Slider.
+
+Silakan salin seluruh kode di bawah ini, lalu ganti seluruh isi file `index.html` di repositori GitHub Anda.
+
+```html
 <!DOCTYPE html>
 <html lang="id" class="scroll-smooth">
 <head>
@@ -21,7 +26,6 @@
   <link rel="icon" type="image/png" href="/assets/favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <!-- Perbaikan 5: Font diganti ke Plus Jakarta Sans (Sans-serif tanpa kait) untuk Heading & Body -->
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
 
   <script src="https://cdn.tailwindcss.com"></script>
@@ -30,7 +34,6 @@
       theme: {
         extend: {
           fontFamily: {
-            // Menggunakan font yang sama agar seragam dan modern
             heading: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
             body: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
           },
@@ -58,7 +61,6 @@
   </script>
 
   <style>
-    /* Perbaikan 5: Terapkan font ke body dan heading */
     body { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; }
     h1, h2, h3, h4 { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-weight: 700; }
     
@@ -104,7 +106,7 @@
 
 <body class="bg-warm-50 text-warm-700 min-h-screen flex flex-col">
 
-      <!-- Navbar (Layout Desktop: Logo Kiri & Menu Kanan, Layout Mobile: Logo Center) -->
+  <!-- Navbar -->
   <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 py-4 bg-white/95 backdrop-blur-xl border-b border-warm-200/60 transition-all duration-300">
     <div class="max-w-7xl mx-auto px-6 flex items-center justify-between relative">
       
@@ -133,7 +135,6 @@
           <span class="menu-line w-6 h-0.5 bg-warm-700 rounded transition-all"></span>
         </button>
       </div>
-
     </div>
 
     <!-- Mobile Menu Dropdown -->
@@ -148,12 +149,24 @@
       </ul>
     </div>
   </nav>
-  
+
   <main id="app" class="flex-1 pt-24"></main>
 
   <button id="backToTop" aria-label="Kembali ke atas" class="fixed bottom-6 right-6 z-40 w-12 h-12 flex items-center justify-center bg-gradient-to-br from-green-600 to-green-700 text-white rounded-full shadow-glow-green hover:-translate-y-1 transition-all">
     <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="m18 15-6-6-6 6"/></svg>
   </button>
+
+  <!-- PRE-FOOTER AD ZONE (Barisan Iklan di Atas Footer) -->
+  <section id="preFooterAds" class="hidden bg-white border-t border-warm-200 py-12 mt-12">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-6">
+        <span class="text-[10px] text-warm-400 uppercase tracking-widest font-bold">Sponsor & Mitra</span>
+      </div>
+      <div id="preFooterGrid" class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto">
+        <!-- Iklan akan dimuat via JS -->
+      </div>
+    </div>
+  </section>
 
   <footer class="bg-warm-900 text-warm-400 relative mt-auto">
     <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-green-500 via-gold-500 to-red-500"></div>
@@ -206,7 +219,7 @@
       async getAds() {
         if (this._cache) return this._cache;
         try {
-          const res = await fetch('/data/ads.json');
+          const res = await fetch('/data/ads.json?t=' + new Date().getTime());
           if (!res.ok) return [];
           const data = await res.json();
           this._cache = data.filter(a => a.status === 'aktif');
@@ -216,11 +229,11 @@
       async getByPosition(pos) {
         const ads = await this.getAds();
         const filtered = ads.filter(a => a.posisi === pos);
-        return filtered.sort(() => Math.random() - 0.5);
+        return filtered.sort(() => Math.random() - 0.5); // Rotasi acak
       }
     };
 
-    // Komponen Iklan Gambar (Perbaikan 4: Tulisan 'Iklan' dihapus)
+    // Komponen Iklan Gambar
     const AdComponent = (ad, variant = 'horizontal') => {
       if (!ad) return '';
       const isPortrait = variant === 'portrait';
@@ -233,6 +246,7 @@
       `;
     };
 
+    // Komponen Iklan Video
     const VideoAdComponent = (ad, variant = 'horizontal') => {
       if (!ad) return '';
       let videoUrl = ad.gambar;
@@ -248,6 +262,7 @@
       `;
     };
 
+    // Komponen Iklan Multipleks (Grid)
     const AdGridComponent = (ads) => {
       if (!ads || ads.length === 0) return '';
       return `
@@ -270,7 +285,7 @@
       _cache: { index: null, posts: {}, hero: null },
       async getIndex() {
         if (this._cache.index) return this._cache.index;
-        const res = await fetch('/data/data.json');
+        const res = await fetch('/data/data.json?t=' + new Date().getTime());
         if (!res.ok) throw new Error('Gagal memuat data');
         const data = await res.json();
         this._cache.index = data;
@@ -279,7 +294,7 @@
       async getHero() {
         if (this._cache.hero) return this._cache.hero;
         try {
-          const res = await fetch('/data/hero.json');
+          const res = await fetch('/data/hero.json?t=' + new Date().getTime());
           if (!res.ok) return [];
           const data = await res.json();
           this._cache.hero = data.filter(h => h.status === 'aktif').sort((a,b) => a.urutan - b.urutan).slice(0, 5);
@@ -350,7 +365,7 @@
     };
 
     /* ============================================================
-       COMPONENTS (Kartu Artikel) - Perbaikan 8: Kategori dihapus
+       COMPONENTS (Kartu Artikel)
        ============================================================ */
     const CardComponent = (post) => `
       <article class="group bg-white rounded-2xl overflow-hidden border border-warm-200 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-green-200 transition-all duration-300 flex flex-col">
@@ -396,32 +411,26 @@
         
         setMeta({ title: 'Jelajah Indonesia — Travel', description: 'Media perjalanan.', image: 'https://images.pexels.com/photos/2166553/pexels-photo-2166553.jpeg', url: 'https://jelajahindonesia.com/' });
         
-        // Render elemen slider berdasarkan data dari CMS
         let slidesHtml = '';
         if (heroSlides.length > 0) {
           slidesHtml = heroSlides.map((s, i) => `
             <div class="hero-slide ${i === 0 ? 'active' : ''}" style="background-image: url('${escapeHtml(s.gambar)}');"></div>
           `).join('');
         } else {
-          // Fallback jika belum ada data hero
           slidesHtml = `<div class="hero-slide active" style="background-image: url('https://images.pexels.com/photos/2166553/pexels-photo-2166553.jpeg?auto=compress&cs=tinysrgb&w=1920');"></div>`;
         }
 
         return `
           <div id="headerAdContainer"></div>
-          <!-- Perbaikan 6: Hero Slider Otomatis -->
-
-                    <!-- Hero Slider Otomatis (Magazine Style) -->
+          
+          <!-- Hero Slider Otomatis (Magazine Style) -->
           <section class="relative h-[70vh] md:h-[85vh] w-full overflow-hidden bg-black">
-            <!-- Container Slider -->
             <div class="absolute inset-0" id="heroSliderContainer">
               ${slidesHtml}
             </div>
             
-            <!-- Overlay Gradasi Halus (Hanya di bawah untuk keterbacaan teks) -->
             <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
             
-            <!-- Teks di Pojok Kiri Bawah -->
             <div class="absolute bottom-0 left-0 w-full p-6 md:p-12 z-10">
               <div class="max-w-3xl animate-hero-fade">
                 <h1 id="heroTitle" class="text-xl md:text-3xl font-bold text-white mb-1 drop-shadow-lg leading-tight">Memuat...</h1>
@@ -447,8 +456,8 @@
           </section>
         `;
       },
-            async afterRender() {
-        // 1. Logika Slider Otomatis & Ganti Teks
+      async afterRender() {
+        // Logika Slider Otomatis & Ganti Teks
         const slides = document.querySelectorAll('.hero-slide');
         const titleEl = document.getElementById('heroTitle');
         const descEl = document.getElementById('heroDesc');
@@ -464,19 +473,18 @@
             }
           };
 
-          updateText(0); // Set teks untuk gambar pertama
+          updateText(0);
 
           if (slides.length > 1) {
             setInterval(() => {
               slides[currentSlide].classList.remove('active');
               currentSlide = (currentSlide + 1) % slides.length;
               slides[currentSlide].classList.add('active');
-              updateText(currentSlide); // Ubah teks setiap ganti gambar
-            }, 6000); // Ganti gambar setiap 6 detik
+              updateText(currentSlide);
+            }, 6000);
           }
         }
 
-        // 2. Render Iklan
         const headerAds = await AdsService.getByPosition('header');
         const heroAds = await AdsService.getByPosition('hero');
         const feed1Ads = await AdsService.getByPosition('feed-1');
@@ -515,7 +523,6 @@
     const CeritaView = createListView('cerita', 'Cerita Perjalanan', 'Kisah tulus dari para penjelajah Nusantara.', 'green');
     const GayaHidupView = createListView('gaya-hidup', 'Gaya Hidup', 'Inspirasi hidup modern berakar budaya lokal.', 'red');
     const AkomodasiView = createListView('akomodasi', 'Akomodasi', 'Pilihan penginapan terbaik.', 'green');
-    // Perbaikan 7: Newsedu diubah menjadi Tips & Trip (nilai 'tipe' tetap 'newsedu' agar data lama tetap terbaca)
     const TipsTripView = createListView('newsedu', 'Tips & Trip', 'Panduan, trik, dan edukasi seputar perjalanan.', 'red');
     const EventView = createListView('event', 'Event Nusantara', 'Festival dan pertemuan budaya.', 'green');
 
@@ -542,7 +549,6 @@
                 <span class="text-warm-600 font-medium truncate max-w-[200px]">${escapeHtml(post.judul)}</span>
               </nav>
               
-              <!-- Perbaikan 8: Kategori dihapus -->
               <h1 class="font-heading text-3xl md:text-5xl font-extrabold mb-4 leading-tight">${escapeHtml(post.judul)}</h1>
               <div class="flex items-center gap-3 text-sm text-warm-400 mb-8 flex-wrap">
                 <span>${formatDate(post.tanggal)}</span> • <span>${getReadingTime(post)}</span> • <span class="font-semibold text-warm-600">${escapeHtml(post.penulis)}</span>
@@ -550,11 +556,9 @@
               
               <div class="mb-8">
                 <img src="${escapeHtml(post.gambar)}" alt="${escapeHtml(post.judul)}" class="w-full h-auto max-h-[500px] object-cover rounded-2xl mb-2" referrerpolicy="no-referrer" />
-                <!-- Perbaikan 1: Keterangan Gambar -->
                 <p class="text-xs text-warm-400 text-center italic mt-2">Foto: ${escapeHtml(post.judul)} (Dok. Jelajah Indonesia)</p>
               </div>
               
-                            <!-- Icon Share Diperbarui (Rounded Square) -->
               <div class="flex items-center gap-3 mb-10 pb-6 border-b border-warm-200">
                 <span class="text-sm text-warm-500 font-medium mr-1">Bagikan:</span>
                 
@@ -652,7 +656,7 @@
         '/cerita': CeritaView, 
         '/gaya-hidup': GayaHidupView, 
         '/akomodasi': AkomodasiView, 
-        '/tips-trip': TipsTripView, // Perbaikan 7
+        '/tips-trip': TipsTripView,
         '/event': EventView,
       },
       async navigate(path) {
@@ -676,7 +680,9 @@
           this.updateActiveNav(path);
           
           if (typeof View.afterRender === 'function') await View.afterRender();
+          
           await renderStickyAd();
+          await renderPreFooterAds();
         } catch (err) {
           app.innerHTML = `<div class="text-center py-20"><h2>Terjadi Kesalahan</h2><p>${escapeHtml(err.message)}</p></div>`;
         }
@@ -690,6 +696,28 @@
         });
       }
     };
+
+    /* ============================================================
+       PRE-FOOTER GRID ADS & STICKY
+       ============================================================ */
+    async function renderPreFooterAds() {
+      const container = document.getElementById('preFooterAds');
+      const grid = document.getElementById('preFooterGrid');
+      if (!container || !grid) return;
+
+      const footerAds = await AdsService.getByPosition('footer-grid');
+      
+      if (footerAds.length > 0) {
+        grid.innerHTML = footerAds.slice(0, 4).map(ad => `
+          <a href="${escapeHtml(ad.link)}" target="_blank" rel="noopener sponsored" class="block rounded-xl overflow-hidden border border-warm-200 hover:border-green-400 transition-colors shadow-sm bg-white aspect-square md:aspect-[4/3]">
+            <img src="${escapeHtml(ad.gambar)}" alt="${escapeHtml(ad.judul)}" class="w-full h-full object-cover" />
+          </a>
+        `).join('');
+        container.classList.remove('hidden');
+      } else {
+        container.classList.add('hidden');
+      }
+    }
 
     async function renderStickyAd() {
       const oldSticky = document.getElementById('global-mobile-sticky');
@@ -746,3 +774,4 @@
   </script>
 </body>
 </html>
+```
