@@ -410,19 +410,22 @@
         return `
           <div id="headerAdContainer"></div>
           <!-- Perbaikan 6: Hero Slider Otomatis -->
-          <section class="relative h-[80vh] flex items-center justify-center text-center overflow-hidden bg-black">
+
+                    <!-- Hero Slider Otomatis (Magazine Style) -->
+          <section class="relative h-[70vh] md:h-[85vh] w-full overflow-hidden bg-black">
             <!-- Container Slider -->
             <div class="absolute inset-0" id="heroSliderContainer">
               ${slidesHtml}
             </div>
-            <div class="absolute inset-0 bg-black/40"></div> <!-- Overlay Gelap -->
             
-            <div class="relative z-10 max-w-4xl px-6 animate-hero-fade">
-              <!-- Perbaikan 5: Font Sans-serif & Teks Baru -->
-              <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 drop-shadow-lg tracking-tight">Jelajahi Keindahan Indonesia</h1>
-              <p class="text-lg md:text-2xl text-white/90 font-light max-w-2xl mx-auto mb-10 drop-shadow">Temukan pesona alam tropis, kekayaan budaya, dan kuliner legendaris Nusantara.</p>
-              <div class="flex flex-wrap justify-center gap-4">
-                <a href="/cerita" data-link class="inline-flex items-center gap-2 px-8 py-4 bg-green-600 hover:bg-green-700 text-white font-bold rounded-full shadow-glow-green hover:-translate-y-1 transition-all">Mulai Menjelajah →</a>
+            <!-- Overlay Gradasi Halus (Hanya di bawah untuk keterbacaan teks) -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+            
+            <!-- Teks di Pojok Kiri Bawah -->
+            <div class="absolute bottom-0 left-0 w-full p-6 md:p-12 z-10">
+              <div class="max-w-3xl animate-hero-fade">
+                <h1 id="heroTitle" class="text-2xl md:text-4xl font-bold text-white mb-2 drop-shadow-lg leading-tight">Memuat...</h1>
+                <p id="heroDesc" class="text-sm md:text-base text-white/80 font-light drop-shadow max-w-xl line-clamp-2 md:line-clamp-none"></p>
               </div>
             </div>
           </section>
@@ -444,18 +447,36 @@
           </section>
         `;
       },
-      async afterRender() {
-        // Logika Slider Otomatis
+            async afterRender() {
+        // 1. Logika Slider Otomatis & Ganti Teks
         const slides = document.querySelectorAll('.hero-slide');
-        if (slides.length > 1) {
+        const titleEl = document.getElementById('heroTitle');
+        const descEl = document.getElementById('heroDesc');
+        const heroData = await DataService.getHero(); 
+
+        if (slides.length > 0 && titleEl && descEl) {
           let currentSlide = 0;
-          setInterval(() => {
-            slides[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide + 1) % slides.length;
-            slides[currentSlide].classList.add('active');
-          }, 5000); // Ganti gambar setiap 5 detik
+          
+          const updateText = (index) => {
+            if(heroData[index]) {
+              titleEl.textContent = heroData[index].judul || '';
+              descEl.textContent = heroData[index].keterangan || '';
+            }
+          };
+
+          updateText(0); // Set teks untuk gambar pertama
+
+          if (slides.length > 1) {
+            setInterval(() => {
+              slides[currentSlide].classList.remove('active');
+              currentSlide = (currentSlide + 1) % slides.length;
+              slides[currentSlide].classList.add('active');
+              updateText(currentSlide); // Ubah teks setiap ganti gambar
+            }, 6000); // Ganti gambar setiap 6 detik
+          }
         }
 
+        // 2. Render Iklan
         const headerAds = await AdsService.getByPosition('header');
         const heroAds = await AdsService.getByPosition('hero');
         const feed1Ads = await AdsService.getByPosition('feed-1');
