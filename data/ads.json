@@ -78,5 +78,15 @@
     "status": "aktif",
     "createdAt": "2026-10-18T09:30:46.869Z",
     "id": "ad-1792315847700"
+  },
+  {
+    "judul": "Gathering",
+    "tipe": "gambar",
+    "gambar": "/assets/uploads/img-1793106728412.jpg",
+    "link": "https://wa.me/6282113018920",
+    "posisi": "sidebar-grid",
+    "status": "aktif",
+    "createdAt": "2026-10-27T13:12:33.848Z",
+    "id": "ad-1793106754089"
   }
 ]
