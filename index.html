@@ -77,8 +77,8 @@
     .nav-item:hover::after { width: 100%; }
     .mobile-nav-item { display: block; padding: .75rem 0; font-size: 1rem; font-weight: 600; color: inherit; border-bottom: 1px solid rgba(120,113,108,.1); }
     .mobile-nav-item:hover { color: #15803d; }
-    .footer-link { font-size: .9rem; font-weight: 400; color: #a8a29e; transition: color .3s, padding-left .3s; }
-    .footer-link:hover { color: #4ade80; padding-left: 4px; }
+    .footer-link { font-size: .9rem; font-weight: 400; transition: color .3s, padding-left .3s; }
+    .footer-link:hover { padding-left: 4px; color: #16a34a !important; }
     #mobileMenu.open { transform: translateY(0); opacity: 1; pointer-events: auto; }
     #menuToggle.open .menu-line:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
     #menuToggle.open .menu-line:nth-child(2) { opacity: 0; }
@@ -130,6 +130,7 @@
           <span class="menu-line w-6 h-0.5 bg-warm-700 rounded transition-all"></span>
         </button>
       </div>
+
     </div>
 
     <!-- Mobile Menu Dropdown -->
@@ -151,55 +152,64 @@
     <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="m18 15-6-6-6 6"/></svg>
   </button>
 
-  <!-- PRE-FOOTER AD ZONE (Barisan Iklan di Atas Footer) -->
-  <section id="preFooterAds" class="hidden bg-white border-t border-warm-200 py-12 mt-12">
+  <!-- Pre-Footer Ad Zone (Iklan Rectangle & Grid) -->
+  <section id="footerAdSection" class="bg-warm-50 py-4 border-t border-warm-200 hidden">
     <div class="max-w-7xl mx-auto px-6">
-      <div class="text-center mb-6">
-        <span class="text-[10px] text-warm-400 uppercase tracking-widest font-bold">Sponsor & Mitra</span>
+      
+      <!-- Iklan Rectangle Besar di Atas -->
+      <div id="preFooterRect" class="mb-4 max-w-4xl mx-auto"></div>
+
+      <div class="text-center mb-4 mt-2">
+        <h3 class="text-sm font-bold text-warm-500 uppercase tracking-widest">Sponsor & Mitra</h3>
       </div>
-      <div id="preFooterGrid" class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto">
-        <!-- Iklan akan dimuat via JS -->
-      </div>
+      <div id="footerAdGrid" class="grid grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto"></div>
     </div>
   </section>
 
-  <footer class="bg-warm-900 text-warm-400 relative mt-auto">
+  <!-- Footer Putih -->
+  <footer class="bg-white text-warm-900 border-t border-warm-200 relative mt-auto">
     <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-green-500 via-gold-500 to-red-500"></div>
-    <div class="max-w-7xl mx-auto px-6 py-16">
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+    <div class="max-w-7xl mx-auto px-6 py-12">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-10">
+        <!-- Brand -->
         <div class="lg:col-span-1 text-center md:text-left">
-          <img src="/assets/logo-navbar.png" alt="Jelajah Indonesia" class="h-16 w-auto mb-3 brightness-0 invert opacity-90 mx-auto md:mx-0" />
-          <p class="text-sm font-light leading-relaxed max-w-xs mx-auto md:mx-0">Media perjalanan dan gaya hidup yang menginspirasi jutaan pembaca untuk menjelajah Nusantara.</p>
+          <img src="/assets/logo-navbar.png" alt="Jelajah Indonesia" class="h-16 w-auto mb-4 mx-auto md:mx-0" />
+          <p class="text-sm font-light text-warm-600 leading-relaxed max-w-xs mx-auto md:mx-0">
+            Media perjalanan dan gaya hidup yang menginspirasi jutaan pembaca untuk menjelajah Nusantara dengan lebih bermakna.
+          </p>
         </div>
+        <!-- Menu -->
         <div class="text-center md:text-left">
-          <h4 class="text-white text-sm font-semibold uppercase tracking-wider mb-4">Menu</h4>
+          <h4 class="text-black text-sm font-bold uppercase tracking-wider mb-4">Menu</h4>
           <ul class="space-y-3">
-            <li><a href="/cerita" data-link class="footer-link">Cerita Perjalanan</a></li>
-            <li><a href="/gaya-hidup" data-link class="footer-link">Gaya Hidup</a></li>
-            <li><a href="/akomodasi" data-link class="footer-link">Akomodasi</a></li>
-            <li><a href="/tips-trip" data-link class="footer-link">Tips & Trip</a></li>
-            <li><a href="/event" data-link class="footer-link">Event</a></li>
+            <li><a href="/cerita" data-link class="footer-link text-warm-600 hover:text-green-600">Cerita Perjalanan</a></li>
+            <li><a href="/gaya-hidup" data-link class="footer-link text-warm-600 hover:text-green-600">Gaya Hidup</a></li>
+            <li><a href="/akomodasi" data-link class="footer-link text-warm-600 hover:text-green-600">Akomodasi</a></li>
+            <li><a href="/tips-trip" data-link class="footer-link text-warm-600 hover:text-green-600">Tips & Trip</a></li>
+            <li><a href="/event" data-link class="footer-link text-warm-600 hover:text-green-600">Event</a></li>
           </ul>
         </div>
+        <!-- Tentang -->
         <div class="text-center md:text-left">
-          <h4 class="text-white text-sm font-semibold uppercase tracking-wider mb-4">Tentang</h4>
+          <h4 class="text-black text-sm font-bold uppercase tracking-wider mb-4">Tentang</h4>
           <ul class="space-y-3">
-            <li><a href="/tentang" data-link class="footer-link">Tentang Kami</a></li>
-            <li><a href="/tim" data-link class="footer-link">Tim Redaksi</a></li>
-            <li><a href="/privasi" data-link class="footer-link">Kebijakan Privasi</a></li>
-            <li><a href="/syarat" data-link class="footer-link">Syarat & Ketentuan</a></li>
+            <li><a href="/tentang" data-link class="footer-link text-warm-600 hover:text-green-600">Tentang Kami</a></li>
+            <li><a href="/tim" data-link class="footer-link text-warm-600 hover:text-green-600">Tim Redaksi</a></li>
+            <li><a href="/privasi" data-link class="footer-link text-warm-600 hover:text-green-600">Kebijakan Privasi</a></li>
+            <li><a href="/syarat" data-link class="footer-link text-warm-600 hover:text-green-600">Syarat & Ketentuan</a></li>
           </ul>
         </div>
+        <!-- Kontak -->
         <div class="text-center md:text-left">
-          <h4 class="text-white text-sm font-semibold uppercase tracking-wider mb-4">Kontak</h4>
+          <h4 class="text-black text-sm font-bold uppercase tracking-wider mb-4">Kontak</h4>
           <ul class="space-y-3">
-            <li><a href="mailto:halo@jelajahindonesia.id" class="footer-link">halo@jelajahindonesia.id</a></li>
-            <li><a href="tel:+622112345678" class="footer-link">+62 21 1234 5678</a></li>
-            <li class="footer-link">Jakarta, Indonesia</li>
+            <li><a href="mailto:halo@jelajahindonesia.id" class="footer-link text-warm-600 hover:text-green-600">halo@jelajahindonesia.id</a></li>
+            <li><a href="tel:+622112345678" class="footer-link text-warm-600 hover:text-green-600">+62 21 1234 5678</a></li>
+            <li class="footer-link text-warm-600">Jakarta, Indonesia</li>
           </ul>
         </div>
       </div>
-      <div class="pt-8 border-t border-white/10 text-center text-sm font-light">
+      <div class="pt-6 border-t border-warm-200 text-center text-sm font-light text-warm-500">
         <p>&copy; 2026 Jelajah Indonesia. Dibuat dengan <span class="text-red-500">♥</span> untuk Nusantara.</p>
       </div>
     </div>
@@ -214,7 +224,7 @@
       async getAds() {
         if (this._cache) return this._cache;
         try {
-          const res = await fetch('/data/ads.json?t=' + new Date().getTime());
+          const res = await fetch('/data/ads.json');
           if (!res.ok) return [];
           const data = await res.json();
           this._cache = data.filter(a => a.status === 'aktif');
@@ -224,16 +234,15 @@
       async getByPosition(pos) {
         const ads = await this.getAds();
         const filtered = ads.filter(a => a.posisi === pos);
-        return filtered.sort(() => Math.random() - 0.5); // Rotasi acak
+        return filtered.sort(() => Math.random() - 0.5);
       }
     };
 
-    // Komponen Iklan Gambar
     const AdComponent = (ad, variant = 'horizontal') => {
       if (!ad) return '';
       const isPortrait = variant === 'portrait';
       return `
-        <div class="ad-container my-6 md:my-8">
+        <div class="ad-container my-2">
           <a href="${escapeHtml(ad.link)}" target="_blank" rel="noopener sponsored" class="block rounded-xl overflow-hidden shadow-sm bg-white hover:opacity-90 transition-opacity">
             <img src="${escapeHtml(ad.gambar)}" alt="${escapeHtml(ad.judul)}" class="w-full h-auto object-cover ${isPortrait ? '' : 'max-h-[120px] md:max-h-[150px]'}" style="object-fit: cover;" />
           </a>
@@ -241,7 +250,6 @@
       `;
     };
 
-    // Komponen Iklan Video
     const VideoAdComponent = (ad, variant = 'horizontal') => {
       if (!ad) return '';
       let videoUrl = ad.gambar;
@@ -249,7 +257,7 @@
       const isVertical = variant === 'vertical';
       const aspect = isVertical ? 'aspect-[9/16]' : 'aspect-video'; 
       return `
-        <div class="ad-container my-6 md:my-8">
+        <div class="ad-container my-2">
           <div class="rounded-xl overflow-hidden shadow-sm bg-black relative ${aspect}">
             <iframe src="${escapeHtml(videoUrl)}" class="absolute inset-0 w-full h-full" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
           </div>
@@ -257,11 +265,10 @@
       `;
     };
 
-    // Komponen Iklan Multipleks (Grid)
     const AdGridComponent = (ads) => {
       if (!ads || ads.length === 0) return '';
       return `
-        <div class="ad-container my-6 md:my-8">
+        <div class="ad-container my-2">
           <div class="grid grid-cols-2 gap-3">
             ${ads.map(ad => `
               <a href="${escapeHtml(ad.link)}" target="_blank" rel="noopener sponsored" class="block rounded-lg overflow-hidden border border-warm-200 shadow-sm bg-white aspect-square hover:opacity-90 transition-opacity">
@@ -418,12 +425,8 @@
         return `
           <div id="headerAdContainer"></div>
           
-          <!-- Hero Slider Otomatis (Magazine Style) -->
           <section class="relative h-[70vh] md:h-[85vh] w-full overflow-hidden bg-black">
-            <div class="absolute inset-0" id="heroSliderContainer">
-              ${slidesHtml}
-            </div>
-            
+            <div class="absolute inset-0" id="heroSliderContainer">${slidesHtml}</div>
             <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
             
             <div class="absolute bottom-0 left-0 w-full p-6 md:p-12 z-10">
@@ -434,11 +437,11 @@
             </div>
           </section>
           
-          <div id="heroAdContainer" class="max-w-5xl mx-auto px-6 -mt-6 relative z-20"></div>
+          <div id="heroAdContainer" class="max-w-5xl mx-auto px-6 mt-2 relative z-20"></div>
           
-          <section class="py-20 bg-warm-50">
+          <section class="py-10 bg-warm-50">
             <div class="max-w-7xl mx-auto px-6">
-              <div class="text-center mb-14">
+              <div class="text-center mb-10">
                 <h2 class="font-heading text-3xl md:text-5xl font-extrabold mb-4">Cerita <em class="italic text-gradient">Terbaru</em></h2>
               </div>
               <div>
@@ -452,7 +455,6 @@
         `;
       },
       async afterRender() {
-        // Logika Slider Otomatis & Ganti Teks
         const slides = document.querySelectorAll('.hero-slide');
         const titleEl = document.getElementById('heroTitle');
         const descEl = document.getElementById('heroDesc');
@@ -460,23 +462,21 @@
 
         if (slides.length > 0 && titleEl && descEl) {
           let currentSlide = 0;
-          
           const updateText = (index) => {
             if(heroData[index]) {
               titleEl.textContent = heroData[index].judul || '';
               descEl.textContent = heroData[index].keterangan || '';
             }
           };
-
-          updateText(0);
+          updateText(0); 
 
           if (slides.length > 1) {
             setInterval(() => {
               slides[currentSlide].classList.remove('active');
               currentSlide = (currentSlide + 1) % slides.length;
               slides[currentSlide].classList.add('active');
-              updateText(currentSlide);
-            }, 6000);
+              updateText(currentSlide); 
+            }, 6000); 
           }
         }
 
@@ -485,7 +485,7 @@
         const feed1Ads = await AdsService.getByPosition('feed-1');
         const feed2Ads = await AdsService.getByPosition('feed-2');
         
-        if (headerAds.length > 0) document.getElementById('headerAdContainer').innerHTML = `<div class="max-w-5xl mx-auto px-6 mt-6">${AdComponent(headerAds[0])}</div>`;
+        if (headerAds.length > 0) document.getElementById('headerAdContainer').innerHTML = `<div class="max-w-5xl mx-auto px-6 mt-2">${AdComponent(headerAds[0])}</div>`;
         if (heroAds.length > 0) document.getElementById('heroAdContainer').innerHTML = AdComponent(heroAds[0]);
         if (feed1Ads.length > 0) document.getElementById('feed1AdContainer').innerHTML = AdComponent(feed1Ads[0]);
         if (feed2Ads.length > 0) document.getElementById('feed2AdContainer').innerHTML = AdComponent(feed2Ads[0]);
@@ -499,9 +499,9 @@
         return `
           <div id="headerAdContainer"></div>
           ${ListHeaderComponent(title, description, accent)}
-          <section class="py-16 bg-warm-50">
+          <section class="py-10 bg-warm-50">
             <div class="max-w-7xl mx-auto px-6">
-              <div id="listFeedAd1" class="my-4"></div>
+              <div id="listFeedAd1" class="my-2"></div>
               <div id="articlesGrid">${ArticleGridComponent(articles)}</div>
             </div>
           </section>
@@ -510,7 +510,7 @@
       async afterRender() {
         const headerAds = await AdsService.getByPosition('header');
         const feed1Ads = await AdsService.getByPosition('feed-1');
-        if (headerAds.length > 0) document.getElementById('headerAdContainer').innerHTML = `<div class="max-w-5xl mx-auto px-6 mt-6">${AdComponent(headerAds[0])}</div>`;
+        if (headerAds.length > 0) document.getElementById('headerAdContainer').innerHTML = `<div class="max-w-5xl mx-auto px-6 mt-2">${AdComponent(headerAds[0])}</div>`;
         if (feed1Ads.length > 0) document.getElementById('listFeedAd1').innerHTML = AdComponent(feed1Ads[0]);
       }
     });
@@ -535,56 +535,41 @@
         return `
           <div id="headerAdContainer"></div>
 
-          <div class="max-w-6xl mx-auto px-6 py-10 grid grid-cols-1 lg:grid-cols-12 gap-10">
+          <div class="max-w-6xl mx-auto px-6 py-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
             
             <article class="lg:col-span-8">
-              <nav class="flex items-center gap-2 text-sm text-warm-400 mb-8 flex-wrap">
+              <nav class="flex items-center gap-2 text-sm text-warm-400 mb-6 flex-wrap">
                 <a href="/" data-link class="hover:text-green-600">Beranda</a> <span>/</span>
                 <a href="${backPath}" data-link class="hover:text-green-600">${backLabel}</a> <span>/</span>
                 <span class="text-warm-600 font-medium truncate max-w-[200px]">${escapeHtml(post.judul)}</span>
               </nav>
               
-              <h1 class="font-heading text-3xl md:text-5xl font-extrabold mb-4 leading-tight">${escapeHtml(post.judul)}</h1>
-              <div class="flex items-center gap-3 text-sm text-warm-400 mb-8 flex-wrap">
+              <h1 class="font-heading text-2xl md:text-4xl font-extrabold mb-3 leading-tight">${escapeHtml(post.judul)}</h1>
+              <div class="flex items-center gap-2 text-xs text-warm-400 mb-4 flex-wrap">
                 <span>${formatDate(post.tanggal)}</span> • <span>${getReadingTime(post)}</span> • <span class="font-semibold text-warm-600">${escapeHtml(post.penulis)}</span>
               </div>
               
-              <div class="mb-8">
-                <img src="${escapeHtml(post.gambar)}" alt="${escapeHtml(post.judul)}" class="w-full h-auto max-h-[500px] object-cover rounded-2xl mb-2" referrerpolicy="no-referrer" />
-                <p class="text-xs text-warm-400 text-center italic mt-2">Foto: ${escapeHtml(post.judul)} (Dok. Jelajah Indonesia)</p>
+              <div class="mb-4">
+                <img src="${escapeHtml(post.gambar)}" alt="${escapeHtml(post.judul)}" class="w-full h-auto max-h-[500px] object-cover rounded-xl mb-1" referrerpolicy="no-referrer" />
+                <p class="text-[10px] text-warm-400 text-center italic">Foto: ${escapeHtml(post.judul)} (Dok. Jelajah Indonesia)</p>
               </div>
               
-              <div class="flex items-center gap-3 mb-10 pb-6 border-b border-warm-200">
-                <span class="text-sm text-warm-500 font-medium mr-1">Bagikan:</span>
-                
-                <!-- WhatsApp -->
-                <button onclick="shareTo('whatsapp','${escapeHtml(post.judul)}','${currentUrl}')" class="w-10 h-10 flex items-center justify-center bg-[#25D366] text-white rounded-xl hover:scale-110 hover:shadow-lg transition-all shadow-sm">
-                  <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-                </button>
-
-                <!-- Facebook -->
-                <button onclick="shareTo('facebook','${escapeHtml(post.judul)}','${currentUrl}')" class="w-10 h-10 flex items-center justify-center bg-[#1877F2] text-white rounded-xl hover:scale-110 hover:shadow-lg transition-all shadow-sm">
-                  <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-                </button>
-
-                <!-- Instagram -->
-                <button onclick="alert('Fitur Instagram segera hadir!')" class="w-10 h-10 flex items-center justify-center bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] text-white rounded-xl hover:scale-110 hover:shadow-lg transition-all shadow-sm">
-                  <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-                </button>
-
-                <!-- Copy Link -->
-                <button onclick="shareTo('copy','','${currentUrl}')" class="w-10 h-10 flex items-center justify-center bg-warm-600 text-white rounded-xl hover:scale-110 hover:shadow-lg transition-all shadow-sm">
-                  <svg class="w-4 h-4 fill-none stroke-current" stroke-width="2.5" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-                </button>
+              <!-- Icon Share -->
+              <div class="flex items-center gap-2 mb-2 pb-2 border-b border-warm-200">
+                <span class="text-xs text-warm-500 font-medium mr-1">Bagikan:</span>
+                <button onclick="shareTo('whatsapp','${escapeHtml(post.judul)}','${currentUrl}')" class="w-9 h-9 flex items-center justify-center bg-[#25D366] text-white rounded-lg hover:scale-105 transition-transform shadow-sm"><svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg></button>
+                <button onclick="shareTo('facebook','${escapeHtml(post.judul)}','${currentUrl}')" class="w-9 h-9 flex items-center justify-center bg-[#1877F2] text-white rounded-lg hover:scale-105 transition-transform shadow-sm"><svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></button>
+                <button onclick="alert('Fitur Instagram segera hadir!')" class="w-9 h-9 flex items-center justify-center bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] text-white rounded-lg hover:scale-105 transition-transform shadow-sm"><svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></button>
+                <button onclick="shareTo('copy','','${currentUrl}')" class="w-9 h-9 flex items-center justify-center bg-warm-600 text-white rounded-lg hover:scale-105 transition-transform shadow-sm"><svg class="w-3.5 h-3.5 fill-none stroke-current" stroke-width="2.5" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
               </div>
               
-              <div class="prose prose-lg max-w-none font-light leading-relaxed">${post.isi}</div>
+              <div class="prose prose-base md:prose-lg max-w-none font-light leading-relaxed">${post.isi}</div>
               
-              <div class="block lg:hidden mt-10 border-t border-warm-200 pt-6 space-y-4" id="mobileBottomAds"></div>
+              <div class="block lg:hidden mt-8 border-t border-warm-200 pt-4 space-y-3" id="mobileBottomAds"></div>
 
               ${related.length > 0 ? `
-                <section class="mt-12 pt-8 border-t border-warm-200">
-                  <h2 class="font-heading text-2xl font-extrabold mb-6">Artikel Terkait</h2>
+                <section class="mt-8 pt-6 border-t border-warm-200">
+                  <h2 class="font-heading text-xl md:text-2xl font-extrabold mb-6 text-center">Artikel <em class="italic text-gradient">Terkait</em></h2>
                   <div class="grid grid-cols-1 md:grid-cols-3 gap-6">${related.map(CardComponent).join('')}</div>
                 </section>
               ` : ''}
@@ -608,7 +593,7 @@
         const videoInArticleAds = await AdsService.getByPosition('video-in-article');
         const videoSidebarAds = await AdsService.getByPosition('video-sidebar');
         
-        if (headerAds.length > 0) document.getElementById('headerAdContainer').innerHTML = `<div class="max-w-5xl mx-auto px-6 mt-6">${AdComponent(headerAds[0])}</div>`;
+        if (headerAds.length > 0) document.getElementById('headerAdContainer').innerHTML = `<div class="max-w-5xl mx-auto px-6 mt-2">${AdComponent(headerAds[0])}</div>`;
         
         if (sidebarAds.length > 0) document.getElementById('sidebarSingleContainer').innerHTML = `<div class="sticky top-24">${sidebarAds.slice(0, 1).map(ad => AdComponent(ad, 'portrait')).join('')}</div>`;
         if (videoSidebarAds.length > 0) document.getElementById('sidebarVideoContainer').innerHTML = VideoAdComponent(videoSidebarAds[0], 'vertical');
@@ -658,7 +643,10 @@
         const app = document.getElementById('app');
         app.innerHTML = `<div class="flex justify-center py-20"><div class="w-12 h-12 border-4 border-green-500 border-t-transparent rounded-full animate-spin"></div></div>`;
 
+        const url = new URL(window.location.href);
+        const searchQuery = url.searchParams.get('q');
         let View = this.routes[path];
+
         if (!View) {
           if (path.startsWith('/artikel/')) {
             const id = path.split('/')[2];
@@ -674,10 +662,12 @@
           window.scrollTo({ top: 0, behavior: 'instant' });
           this.updateActiveNav(path);
           
-          if (typeof View.afterRender === 'function') await View.afterRender();
+          if (typeof View.afterRender === 'function') {
+            await View.afterRender();
+          }
           
           await renderStickyAd();
-          await renderPreFooterAds();
+          await renderFooterAds(); 
         } catch (err) {
           app.innerHTML = `<div class="text-center py-20"><h2>Terjadi Kesalahan</h2><p>${escapeHtml(err.message)}</p></div>`;
         }
@@ -693,27 +683,8 @@
     };
 
     /* ============================================================
-       PRE-FOOTER GRID ADS & STICKY
+       GLOBAL ADS (STICKY & FOOTER)
        ============================================================ */
-    async function renderPreFooterAds() {
-      const container = document.getElementById('preFooterAds');
-      const grid = document.getElementById('preFooterGrid');
-      if (!container || !grid) return;
-
-      const footerAds = await AdsService.getByPosition('footer-grid');
-      
-      if (footerAds.length > 0) {
-        grid.innerHTML = footerAds.slice(0, 4).map(ad => `
-          <a href="${escapeHtml(ad.link)}" target="_blank" rel="noopener sponsored" class="block rounded-xl overflow-hidden border border-warm-200 hover:border-green-400 transition-colors shadow-sm bg-white aspect-square md:aspect-[4/3]">
-            <img src="${escapeHtml(ad.gambar)}" alt="${escapeHtml(ad.judul)}" class="w-full h-full object-cover" />
-          </a>
-        `).join('');
-        container.classList.remove('hidden');
-      } else {
-        container.classList.add('hidden');
-      }
-    }
-
     async function renderStickyAd() {
       const oldSticky = document.getElementById('global-mobile-sticky');
       if (oldSticky) oldSticky.remove();
@@ -723,7 +694,7 @@
       if (stickyAds.length > 0) {
         const stickyDiv = document.createElement('div');
         stickyDiv.id = 'global-mobile-sticky';
-        stickyDiv.className = 'lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-warm-200 p-2 shadow-[0_-4px_20px_rgba(0,0,0,0.1)]';
+        stickyDiv.className = 'lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-warm-200 p-1 shadow-[0_-4px_20px_rgba(0,0,0,0.1)]';
         stickyDiv.innerHTML = `
           <button onclick="this.parentElement.remove()" class="absolute -top-3 right-2 bg-warm-800 text-white w-6 h-6 rounded-full text-xs flex items-center justify-center shadow-md">✕</button>
           <a href="${escapeHtml(stickyAds[0].link)}" target="_blank" rel="noopener sponsored" class="block w-full h-12">
@@ -734,6 +705,36 @@
       }
     }
 
+    async function renderFooterAds() {
+      const section = document.getElementById('footerAdSection');
+      const grid = document.getElementById('footerAdGrid');
+      const rect = document.getElementById('preFooterRect');
+      if (!section || !grid) return;
+
+      const footerAds = await AdsService.getByPosition('footer-grid');
+      const rectAds = await AdsService.getByPosition('hero'); 
+      
+      if (rect && rectAds.length > 0) {
+        rect.innerHTML = AdComponent(rectAds[0]);
+      } else if (rect) {
+        rect.innerHTML = '';
+      }
+
+      if (footerAds.length > 0) {
+        section.classList.remove('hidden');
+        grid.innerHTML = footerAds.slice(0, 4).map(ad => `
+          <a href="${escapeHtml(ad.link)}" target="_blank" rel="noopener sponsored" class="block rounded-xl overflow-hidden border border-warm-200 hover:border-green-400 transition-colors shadow-sm bg-white aspect-square">
+            <img src="${escapeHtml(ad.gambar)}" alt="${escapeHtml(ad.judul)}" class="w-full h-full object-cover" />
+          </a>
+        `).join('');
+      } else {
+        section.classList.add('hidden');
+      }
+    }
+
+    /* ============================================================
+       INIT
+       ============================================================ */
     document.addEventListener('DOMContentLoaded', () => {
       Router.navigate(window.location.pathname);
       
@@ -756,7 +757,7 @@
         document.getElementById('menuToggle').classList.toggle('open');
         document.getElementById('mobileMenu').classList.toggle('open');
       });
-      
+
       const backToTopBtn = document.getElementById('backToTop');
       window.addEventListener('scroll', () => { backToTopBtn.classList.toggle('show', window.scrollY > 400); });
       backToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
@@ -769,4 +770,3 @@
   </script>
 </body>
 </html>
-```
