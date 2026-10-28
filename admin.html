@@ -189,12 +189,13 @@
             <option value="feed-1">Feed 1 (Sela Artikel Atas)</option>
             <option value="feed-2">Feed 2 (Sela Artikel Bawah)</option>
             <option value="sidebar">Sidebar Single (Banner Besar Artikel)</option>
-            <option value="sidebar-grid">Sidebar Grid (Multipleks 2x2 di Artikel)</option>
-            <option value="footer-grid">Footer Grid (Barisan Iklan di Atas Footer)</option>
+            <option value="sidebar-grid">Sidebar Grid (Multipleks 2x2)</option>
             <option value="in-article">In-Article Gambar (Tengah Teks)</option>
             <option value="video-in-article">In-Article Video (Tengah Teks)</option>
             <option value="video-sidebar">Sidebar Video (Kanan Artikel)</option>
             <option value="mobile-sticky">Mobile Sticky (Bawah Layar HP)</option>
+            <option value="footer-rect">Footer Rectangle (Banner Atas Footer)</option>
+            <option value="footer-grid">Footer Grid (Sponsor & Mitra - 4 Kotak)</option>
           </select>
           <div id="adPosisiInfo" class="mt-2 p-3 bg-green-50 border border-green-200 rounded-xl text-xs text-green-800 hidden"></div>
         </div>
@@ -330,7 +331,6 @@
       btn.innerHTML = '⏳ Kompres...'; btn.disabled = true;
       
       try {
-        // Kompresi ke maksimal 300KB dan lebar 1200px
         const options = { maxSizeMB: 0.3, maxWidthOrHeight: 1200, useWebWorker: true, fileType: 'image/jpeg' };
         const compressedFile = await imageCompression(file, options);
         
@@ -358,53 +358,6 @@
         btn.innerHTML = originalText; btn.disabled = false; input.value = ''; 
       }
     }
-
-    // === INFO UKURAN IKLAN ===
-    const adSizes = {
-      'header': '📏 <b>Ukuran: 970x90 px</b> (Billboard) atau 728x90 px. <br>💡 Gambar memanjang horizontal. Tampil di semua halaman.',
-      'hero': '📏 <b>Ukuran: 728x90 px</b> (Leaderboard). <br>💡 Gambar horizontal. Tampil di bawah hero beranda.',
-      'feed-1': '📏 <b>Ukuran: 728x90 px</b> (Leaderboard). <br>💡 Gambar horizontal. Tampil di sela daftar artikel.',
-      'feed-2': '📏 <b>Ukuran: 728x90 px</b> (Leaderboard). <br>💡 Gambar horizontal. Tampil di sela daftar artikel bawah.',
-      'sidebar': '📏 <b>Ukuran: 300x600 px</b> (Half Page) atau 300x250 px. <br>💡 Gambar vertikal/kotak. Tampil di kanan artikel.',
-      'sidebar-grid': '📏 <b>Ukuran: 300x250 px</b> (Medium Rectangle). <br>💡 Gambar kotak. Akan disusun grid 2x2. Masukkan maks 4 iklan.',
-      'footer-grid': '📏 <b>Ukuran: 300x250 px</b> (Medium Rectangle). <br>💡 Gambar kotak. Akan disusun rapi 4 kolom di atas footer. Masukkan maks 4 iklan.',
-      'in-article': '📏 <b>Ukuran: 336x280 px</b> (Large Rectangle) atau 728x90 px. <br>💡 Gambar kotak/horizontal. Tampil di tengah paragraf.',
-      'video-in-article': '📏 <b>Rasio 16:9</b>. <br>💡 Masukkan link YouTube (Embed) atau link MP4. Video tidak akan autoplay.',
-      'video-sidebar': '📏 <b>Rasio 9:16 atau 1:1</b>. <br>💡 Masukkan link YouTube (Embed) atau link MP4. Tampil di kanan artikel.',
-      'mobile-sticky': '📏 <b>Ukuran: 320x50 px</b> (Mobile Banner). <br>💡 Sangat pendek & memanjang. Hanya muncul di layar HP (bawah).'
-    };
-
-    function updateAdInfo(posisi) {
-      const infoBox = document.getElementById('adPosisiInfo');
-      if (posisi && adSizes[posisi]) {
-        infoBox.innerHTML = adSizes[posisi];
-        infoBox.classList.remove('hidden');
-      } else {
-        infoBox.classList.add('hidden');
-      }
-    }
-
-    function updateAdMediaFields() {
-      const tipe = document.getElementById('adTipe').value;
-      const label = document.getElementById('adMediaLabel');
-      const input = document.getElementById('adGambar');
-      const hint = document.getElementById('adMediaHint');
-      
-      if (tipe === 'video') {
-        label.textContent = 'URL Video (Embed/MP4) *';
-        input.placeholder = 'https://www.youtube.com/embed/... atau https://.../video.mp4';
-        hint.innerHTML = 'Gunakan link Embed YouTube (bukan link tonton biasa), atau direct link MP4.';
-      } else {
-        label.textContent = 'URL Gambar Banner *';
-        input.placeholder = 'https://...';
-        hint.innerHTML = 'Gunakan ukuran horizontal (728x90) untuk Header/Feed, dan kotak (300x250) untuk Sidebar/Grid.';
-      }
-    }
-
-    document.addEventListener('change', (e) => {
-      if (e.target && e.target.id === 'adPosisi') updateAdInfo(e.target.value);
-      if (e.target && e.target.id === 'adTipe') updateAdMediaFields();
-    });
 
     const app = document.getElementById('app');
     let allPosts = [], allAds = [], allHero = [];
@@ -893,4 +846,3 @@
   </script>
 </body>
 </html>
-```
