@@ -705,33 +705,45 @@
       }
     }
 
-    async function renderFooterAds() {
+        async function renderFooterAds() {
       const section = document.getElementById('footerAdSection');
       const grid = document.getElementById('footerAdGrid');
       const rect = document.getElementById('preFooterRect');
       if (!section || !grid) return;
 
       const footerAds = await AdsService.getByPosition('footer-grid');
-      const rectAds = await AdsService.getByPosition('hero'); 
+      const rectAds = await AdsService.getByPosition('footer-rect'); 
       
-      if (rect && rectAds.length > 0) {
-        rect.innerHTML = AdComponent(rectAds[0]);
-      } else if (rect) {
-        rect.innerHTML = '';
+      // 1. Render Iklan Rectangle Besar
+      if (rect) {
+        if (rectAds.length > 0) {
+          rect.innerHTML = AdComponent(rectAds[0]);
+        } else {
+          rect.innerHTML = ''; // Kosongkan jika tidak ada iklan
+        }
       }
 
-      if (footerAds.length > 0) {
+      // 2. Render Grid Iklan
+      if (grid) {
+        if (footerAds.length > 0) {
+          grid.innerHTML = footerAds.slice(0, 4).map(ad => `
+            <a href="${escapeHtml(ad.link)}" target="_blank" rel="noopener sponsored" class="block rounded-xl overflow-hidden border border-warm-200 hover:border-green-400 transition-colors shadow-sm bg-white aspect-square">
+              <img src="${escapeHtml(ad.gambar)}" alt="${escapeHtml(ad.judul)}" class="w-full h-full object-cover" />
+            </a>
+          `).join('');
+        } else {
+          grid.innerHTML = ''; 
+        }
+      }
+
+      // 3. Tampilkan/Sembunyikan Section secara keseluruhan
+      // Section hanya disembunyikan jika KEDUA jenis iklan kosong
+      if (rectAds.length > 0 || footerAds.length > 0) {
         section.classList.remove('hidden');
-        grid.innerHTML = footerAds.slice(0, 4).map(ad => `
-          <a href="${escapeHtml(ad.link)}" target="_blank" rel="noopener sponsored" class="block rounded-xl overflow-hidden border border-warm-200 hover:border-green-400 transition-colors shadow-sm bg-white aspect-square">
-            <img src="${escapeHtml(ad.gambar)}" alt="${escapeHtml(ad.judul)}" class="w-full h-full object-cover" />
-          </a>
-        `).join('');
       } else {
         section.classList.add('hidden');
       }
     }
-
     /* ============================================================
        INIT
        ============================================================ */
