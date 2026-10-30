@@ -238,18 +238,18 @@
       }
     };
 
-    const AdComponent = (ad, variant = 'horizontal') => {
+        const AdComponent = (ad, variant = 'horizontal') => {
       if (!ad) return '';
       const isPortrait = variant === 'portrait';
       return `
-        <div class="ad-container my-2">
-          <a href="${escapeHtml(ad.link)}" target="_blank" rel="noopener sponsored" class="block rounded-xl overflow-hidden shadow-sm bg-white hover:opacity-90 transition-opacity">
-            <img src="${escapeHtml(ad.gambar)}" alt="${escapeHtml(ad.judul)}" class="w-full h-auto object-cover ${isPortrait ? '' : 'max-h-[120px] md:max-h-[150px]'}" style="object-fit: cover;" />
+        <div class="ad-container my-2 w-full">
+          <a href="${escapeHtml(ad.link)}" target="_blank" rel="noopener sponsored" class="block w-full rounded-xl overflow-hidden shadow-sm bg-white hover:opacity-90 transition-opacity">
+            <img src="${escapeHtml(ad.gambar)}" alt="${escapeHtml(ad.judul)}" class="w-full h-auto object-cover ${isPortrait ? '' : 'w-full'}" />
           </a>
         </div>
       `;
     };
-
+    
     const VideoAdComponent = (ad, variant = 'horizontal') => {
       if (!ad) return '';
       let videoUrl = ad.gambar;
