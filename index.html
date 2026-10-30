@@ -237,14 +237,13 @@
         return filtered.sort(() => Math.random() - 0.5);
       }
     };
-
-        const AdComponent = (ad, variant = 'horizontal') => {
+            const AdComponent = (ad, variant = 'horizontal') => {
       if (!ad) return '';
       const isPortrait = variant === 'portrait';
       return `
         <div class="ad-container my-2 w-full">
-          <a href="${escapeHtml(ad.link)}" target="_blank" rel="noopener sponsored" class="block w-full rounded-xl overflow-hidden shadow-sm bg-white hover:opacity-90 transition-opacity">
-            <img src="${escapeHtml(ad.gambar)}" alt="${escapeHtml(ad.judul)}" class="w-full h-auto object-cover ${isPortrait ? '' : 'w-full'}" />
+          <a href="${escapeHtml(ad.link)}" target="_blank" rel="noopener sponsored" class="block w-full rounded-none md:rounded-xl overflow-hidden shadow-sm bg-white hover:opacity-90 transition-opacity">
+            <img src="${escapeHtml(ad.gambar)}" alt="${escapeHtml(ad.judul)}" class="w-full h-auto object-cover" />
           </a>
         </div>
       `;
@@ -485,7 +484,7 @@
         const feed1Ads = await AdsService.getByPosition('feed-1');
         const feed2Ads = await AdsService.getByPosition('feed-2');
         
-        if (headerAds.length > 0) document.getElementById('headerAdContainer').innerHTML = `<div class="max-w-5xl mx-auto px-6 mt-2">${AdComponent(headerAds[0])}</div>`;
+        if (headerAds.length > 0) document.getElementById('headerAdContainer').innerHTML = `<div class="w-full mt-1 mb-2">${AdComponent(headerAds[0])}</div>`;
         if (heroAds.length > 0) document.getElementById('heroAdContainer').innerHTML = AdComponent(heroAds[0]);
         if (feed1Ads.length > 0) document.getElementById('feed1AdContainer').innerHTML = AdComponent(feed1Ads[0]);
         if (feed2Ads.length > 0) document.getElementById('feed2AdContainer').innerHTML = AdComponent(feed2Ads[0]);
@@ -510,7 +509,7 @@
       async afterRender() {
         const headerAds = await AdsService.getByPosition('header');
         const feed1Ads = await AdsService.getByPosition('feed-1');
-        if (headerAds.length > 0) document.getElementById('headerAdContainer').innerHTML = `<div class="max-w-5xl mx-auto px-6 mt-2">${AdComponent(headerAds[0])}</div>`;
+        if (headerAds.length > 0) document.getElementById('headerAdContainer').innerHTML = `<div class="w-full mt-1 mb-2">${AdComponent(headerAds[0])}</div>`;
         if (feed1Ads.length > 0) document.getElementById('listFeedAd1').innerHTML = AdComponent(feed1Ads[0]);
       }
     });
@@ -593,7 +592,7 @@
         const videoInArticleAds = await AdsService.getByPosition('video-in-article');
         const videoSidebarAds = await AdsService.getByPosition('video-sidebar');
         
-        if (headerAds.length > 0) document.getElementById('headerAdContainer').innerHTML = `<div class="max-w-5xl mx-auto px-6 mt-2">${AdComponent(headerAds[0])}</div>`;
+        if (headerAds.length > 0) document.getElementById('headerAdContainer').innerHTML = `<div class="w-full mt-1 mb-2">${AdComponent(headerAds[0])}</div>`;
         
         if (sidebarAds.length > 0) document.getElementById('sidebarSingleContainer').innerHTML = `<div class="sticky top-24">${sidebarAds.slice(0, 1).map(ad => AdComponent(ad, 'portrait')).join('')}</div>`;
         if (videoSidebarAds.length > 0) document.getElementById('sidebarVideoContainer').innerHTML = VideoAdComponent(videoSidebarAds[0], 'vertical');
