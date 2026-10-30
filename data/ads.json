@@ -148,5 +148,15 @@
     "status": "aktif",
     "createdAt": "2026-10-28T14:07:20.525Z",
     "id": "ad-1793196440931"
+  },
+  {
+    "judul": "Welness",
+    "tipe": "gambar",
+    "gambar": "/assets/uploads/img-1793349240498.jpg",
+    "link": "https://wa.me/6282113018920",
+    "posisi": "mobile-sticky",
+    "status": "aktif",
+    "createdAt": "2026-10-30T08:34:22.642Z",
+    "id": "ad-1793349263510"
   }
 ]
