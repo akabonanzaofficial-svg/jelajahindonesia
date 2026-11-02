@@ -20,16 +20,6 @@
     "tipe": "gambar"
   },
   {
-    "id": "ad-dummy-3",
-    "judul": "Explore Jungle",
-    "gambar": "/assets/uploads/img-1792301945099.png",
-    "link": "https://example.com",
-    "posisi": "feed-1",
-    "status": "aktif",
-    "createdAt": "2026-10-18T00:00:00.000Z",
-    "tipe": "gambar"
-  },
-  {
     "judul": "Promo Bali",
     "gambar": "/assets/uploads/img-1792305791805.png",
     "link": "https://example.com",
