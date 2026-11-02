@@ -158,5 +158,15 @@
     "status": "aktif",
     "createdAt": "2026-11-02T23:21:48.365Z",
     "id": "ad-1793661708584"
+  },
+  {
+    "judul": "Music",
+    "tipe": "gambar",
+    "gambar": "/assets/uploads/img-1793663863894.jpg",
+    "link": "https://wa.me/6282113018920",
+    "posisi": "sidebar-grid",
+    "status": "aktif",
+    "createdAt": "2026-11-02T23:58:10.889Z",
+    "id": "ad-1793663891087"
   }
 ]
