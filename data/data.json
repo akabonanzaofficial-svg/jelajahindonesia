@@ -1,19 +1,5 @@
 [
   {
-    "id": "post-1710000000002",
-    "tipe": "cerita",
-    "judul": "Sunrise di Pura Ulun Danu Beratan",
-    "kategori": "Budaya",
-    "penulis": "Ayu Lestari",
-    "tanggal": "2026-10-10",
-    "gambar": "https://images.pexels.com/photos/2474689/pexels-photo-2474689.jpeg?auto=compress&cs=tinysrgb&w=1200",
-    "ringkasan": "Ketika kabut pagi menyelimuti pura di tepi danau sebuah momen yang menenangkan jiwa.",
-    "isi": "<p>Pura Ulun Danu Beratan terletak di tepi Danau Beratan, Bedugul, Bali. Saat pagi hari, kabut tipis menyelimuti permukaan danau, menciptakan suasana magis.</p><p>Kami datang pukul 6 pagi, saat matahari baru muncul. Cahaya keemasan memantul di air danau, membuat pura yang mengambang terlihat seperti lukisan.</p>",
-    "status": "published",
-    "createdAt": "2026-10-10T08:00:00.000Z",
-    "updatedAt": "2026-10-21T14:23:16.339Z"
-  },
-  {
     "id": "post-1710000000007",
     "tipe": "newsedu",
     "judul": "Jurnal Perjalanan: Kenali Dirimu Lebih Dalam",
