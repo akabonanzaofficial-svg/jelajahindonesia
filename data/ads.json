@@ -148,5 +148,15 @@
     "status": "aktif",
     "createdAt": "2026-11-02T23:21:13.847Z",
     "id": "ad-1793661674175"
+  },
+  {
+    "judul": "Hanjeli",
+    "tipe": "gambar",
+    "gambar": "/assets/uploads/img-1793661688312.jpg",
+    "link": "https://wa.me/6282113018920",
+    "posisi": "sidebar-grid",
+    "status": "aktif",
+    "createdAt": "2026-11-02T23:21:48.365Z",
+    "id": "ad-1793661708584"
   }
 ]
