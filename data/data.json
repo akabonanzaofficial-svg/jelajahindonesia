@@ -84,20 +84,6 @@
     "updatedAt": "2026-10-03T08:00:00.000Z"
   },
   {
-    "id": "post-1710000000008",
-    "tipe": "newsedu",
-    "judul": "Panduan Packing Ringan untuk Backpacker",
-    "kategori": "Panduan",
-    "penulis": "Fajar Nugroho",
-    "tanggal": "2026-10-02",
-    "gambar": "https://images.pexels.com/photos/33350398/pexels-photo-33350398.jpeg?auto=compress&cs=tinysrgb&w=1200",
-    "ringkasan": "Trik membawa barang seminimal mungkin tanpa mengorbankan kenyamanan di perjalanan.",
-    "isi": "<p>Backpacker berpengalaman tahu: semakin ringan tas, semakin menyenangkan perjalanan.</p><p>Aturan emas: bawa hanya yang benar-benar dipakai. Sisakan 20% ruang untuk oleh-oleh.</p>",
-    "status": "published",
-    "createdAt": "2026-10-02T08:00:00.000Z",
-    "updatedAt": "2026-10-02T08:00:00.000Z"
-  },
-  {
     "id": "post-1710000000009",
     "tipe": "event",
     "judul": "Bali Sunset Music Festival",
